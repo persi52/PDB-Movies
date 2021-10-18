@@ -19,12 +19,4 @@ Content-Type: application/json
 GET http://localhost:3000/api/user
 ###
 GET http://localhost:3000/api/movies
-###
-POST http://localhost:3000/api/users/signIn
-Content-Type: application/json
 
-{
-    "name": "Senior",
-    "email": "SeniorBoko@bokos.ms",
-    "password": "bokieeem1" 
-}

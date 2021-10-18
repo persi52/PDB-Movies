@@ -38,7 +38,7 @@ router.post('/signUp', async (req, res) => {
             }        
 
             if(results.rows.length >0){
-               console.log("Email is already registered");
+                res.status(422).send('Email is already registered');
                //render Email is already registered
             }else{                    
                 pool.query(
@@ -93,7 +93,7 @@ router.post('/signIn', async (req, res) => {
             
         }
          else{ 
-             res.send("Wrong email or password");
+            res.status(401).send("Wrong email or password");
          }         
    
         })
