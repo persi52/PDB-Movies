@@ -6,7 +6,7 @@ const pool = require('../models/db');
 router.get('/graph', (req, res) => {
     
 
-    const range = 3233234;
+    const range = req.headers.range;
     if(!range) {
         res.status(400).send('Requires range header');
     }
