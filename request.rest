@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nickname": "SiSiSenior",
-    "email": "SeniorBoko@bokos1.ms",
+    "email": "SeniorBokoko@bokos1.ms",
     "password": "bokieeem1",
     "repeatPassword": "bokieeem1"
 }
