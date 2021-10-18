@@ -44,7 +44,7 @@ router.post('/signUp', async (req, res) => {
                 pool.query(
                     'INSERT INTO users (nickname,email,password)' +
                      'VALUES ($1, $2, $3)' +
-                     'RETURNING id, password', [req.body.nickname, req.body.email, hashedPassword],  
+                     'RETURNING user_id, password', [req.body.nickname, req.body.email, hashedPassword],  
                     (err, results) => {
                         if(err){
                             throw err;                        
