@@ -17,36 +17,17 @@ app.use(session({
 }));
 
 app.use(flash());
-//tego nie rozumiem bo body-parse jest zdeprecjonowane i sie tu skreśla
-//a bez tego routy nie działają
-
 
 //Import Routes
 const authRoute = require('./routes/auth');
+const videoRoute = require('./routes/streaming');
 
 //Route Middlewares
 app.use('/api/users/', authRoute );
-
+app.use('/api/movies/', videoRoute);
 
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/api/movies', (req, res) => {
-    res.send(movies);
-});
-
-app.get('/api/movies/:id', (req,res)=>{
-    const movie= movies.find(c => c.id === parseInt(req.params.id));
-    if(!movie) res.status(404)
-    .send('The movie with the given ID was not found');//404
-
-    res.send(movie);
-});
-
-
-
-app.get('/api/user', (req, res) => {
-   // res.json(users);
-});
 
 //PORT
 const port = process.env.PORT || 3000;
