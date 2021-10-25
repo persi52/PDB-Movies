@@ -16,6 +16,11 @@ app.use(session({
     saveUninitialized: false //do we wanna save session if there is no value placed in a session
 }));
 
+app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(flash());
 
 //Import Routes
@@ -31,5 +36,5 @@ app.use(express.urlencoded({ extended: true }))
 
 
 //PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () =>  console.log(`boking on ${port}`));

@@ -5,10 +5,6 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-// router.use(function(req,res,next)  {
-//     next();
-// })
-
 const signUp = async(req,res) =>{
    
     const schema = Joi.object({
@@ -61,7 +57,7 @@ const signUp = async(req,res) =>{
    
 };
 
-router.post('/signIn', async (req, res) => {
+const signIn = async (req,res) =>{
     
     try{
 
@@ -104,7 +100,50 @@ router.post('/signIn', async (req, res) => {
    
    
 
-});
+};
+
+const getUsers = async (req,res) =>{
+
+    try{
+        pool.query('SELECT * FROM users',(err,results)=>{
+            res.status(200).send(results.rows);
+           // console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+    }
+   
+};
+
+const checkUser = async(req,res, next) => {
+    //const token = req.cookies.jwt;
+
+   // const token = req.header('auth-token');
+    if(!token) return res.status(401).send('Access Denied');
+
+    try{
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) =>{
+            if(err){
+                console.log(err.message);
+                next();
+            }else {
+                console.log(decodedToken);
+                let user = await pool.query('SELECT * FROM users WHERE user_id = $1',decodedToken.user_id)
+                console.log(user);
+                next();
+            }
+        });
+        req.user = verified;
+        next();
+    }catch (err){
+        res.status(400).send('Invalid Token');
+    }
+};
 
 
-module.exports = {signUp};
+module.exports = {
+    signUp,
+    signIn,
+    checkUser,
+    getUsers
+};
