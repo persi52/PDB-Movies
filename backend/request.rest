@@ -1,14 +1,14 @@
-POST http://localhost:3000/api/users/signUp
+POST http://localhost:5000/api/users/signUp
 Content-Type: application/json
 
 {
-    "nickname": "SiSiSenior",
-    "email": "SeniorBoko@bokos1.ms",
+    "nickname": "eldo mondo",
+    "email": "SenioerBokso@bokos1.ms",
     "password": "bokieeem1",
     "repeatPassword": "bokieeem1"
 }
 ###
-POST http://localhost:3000/api/users/signIn
+POST http://localhost:5000/api/users/signIn
 Content-Type: application/json
 
 {    
@@ -16,15 +16,11 @@ Content-Type: application/json
     "password": "bokieeem1"   
 }
 ###
-GET http://localhost:3000/api/user
+GET http://localhost:5000/api/users/getUsers
 ###
-GET http://localhost:3000/api/movies
-###
-POST http://localhost:3000/api/users/signIn
+POST http://localhost:5000/api/users/checkUser
 Content-Type: application/json
 
-{
-    "name": "Senior",
-    "email": "SeniorBoko@bokos.ms",
-    "password": "bokieeem1" 
+{    
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzUxNjk5Njl9.jPhIJRtb32jvei1Wj7QadxZkhRFxqgvtlON-TJn6bEI"    
 }
