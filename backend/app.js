@@ -22,10 +22,16 @@ app.use(flash());
 
 
 //Import Routes
-const authRoute = require('./routes/auth');
+const authRoute = require('./routes/auth-route');
 
 //Route Middlewares
 app.use('/api/users/', authRoute );
+
+app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 
 app.use(express.urlencoded({ extended: true }))
@@ -49,5 +55,5 @@ app.get('/api/user', (req, res) => {
 });
 
 //PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () =>  console.log(`boking on ${port}`));

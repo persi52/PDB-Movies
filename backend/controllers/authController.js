@@ -5,11 +5,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
-// router.use(function(req,res,next)  {
-//     next();
-// })
-
-router.post('/signUp', async (req, res) => {
+const signUp = async(req,res) =>{
    
     const schema = Joi.object({
         nickname: Joi.string().min(6).required(),
@@ -38,13 +34,13 @@ router.post('/signUp', async (req, res) => {
             }        
 
             if(results.rows.length >0){
-               console.log("Email is already registered");
+                res.status(422).send('Email is already registered');
                //render Email is already registered
             }else{                    
                 pool.query(
                     'INSERT INTO users (nickname,email,password)' +
                      'VALUES ($1, $2, $3)' +
-                     'RETURNING id, password', [req.body.nickname, req.body.email, hashedPassword],  
+                     'RETURNING user_id, password', [req.body.nickname, req.body.email, hashedPassword],  
                     (err, results) => {
                         if(err){
                             throw err;                        
@@ -59,9 +55,9 @@ router.post('/signUp', async (req, res) => {
         res.status(500).send()
    }  
    
-});
+};
 
-router.post('/signIn', async (req, res) => {
+const signIn = async (req,res) =>{
     
     try{
 
@@ -93,7 +89,7 @@ router.post('/signIn', async (req, res) => {
             
         }
          else{ 
-             res.send("Wrong email or password");
+            res.status(401).send("Wrong email or password");
          }         
    
         })
@@ -104,7 +100,50 @@ router.post('/signIn', async (req, res) => {
    
    
 
-});
+};
+
+const getUsers = async (req,res) =>{
+
+    try{
+        pool.query('SELECT * FROM users',(err,results)=>{
+            res.status(200).send(results.rows);
+           // console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+    }
+   
+};
+
+const checkUser = async(req,res, next) => {
+    //const token = req.cookies.jwt;
+
+   // const token = req.header('auth-token');
+    if(!token) return res.status(401).send('Access Denied');
+
+    try{
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) =>{
+            if(err){
+                console.log(err.message);
+                next();
+            }else {
+                console.log(decodedToken);
+                let user = await pool.query('SELECT * FROM users WHERE user_id = $1',decodedToken.user_id)
+                console.log(user);
+                next();
+            }
+        });
+        req.user = verified;
+        next();
+    }catch (err){
+        res.status(400).send('Invalid Token');
+    }
+};
 
 
-module.exports = router;
+module.exports = {
+    signUp,
+    signIn,
+    checkUser,
+    getUsers
+};
