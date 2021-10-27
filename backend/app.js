@@ -19,17 +19,23 @@ app.use(session({
 app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   // res.header("Accept-Ranges","*");
+
     next();
 });
 app.use(flash());
 
 //Import Routes
 const authRoute = require('./routes/auth-route');
-const videoRoute = require('./routes/stream-route');
+const streamRoute = require('./routes/stream-route');
+const movieRoute = require('./routes/movie-route');
+const recommendationRoute = require('./routes/recommend-route');
 
 //Route Middlewares
 app.use('/api/users/', authRoute );
-app.use('/api/movies/', videoRoute);
+app.use('/api/movies/', movieRoute);
+app.use('/api/stream/', streamRoute);
+app.use('/api/recommend', recommendationRoute);
 
 app.use(express.urlencoded({ extended: true }))
 

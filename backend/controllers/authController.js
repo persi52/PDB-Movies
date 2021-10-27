@@ -76,7 +76,13 @@ const signIn = async (req,res) =>{
                 const token = jwt.sign({
                     id : results.rows[0].id,
                 }, process.env.TOKEN_SECRET);
-                res.header('auth-token', token).send(token);
+
+       
+                return res.cookie('token', token, {
+                    secure: true, // set to true if your using https
+                    httpOnly: true,
+                  }).send(token);
+                
                 //res.send('Login success');
                 // do stuff
             } else {

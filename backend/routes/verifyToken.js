@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'); //https://www.youtube.com/watch?v=2jqok-WgelI&t=1585s
 
 module.exports = function(req, res, next){
-    const token = req.header('auth-token');
+    const token = req.cookies.token;
     if(!token) return res.status(401).send('Access Denied');
 
     try{
