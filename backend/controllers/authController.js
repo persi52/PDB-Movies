@@ -60,7 +60,6 @@ const signUp = async(req,res) =>{
 const signIn = async (req,res) =>{
     
     try{
-
     pool.query('SELECT * FROM users' + 
     ' WHERE email = $1', [req.body.email],
     (err, results) => {
@@ -106,6 +105,7 @@ const getUsers = async (req,res) =>{
 
     try{
         pool.query('SELECT * FROM users',(err,results)=>{
+            res.header("Access-Control-Allow-Origin", "*");
             res.status(200).send(results.rows);
            // console.log(results);
         })

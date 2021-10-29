@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nickname": "eldo mondo",
-    "email": "SenioerBokso@bokos1.ms",
+    "email": "SeniorBokso@bokos1.ms",
     "password": "bokieeem1",
     "repeatPassword": "bokieeem1"
 }
@@ -12,7 +12,7 @@ POST http://localhost:5000/api/users/signIn
 Content-Type: application/json
 
 {    
-    "email": "SeniorBoko@bokos1.ms",
+    "email": "SeniorBokso@boko1.ms",
     "password": "bokieeem1"   
 }
 ###
