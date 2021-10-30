@@ -1,52 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios'
-
-const api = axios.create({
-    baseURL: "http://localhost:5000/api/users"
-  })
-  
-  function login(){
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-  
-    api.post('/signIn',{   
-        email: email,
-        password: password
-    }).then(resp => {
-  
-      console.log(resp.data);
-  });
-  }
-
-function ClearFields() {
-
-  document.getElementById("email").value = "";
-  document.getElementById("password").value = "";
-}
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Home } from "./components/Home";
+import { Login } from "./components/Login";
+import { Registration } from "./components/Registration";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <table>
-          <tbody>
-          <tr>
-            <td>Email:</td> 
-            <td><input id='email' type="text"></input></td>
-          </tr>
-          <tr>
-            <td>Hasło:</td> 
-            <td><input id='password' type='password'></input></td>
-          </tr>
-          <tr>
-            <td colSpan="2"><button id="login" onClick={login} >ZALOGUJ</button> <button onClick={ClearFields}>WYCZYŚĆ</button></td>
-          </tr>
-          </tbody>
-        </table>
-      </header>
+      <Router>
+        <Switch>
+          <Route path="/registration" exact component={() => <Registration />} />
+          <Route path="/login" exact component={() => <Login />} />
+          <Route path="/" exact component={() => <Home />} />
+        </Switch>
+      </Router>
     </div>
   );
 }
