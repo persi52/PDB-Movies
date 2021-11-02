@@ -12,7 +12,8 @@ export function Login() {
         <div className="container">
             <a href="/" className="nav-logo" >PDB Movies</a>
             <div className="nav-links">
-                <a href="#">Szukaj</a>
+                <a href="/">Szukaj</a>
+                <a href="/polecanie">Polecanie</a>
                 <a href="/login">Zaloguj się</a>
                 <a href="/registration">Zarejestruj się</a>
             </div>
@@ -42,11 +43,11 @@ export function Login() {
                 <div className="box-info">
                     <div className="box-info-text">
                         <h2>Nie masz jeszcze konta?</h2>
-                        <a href="registration.html">Zarejestruj się</a>
+                        <a href="registration">Zarejestruj się</a>
                     </div>
                     <div className="box-info-text">
                         <h2>Nie pamiętasz hasła?</h2>
-                        <a href="registration.html">Przypomnij hasło</a>
+                        <a href="registration">Przypomnij hasło</a>
                     </div>
                 </div>
                 
@@ -58,9 +59,9 @@ export function Login() {
         <div className="container">
             <p>PDB © 2021</p>
             <div>
-                <a>IG</a>
-                <a>FB</a>
-                <a>Twitter</a>
+                <a href="https://instagram.com">IG</a>
+                <a href="https://facebook.com">FB</a>
+                <a href="https://twitter.com">Twitter</a>
             </div>
         </div>
         

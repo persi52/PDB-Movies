@@ -12,7 +12,8 @@ export function Home() {
         <div class="container">
             <a href="/" class="nav-logo" >PDB Movies</a>
             <div class="nav-links">
-                <a href="#">Szukaj</a>
+                <a href="/">Szukaj</a>
+                <a href="/polecanie">Polecanie</a>
                 <a href="/login">Zaloguj się</a>
                 <a href="/registration">Zarejestruj się</a>
             </div>
@@ -23,9 +24,9 @@ export function Home() {
         <div class="container">
             <p>PDB © 2021</p>
             <div>
-                <a>IG</a>
-                <a>FB</a>
-                <a>Twitter</a>
+                <a href="https://instagram.com">IG</a>
+                <a href="https://facebook.com">FB</a>
+                <a href="https://twitter.com">Twitter</a>
             </div>
         </div>
         

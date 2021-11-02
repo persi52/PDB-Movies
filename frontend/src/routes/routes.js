@@ -3,7 +3,15 @@ import axios from "axios";
 const api = axios.create({
     baseURL: "http://localhost:5000/api/users"
   })
+
+  export function getUsers(){
+    api.get('/getUsers').then(resp => {
   
+      console.log(resp.data);
+     
+  });
+  }
+
   export function login(){
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
