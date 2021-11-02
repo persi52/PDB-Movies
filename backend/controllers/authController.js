@@ -121,6 +121,17 @@ const getUsers = async (req,res) =>{
    
 };
 
+const getUserById = async(req,res) =>{
+    try{
+        pool.query('SELECT * FROM users WHERE user_id=$1',[req.params.id],(err,results)=>{
+            res.status(200).send(results.rows);
+           // console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+    }
+};
+
 const checkUser = async(req,res, next) => {
     //const token = req.cookies.jwt;
 
@@ -151,5 +162,6 @@ module.exports = {
     signUp,
     signIn,
     checkUser,
-    getUsers
+    getUsers,
+    getUserById
 };
