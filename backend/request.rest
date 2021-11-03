@@ -20,5 +20,9 @@ GET http://localhost:5000/api/users/getUsers
 ###
 GET http://localhost:5000/api/recommend/1
 
+###
+GET http://localhost:5000/api/users/getUserById/3
+
+
 
 

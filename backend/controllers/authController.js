@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
+
 const signUp = async(req,res) =>{
    
     const schema = Joi.object({

@@ -2,14 +2,15 @@ const jwt = require('jsonwebtoken'); //https://www.youtube.com/watch?v=2jqok-Wge
 
 module.exports = function(req, res, next){
     const token = req.cookies.token;
+    console.log(token);
     if(!token) return res.status(401).send('Access Denied');
 
     try{
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-        req.user = verified;
+        const user = jwt.verify(token, process.env.TOKEN_SECRET);
+        req.user = user;
         next();
     }catch (err){
-        res.status(400).send('Invalid Token');
+        res.status(403).send('Invalid Token');
     }
 }
 

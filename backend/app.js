@@ -5,6 +5,7 @@ const pool = require('./models/db');  //database                    //tu nie dzi
 const session = require('express-session');
 const flash = require('express-flash');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ app.use(session({
     resave: false, //should we resave session variables if nothing is changed
     saveUninitialized: false //do we wanna save session if there is no value placed in a session
 }));
-
+app.use(cookieParser());
 app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

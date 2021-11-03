@@ -1,7 +1,6 @@
 const express = require("express");
 const fs = require('fs');
 const router = express.Router();
-const verify = require('../routes/verifyToken')
 const streamingController = require('../controllers/streamController');
 
 //router.get('/movies', streamingController.stream_video_get);

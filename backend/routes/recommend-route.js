@@ -1,12 +1,12 @@
 const express = require("express");
 const fs = require('fs');
 const router = express.Router();
-const verify = require('../routes/verifyToken')
 const recommendationController = require('../controllers/recommendationController');
+const verifyToken = require("../controllers/verifyToken");
 
 //router.get('/movies', streamingController.stream_video_get);
 
-router.get('/1',recommendationController.recommendMovie);
+router.get('/1',verifyToken,recommendationController.recommendMovie);
 
 
 module.exports = router;

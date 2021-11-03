@@ -5,6 +5,7 @@
         "start": "concurrently \"npm run backend\" \"npm run frontend\""
     },
     "dependencies": {
+        "cookie-parser": "^1.4.5",
         "react-router-dom": "^5.3.0"
     }
 }
