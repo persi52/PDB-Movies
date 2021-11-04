@@ -4,7 +4,8 @@ import axios from 'axios';
 import { Component } from 'react';
 
 const api = axios.create({
-    baseURL: "http://localhost:5000/api/users"
+    baseURL: "http://localhost:5000/api/users",
+    withCredentials: true
 })
 
 export class Polecanie extends Component {
