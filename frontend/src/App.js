@@ -1,20 +1,19 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home } from "./components/Home";
-import { Login } from "./components/Login";
-import { Registration } from "./components/Registration";
-import { Polecanie } from "./components/Polecanie";
+import { Home, Login, Registration, Polecanie, Navigation, Footer} from "./components";
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <Navigation/>
         <Switch>
           <Route path="/registration" exact component={() => <Registration />} />
           <Route path="/login" exact component={() => <Login />} />
           <Route path="/polecanie" exact component={() => <Polecanie />} />
           <Route path="/" exact component={() => <Home />} />
         </Switch>
+        <Footer/>
       </Router>
     </div>
   );

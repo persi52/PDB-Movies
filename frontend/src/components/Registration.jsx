@@ -7,17 +7,6 @@ import '../css/reset.css'
 export function Registration() {
   return (
     <div>
-    <nav>
-        <div className="container">
-            <a href="/" className="nav-logo" >PDB Movies</a>
-            <div className="nav-links">
-                <a href="/">Szukaj</a>
-                <a href="/polecanie">Polecanie</a>
-                <a href="/login">Zaloguj się</a>
-                <a href="/registration">Zarejestruj się</a>
-            </div>
-        </div>
-    </nav>
 
     <section className="landing-page">
         <div className="container">
@@ -52,20 +41,7 @@ export function Registration() {
             </div>
         </div>
     </section>
-
-    <footer>
-        <div className="container">
-            <p>PDB © 2021</p>
-            <div>
-                <a href="https://instagram.com">IG</a>
-                <a href="https://facebook.com">FB</a>
-                <a href="https://twitter.com">Twitter</a>
-            </div>
-        </div>
-        
-    </footer>
-    
-</div>
+    </div>
   );
 }
 
