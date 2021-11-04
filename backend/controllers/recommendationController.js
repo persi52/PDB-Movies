@@ -5,7 +5,7 @@ const pool = require('../models/db');
 const verifyToken = require("../controllers/verifyToken");
 
 const recommendMovie = async(req,res) =>{
-    res.send(req.headers['token']);
+    console.log(req.cookies.token)//res.send(req.param['set-cookie']);
 }
 
 module.exports = {

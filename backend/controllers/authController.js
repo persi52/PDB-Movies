@@ -79,11 +79,12 @@ const signIn = async (req,res) =>{
                 }, process.env.TOKEN_SECRET);
 
        
-                return res.cookie('token', token, {
+                res.cookie('token', token, {
                     secure: true, // set to true if your using https
                     httpOnly: true,
+                    sameSite: 'lax'
                   }).send(token);
-                
+                res.end();
                 //res.send('Login success');
                 // do stuff
             } else {
@@ -110,11 +111,11 @@ const signIn = async (req,res) =>{
 };
 
 const getUsers = async (req,res) =>{
-
+   
     try{
-        pool.query('SELECT * FROM users',(err,results)=>{
+        pool.query('SELECT * FROM users',(err,results)=>{        
             res.status(200).send(results.rows);
-           // console.log(results);
+            //console.log(results);
         })
     }catch(err){
         console.log(err);
@@ -123,8 +124,10 @@ const getUsers = async (req,res) =>{
 };
 
 const getUserById = async(req,res) =>{
+    console.log(req.email);
     try{
         pool.query('SELECT * FROM users WHERE user_id=$1',[req.params.id],(err,results)=>{
+
             res.status(200).send(results.rows);
            // console.log(results);
         })

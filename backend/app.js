@@ -6,6 +6,7 @@ const session = require('express-session');
 const flash = require('express-flash');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -16,9 +17,10 @@ app.use(session({
     resave: false, //should we resave session variables if nothing is changed
     saveUninitialized: false //do we wanna save session if there is no value placed in a session
 }));
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 app.use(cookieParser());
 app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
-    res.header("Access-Control-Allow-Origin", "*");
+   // res.header("Access-Control-Allow-Origin", 'http://localhost:3000');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
    // res.header("Accept-Ranges","*");
 
