@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nickname": "eldo mondo",
-    "email": "SeniorBokso@bokos1.ms",
+    "email": "SenioerBokso@bokos1.ms",
     "password": "bokieeem1",
     "repeatPassword": "bokieeem1"
 }
@@ -12,15 +12,17 @@ POST http://localhost:5000/api/users/signIn
 Content-Type: application/json
 
 {    
-    "email": "SeniorBokso@boko1.ms",
+    "email": "SeniorBoko@bokos1.ms",
     "password": "bokieeem1"   
 }
 ###
 GET http://localhost:5000/api/users/getUsers
 ###
-POST http://localhost:5000/api/users/checkUser
-Content-Type: application/json
+GET http://localhost:5000/api/recommend/1
 
-{    
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzUxNjk5Njl9.jPhIJRtb32jvei1Wj7QadxZkhRFxqgvtlON-TJn6bEI"    
-}
+###
+GET http://localhost:5000/api/users/getUserById/3
+
+
+
+

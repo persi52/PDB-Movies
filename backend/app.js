@@ -5,6 +5,8 @@ const pool = require('./models/db');  //database                    //tu nie dzi
 const session = require('express-session');
 const flash = require('express-flash');
 const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -15,45 +17,32 @@ app.use(session({
     resave: false, //should we resave session variables if nothing is changed
     saveUninitialized: false //do we wanna save session if there is no value placed in a session
 }));
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cookieParser());
+app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
+   // res.header("Access-Control-Allow-Origin", 'http://localhost:3000');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+   // res.header("Accept-Ranges","*");
 
+    next();
+});
 app.use(flash());
-//tego nie rozumiem bo body-parse jest zdeprecjonowane i sie tu skreśla
-//a bez tego routy nie działają
-
 
 //Import Routes
 const authRoute = require('./routes/auth-route');
+const streamRoute = require('./routes/stream-route');
+const movieRoute = require('./routes/movie-route');
+const recommendationRoute = require('./routes/recommend-route');
 
 //Route Middlewares
 app.use('/api/users/', authRoute );
-
-app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie na łączenie sie frontendu i backendu 
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
+app.use('/api/movies/', movieRoute);
+app.use('/api/stream/', streamRoute);
+app.use('/api/recommend', recommendationRoute);
 
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/api/movies', (req, res) => {
-    res.send(movies);
-});
 
-app.get('/api/movies/:id', (req,res)=>{
-    const movie= movies.find(c => c.id === parseInt(req.params.id));
-    if(!movie) res.status(404)
-    .send('The movie with the given ID was not found');//404
-
-    res.send(movie);
-});
-
-
-
-app.get('/api/user', (req, res) => {
-   // res.json(users);
-});
 
 //PORT
 const port = process.env.PORT || 5000;

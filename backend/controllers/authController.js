@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 
+
 const signUp = async(req,res) =>{
    
     const schema = Joi.object({
@@ -60,6 +61,7 @@ const signUp = async(req,res) =>{
 const signIn = async (req,res) =>{
     
     try{
+
     pool.query('SELECT * FROM users' + 
     ' WHERE email = $1', [req.body.email],
     (err, results) => {
@@ -75,7 +77,14 @@ const signIn = async (req,res) =>{
                 const token = jwt.sign({
                     id : results.rows[0].id,
                 }, process.env.TOKEN_SECRET);
-                res.header('auth-token', token).send(token);
+
+       
+                res.cookie('token', token, {
+                    secure: true, // set to true if your using https
+                    httpOnly: true,
+                    sameSite: 'lax'
+                  }).send(token);
+                res.end();
                 //res.send('Login success');
                 // do stuff
             } else {
@@ -102,17 +111,29 @@ const signIn = async (req,res) =>{
 };
 
 const getUsers = async (req,res) =>{
-
+   
     try{
-        pool.query('SELECT * FROM users',(err,results)=>{
-            res.header("Access-Control-Allow-Origin", "*");
+        pool.query('SELECT * FROM users',(err,results)=>{        
+            res.status(200).send(results.rows);
+            //console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+    }
+   
+};
+
+const getUserById = async(req,res) =>{
+    console.log(req.email);
+    try{
+        pool.query('SELECT * FROM users WHERE user_id=$1',[req.params.id],(err,results)=>{
+
             res.status(200).send(results.rows);
            // console.log(results);
         })
     }catch(err){
         console.log(err);
     }
-   
 };
 
 const checkUser = async(req,res, next) => {
@@ -145,5 +166,6 @@ module.exports = {
     signUp,
     signIn,
     checkUser,
-    getUsers
+    getUsers,
+    getUserById
 };

@@ -1,8 +1,7 @@
 import {signup} from '../routes/routes'
 import React from 'react';
-import '../css/reset.css'
 import '../css/style.css'
-
+import '../css/reset.css'
 
 
 export function Registration() {
@@ -14,9 +13,8 @@ export function Registration() {
             <div className="registration-box">
                 <div className="box-logo">
                     <h1>Zarejestruj się</h1>
+    
                 </div>
-
-                <div className="registration-form">
                     <div className="form-element">
                         <label htmlFor="username">Nazwa użytkownika: </label>
                         <input type="text" id="username" name="username"/>
@@ -33,16 +31,12 @@ export function Registration() {
                         <label htmlFor="repeatpassword">Powtórz hasło: </label>
                         <input type="password" id="repeatpassword" name="repeatpassword"/>
                     </div>
-                </div>    
-
 
                     <button type="submit" className="submit-button" onClick={signup}>Zarejestruj</button>
 
-                <div className="box-info">       
-                    <div className="box-info-text">
-                        <h2>Masz już konto?</h2>
-                        <a href="login">Zaloguj się</a>
-                    </div>
+                <div className="box-info-text">
+                    <h2>Masz już konto?</h2>
+                    <a href="login">Zaloguj się</a>
                 </div>
             </div>
         </div>
