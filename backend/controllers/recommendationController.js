@@ -6,7 +6,10 @@ const verifyToken = require("../controllers/verifyToken");
 
 const recommendMovie = async(req,res) =>{
 
-    console.log(req.user.user_id)//res.send(req.param['set-cookie']);
+   // console.log(req.user.user_id)//res.send(req.param['set-cookie']);
+    const user = req.user;
+    console.log(user);
+    if(!user) return res.status(401).send('Access Denied'); 
 
     try{
         pool.query('INSERT INTO recommendations (sender_id,receiver_id,movie_id)' +
@@ -16,7 +19,8 @@ const recommendMovie = async(req,res) =>{
             //console.log(results);
         })
     }catch(err){
-        console.log(err);
+        res.status(403).send('Invalid statement');
+        
     }
     
 }
