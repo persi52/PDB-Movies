@@ -76,7 +76,7 @@ const signIn = async (req,res) =>{
             if(result){
                 //console.log(results.rows[0].user_id) 
                 const token = jwt.sign({
-                    id : results.rows[0].user_id,
+                    user_id : results.rows[0].user_id,
                 }, process.env.TOKEN_SECRET);
 
        
