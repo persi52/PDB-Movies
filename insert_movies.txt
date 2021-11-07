@@ -1,0 +1,9 @@
+INSERT INTO public.movies(
+	title, director, year_of_production, description, url, thumbnail)
+	VALUES ('Piraci z Karaibów', 'Espen Sandberg', '2003', 'opis piratów', '.\movies\Piraci z Karaibów - Klątwa czarnej perły.mp4', 'piraci_z_karaibow.jpg'),
+		('Skazani na Shawshank', 'Frank Darabont', '1994', 'ipiiiss sdsaddi fjhusjs', '.\movies\Skazani na Shawshank.mp4', 'skazani_na_shawshank.jpg'),
+		('Incepcja', 'Christopher Nolan', '2010', 'ipiiiss sdsaddi fjhusjs', '.\movies\Incepcja.mp4', 'incepcja.jpg'),
+		('Zielona mila', 'Frank Darabont', '1999', 'ipiiiss sdsaddi fjhusjs', '.\movies\Zielona mila.mp4', 'zielona_mila.jpg'),
+		('Wilk z wallstreet', 'Martin Scorsese', '2013', 'ipiiiss sdsaddi fjhusjs', './movies/Wilk z wallstreet.mp4', 'wilk_z_wallstreet.jpg'),
+		('Władca pierścieni - Drużyna pierścienia', 'Peter Jackson', '2001', 'ipiiiss sdsaddi fjhusjs', './movies/Władca pierścieni - Drużyna pierścienia.mp4', 'wladca_pierscieni.jpg')
+

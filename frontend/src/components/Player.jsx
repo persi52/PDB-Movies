@@ -19,7 +19,7 @@ export function Player() {
             <section class=" container">
         <div class="movie-player-container">
             <div class="movie-player">
-                Tu bedzie film
+                <video id="videoPlayer" width="100%" controls muted="muted" autoplay src='http://localhost:5000/api/stream/play/2' type="video/mp4"></video>
             </div>
             <div class="movie-info-box">
                 <h2 class="movie-title">Tytuł filmu</h2>
