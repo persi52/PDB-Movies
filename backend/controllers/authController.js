@@ -74,8 +74,9 @@ const signIn = async (req,res) =>{
               
             bcrypt.compare(req.body.password,results.rows[0].password).then((result)=>{ //porownanie zahashowanego hasla
             if(result){
+                //console.log(results.rows[0].user_id) 
                 const token = jwt.sign({
-                    id : results.rows[0].id,
+                    id : results.rows[0].user_id,
                 }, process.env.TOKEN_SECRET);
 
        
@@ -124,7 +125,10 @@ const getUsers = async (req,res) =>{
 };
 
 const getUserById = async(req,res) =>{
-    console.log(req.email);
+
+    // const token = req.cookies.token;
+    // const user_id = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log(req.user);
     try{
         pool.query('SELECT * FROM users WHERE user_id=$1',[req.params.id],(err,results)=>{
 
