@@ -6,7 +6,11 @@ module.exports = function(req, res, next){
 
     try{
         const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+<<<<<<< HEAD
         req.user = verified;
+=======
+        req.user=verified;
+>>>>>>> videoStreaming
         //console.log(verified + 'jestem weryfajd');
         next();
     }catch (err){

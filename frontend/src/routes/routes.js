@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:5000/api/users"
+    baseURL: "http://localhost:5000/api/users",
+    withCredentials: true
   })
 
   export function getUsers(){
@@ -20,8 +21,9 @@ const api = axios.create({
         email: email,
         password: password
     }).then(resp => {
-  
-      console.log(resp.data);
+    
+      
+      //console.log(resp.data);
   });
   }
 
