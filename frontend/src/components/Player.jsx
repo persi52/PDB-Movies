@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/reset.css'
 import '../css/style.css'
 import "../css/comments.css"
 import angleSmallRight from "../icons/angle-small-right.png"

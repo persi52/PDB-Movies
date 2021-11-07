@@ -1,5 +1,5 @@
-import '../css/style.css'
 import '../css/reset.css'
+import '../css/style.css'
 import axios from 'axios';
 import { Component } from 'react';
 
