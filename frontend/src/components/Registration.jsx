@@ -1,4 +1,4 @@
-import {signup} from '../routes/routes'
+import {signup} from '../routes/userRoutes'
 import React from 'react';
 import '../css/reset.css'
 import '../css/style.css'

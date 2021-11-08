@@ -8,7 +8,6 @@ export function Navigation() {
             <a href="/" className="nav-logo" >PDB Movies</a>
             <div className="nav-links">
                 <a href="/search">Szukaj</a>
-                <a href="/polecanie">Polecanie</a>
                 <a href="/login">Zaloguj się</a>
                 <a href="/registration">Zarejestruj się</a>
             </div>

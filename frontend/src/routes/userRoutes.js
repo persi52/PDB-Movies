@@ -1,12 +1,17 @@
 import axios from "axios";
 
-const api = axios.create({
+const userApi = axios.create({
     baseURL: "http://localhost:5000/api/users",
     withCredentials: true
   })
 
+const recommendApi = axios.create({
+  baseURL: "http://localhost:5000/api/recommend",
+  withCredentials: true
+})
+
   export function getUsers(){
-    api.get('/getUsers').then(resp => {
+    userApi.get('/getUsers').then(resp => {
   
       console.log(resp.data);
      
@@ -17,7 +22,7 @@ const api = axios.create({
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
   
-    api.post('/signIn',{   
+    userApi.post('/signIn',{   
         email: email,
         password: password
     }).then(resp => {
@@ -33,7 +38,7 @@ const api = axios.create({
     const password = document.getElementById("password").value;
     const repeatpassword = document.getElementById("repeatpassword").value;
   
-    api.post('/signUp',{ 
+    userApi.post('/signUp',{ 
         nickname: username,  
         email: email,
         password: password,
@@ -41,5 +46,15 @@ const api = axios.create({
     }).then(
   
       console.log("Dodano użytkownika "+username)
+  );
+  }
+
+  export function recommend(receiver_id, movie_id){
+    recommendApi.post('/',{ 
+        receiver_id: receiver_id,  
+        movie_id: movie_id
+    }).then(
+  
+      console.log("Polecono "+movie_id+" dla "+receiver_id)
   );
   }

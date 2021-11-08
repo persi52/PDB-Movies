@@ -6,7 +6,7 @@ const verifyToken = require("../controllers/verifyToken");
 
 //router.get('/movies', streamingController.stream_video_get);
 
-router.get('/',verifyToken,recommendationController.recommendMovie);
+router.post('/',verifyToken,recommendationController.recommendMovie);
 
 
 module.exports = router;

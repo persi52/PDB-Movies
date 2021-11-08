@@ -25,7 +25,7 @@ export class Home extends Component {
     
   }
 
-  url = "http://localhost:5000/api/stream/play/";
+  url = "http://localhost:3000/movie/";
 
   render(){
   return (

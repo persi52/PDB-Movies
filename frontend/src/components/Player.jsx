@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { getMovie } from '../routes/movieRoutes'
 import '../css/reset.css'
 import '../css/style.css'
 import "../css/comments.css"
@@ -11,22 +12,36 @@ import heart from "../icons/heart.png"
 import eye from "../icons/eye.png"
 import following from "../icons/following.png"
 
+//this.props.match.params.id - odbieranie id podanego w URL w roucie w App.js "/:id"
+
+export class Player extends Component {
+
+    // state = {
+    //      movie: []
+    //  }
+
+    //  constructor(){
+    //      super();
+    //      this.setState(getMovie(this.props.match.params.id));
+    //  }
+
+    //movie = getMovie(this.props.match.params.id);
 
 
-export function Player() {
+  render(){
     return (
         <div>
-            <section class=" container">
-        <div class="movie-player-container">
-            <div class="movie-player">
-                <video id="videoPlayer" width="100%" controls muted="muted" autoplay src='http://localhost:5000/api/stream/play/2' type="video/mp4"></video>
+            <section className=" container">
+        <div className="movie-player-container">
+            <div className="movie-player">
+                <video id="videoPlayer" width="100%" controls muted="muted" autoPlay src={'http://localhost:5000/api/stream/play/'+this.props.match.params.id} type="video/mp4"></video>
             </div>
-            <div class="movie-info-box">
-                <h2 class="movie-title">Tytuł filmu</h2>
-                <div class="movie-action-btn-box">
-                    <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={heart}/></button>
-                    <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={following}/></button>
-                    <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={eye}/></button>
+            <div className="movie-info-box">
+                <h2 className="movie-title">{this.title}</h2>
+                <div className="movie-action-btn-box">
+                    <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={heart} alt="heart"/></button>
+                    <a href={"/polecanie/"+this.props.match.params.id}><img className="movie-action-btn-img" src={following} alt="following"/></a>
+                    <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={eye} alt="eye"/></button>
     
                 </div>
     
@@ -113,6 +128,7 @@ export function Player() {
             
         </div>
     )
+}
 }
 
 export default Player;

@@ -140,36 +140,31 @@ const getUserById = async(req,res) =>{
     }
 };
 
-const checkUser = async(req,res, next) => {
-    //const token = req.cookies.jwt;
+const getCurrentUser = async(req,res) => {
+    const currentUser = req.user;
 
-   // const token = req.header('auth-token');
-    if(!token) return res.status(401).send('Access Denied');
+    if(!currentUser) res.status(400).send('User is not logged in'); 
 
     try{
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) =>{
-            if(err){
-                console.log(err.message);
-                next();
-            }else {
-                console.log(decodedToken);
-                let user = await pool.query('SELECT * FROM users WHERE user_id = $1',decodedToken.user_id)
-                console.log(user);
-                next();
-            }
-        });
-        req.user = verified;
-        next();
-    }catch (err){
-        res.status(400).send('Invalid Token');
+        pool.query('SELECT * FROM users WHERE user_id=$1',[currentUser.user_id],(err,results)=>{
+
+            res.status(200).send(results.rows);
+           // console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+        return res.status(500).send('Database err'); 
     }
+
+
 };
+
 
 
 module.exports = {
     signUp,
     signIn,
-    checkUser,
+    getCurrentUser,
     getUsers,
     getUserById
 };

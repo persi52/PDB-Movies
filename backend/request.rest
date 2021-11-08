@@ -22,7 +22,7 @@ POST http://localhost:5000/api/recommend
 Content-Type: application/json
 
 {    
-    "receiver_id": 3,
+    "receiver_id": 9,
     "movie_id": 2
 
 }
