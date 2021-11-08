@@ -10,6 +10,10 @@ const recommendApi = axios.create({
   withCredentials: true
 })
 
+export function signOut(){
+  userApi.delete('/signOut');
+}
+
   export function getUsers(){
     userApi.get('/getUsers').then(resp => {
   
@@ -26,9 +30,7 @@ const recommendApi = axios.create({
         email: email,
         password: password
     }).then(resp => {
-    
-      
-      //console.log(resp.data);
+      window.location.href="/";
   });
   }
 
@@ -44,8 +46,8 @@ const recommendApi = axios.create({
         password: password,
         repeatPassword: repeatpassword
     }).then(
-  
       console.log("Dodano użytkownika "+username)
+    
   );
   }
 
@@ -54,7 +56,6 @@ const recommendApi = axios.create({
         receiver_id: receiver_id,  
         movie_id: movie_id
     }).then(
-  
       console.log("Polecono "+movie_id+" dla "+receiver_id)
   );
   }

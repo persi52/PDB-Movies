@@ -155,16 +155,18 @@ const getCurrentUser = async(req,res) => {
         console.log(err);
         return res.status(500).send('Database err'); 
     }
-
-
 };
 
-
+const signOut = async(req,res) =>{
+    res.clearCookie("token");
+    res.status(200).send('User signed out successfully');
+}
 
 module.exports = {
     signUp,
     signIn,
     getCurrentUser,
     getUsers,
-    getUserById
+    getUserById,
+    signOut
 };

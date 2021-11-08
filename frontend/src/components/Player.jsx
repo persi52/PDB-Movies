@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getMovie } from '../routes/movieRoutes'
 import '../css/reset.css'
 import '../css/style.css'
 import "../css/comments.css"
@@ -12,21 +11,7 @@ import heart from "../icons/heart.png"
 import eye from "../icons/eye.png"
 import following from "../icons/following.png"
 
-//this.props.match.params.id - odbieranie id podanego w URL w roucie w App.js "/:id"
-
 export class Player extends Component {
-
-    // state = {
-    //      movie: []
-    //  }
-
-    //  constructor(){
-    //      super();
-    //      this.setState(getMovie(this.props.match.params.id));
-    //  }
-
-    //movie = getMovie(this.props.match.params.id);
-
 
   render(){
     return (

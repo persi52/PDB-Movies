@@ -6,3 +6,4 @@ export { default as Login } from "./Login";
 export { default as Registration } from "./Registration";
 export { default as Polecanie } from "./Polecanie";
 export { default as Navbar_logged } from "./Navbar_logged";
+export { default as Player } from "./Player";

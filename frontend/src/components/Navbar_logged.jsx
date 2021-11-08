@@ -1,5 +1,6 @@
 import '../css/reset.css'
 import '../css/style.css'
+import { signOut } from '../routes/userRoutes';
 
 export function Navbar_logged() {
     return(
@@ -12,7 +13,7 @@ export function Navbar_logged() {
                 <a href="/favourities">Ulubione</a>
                 <a href="/notifications">Powiadomienia</a>
                 <a href="/myprofile">Mój profil</a>
-                <a href="/logout">Wyloguj się</a>
+                <a onClick={signOut} href="/">Wyloguj się</a>
             </div>
         </div>
         </nav>
