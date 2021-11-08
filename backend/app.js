@@ -29,7 +29,6 @@ app.use(function(req, res, next) {  //cross origin resource sharing, pozwolenie 
 app.use(flash());
 
 //Import Routes
-<<<<<<< HEAD
 const authRoute = require('./routes/auth-route');
 const streamRoute = require('./routes/stream-route');
 const movieRoute = require('./routes/movie-route');
@@ -44,17 +43,6 @@ app.use('/api/recommend/', recommendationRoute);
 app.use(express.urlencoded({ extended: true }))
 
 
-=======
-const authRoute = require('./routes/auth');
-const videoRoute = require('./routes/streaming');
-
-//Route Middlewares
-app.use('/api/users/', authRoute );
-app.use('/api/movies/', videoRoute);
-
-app.use(express.urlencoded({ extended: true }))
-
->>>>>>> master
 
 //PORT
 const port = process.env.PORT || 5000;
