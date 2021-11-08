@@ -74,8 +74,9 @@ const signIn = async (req,res) =>{
               
             bcrypt.compare(req.body.password,results.rows[0].password).then((result)=>{ //porownanie zahashowanego hasla
             if(result){
+                //console.log(results.rows[0].user_id) 
                 const token = jwt.sign({
-                    id : results.rows[0].id,
+                    user_id : results.rows[0].user_id,
                 }, process.env.TOKEN_SECRET);
 
        
@@ -124,7 +125,10 @@ const getUsers = async (req,res) =>{
 };
 
 const getUserById = async(req,res) =>{
-    console.log(req.email);
+
+    // const token = req.cookies.token;
+    // const user_id = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log(req.user);
     try{
         pool.query('SELECT * FROM users WHERE user_id=$1',[req.params.id],(err,results)=>{
 
@@ -136,36 +140,33 @@ const getUserById = async(req,res) =>{
     }
 };
 
-const checkUser = async(req,res, next) => {
-    //const token = req.cookies.jwt;
+const getCurrentUser = async(req,res) => {
+    const currentUser = req.user;
 
-   // const token = req.header('auth-token');
-    if(!token) return res.status(401).send('Access Denied');
+    if(!currentUser) res.status(400).send('User is not logged in'); 
 
     try{
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) =>{
-            if(err){
-                console.log(err.message);
-                next();
-            }else {
-                console.log(decodedToken);
-                let user = await pool.query('SELECT * FROM users WHERE user_id = $1',decodedToken.user_id)
-                console.log(user);
-                next();
-            }
-        });
-        req.user = verified;
-        next();
-    }catch (err){
-        res.status(400).send('Invalid Token');
+        pool.query('SELECT * FROM users WHERE user_id=$1',[currentUser.user_id],(err,results)=>{
+
+            res.status(200).send(results.rows);
+           // console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+        return res.status(500).send('Database err'); 
     }
 };
 
+const signOut = async(req,res) =>{
+    res.clearCookie("token");
+    res.status(200).send('User signed out successfully');
+}
 
 module.exports = {
     signUp,
     signIn,
-    checkUser,
+    getCurrentUser,
     getUsers,
-    getUserById
+    getUserById,
+    signOut
 };

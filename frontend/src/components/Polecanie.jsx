@@ -2,32 +2,25 @@ import '../css/reset.css'
 import '../css/style.css'
 import axios from 'axios';
 import { Component } from 'react';
+import { recommend } from '../routes/userRoutes';
 
 const api = axios.create({
-    baseURL: "http://localhost:5000/api/users",
+    baseURL: "http://localhost:5000/api/users/getUsers",
     withCredentials: true
 })
 
 export class Polecanie extends Component {
-   
+
     state = {
         users: []
     }
 
     constructor(){
         super();
-        this.getUsers();
-    }
-
-    getUsers = async () => {
-        let data = await api.get('/getUsers').then(({data})=> data);
-            this.setState({users: data})
-        
-    }
-
-    getUser = async (id)=>{
-        await api.get(`/${id}`);
-        this.getUsers();
+        api.get('/').then(res => {
+            console.log(res.data);
+            this.setState({users: res.data})
+        })
     }
     
 render(){
@@ -36,7 +29,14 @@ render(){
 
     <section className="landing-page">
         <div className="container">  
-           {this.state.users.map(user => <h2 key={user.user_id}>{user.nickname}<button className="submit-button" onClick={()=>this.getUser(user.user_id)}>Poleć</button></h2>)}           
+
+            {this.state.users.map(user => 
+                <h2 key={user.user_id}>{user.nickname}
+                    <button onClick={()=>recommend(user.user_id,this.props.match.params.id)}>Polec</button>
+                </h2>
+                
+            )}
+
         </div>
     </section>        
     </div>

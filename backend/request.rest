@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "nickname": "eldo mondo",
-    "email": "SenioerBokso@bokos1.ms",
+    "email": "SesnioerBokso@bokos1.ms",
     "password": "bokieeem1",
     "repeatPassword": "bokieeem1"
 }
@@ -12,16 +12,21 @@ POST http://localhost:5000/api/users/signIn
 Content-Type: application/json
 
 {    
-    "email": "SeniorBoko@bokos1.ms",
+    "email": "SesnioerBokso@bokos1.ms",
     "password": "bokieeem1"   
 }
 ###
 GET http://localhost:5000/api/users/getUsers
 ###
-GET http://localhost:5000/api/recommend/1
+POST http://localhost:5000/api/recommend
+Content-Type: application/json
 
-###
-GET http://localhost:5000/api/users/getUserById/3
+{    
+    "receiver_id": 9,
+    "movie_id": 2
+
+}
+
 
 
 

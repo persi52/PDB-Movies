@@ -34,7 +34,9 @@ const videoRoute = require('./routes/streaming');
 
 //Route Middlewares
 app.use('/api/users/', authRoute );
-app.use('/api/movies/', videoRoute);
+app.use('/api/movies/', movieRoute);
+app.use('/api/stream/', streamRoute);
+app.use('/api/recommend/', recommendationRoute);
 
 app.use(express.urlencoded({ extended: true }))
 

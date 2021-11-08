@@ -1,4 +1,4 @@
-import {login} from '../routes/routes'
+import {login} from '../routes/userRoutes'
 import React from 'react';
 import '../css/reset.css'
 import '../css/style.css'
@@ -28,7 +28,7 @@ export function Login() {
                 </div>
 
 
-                <button id='login' className="submit-button" onClick={login}>Zaloguj</button> 
+                <button id='login' className="submit-button" onClick={login}>Zaloguj</button>
                 
                 <div className="box-info">
                     <div className="box-info-text box-info-text-login">
