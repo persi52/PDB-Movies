@@ -29,8 +29,13 @@ CREATE TABLE IF NOT EXISTS public."movies"
     "director" character varying(45) COLLATE pg_catalog."default" NOT NULL,
     "year_of_production" integer NOT NULL,
     "description" character varying(300) COLLATE pg_catalog."default" NOT NULL,
+<<<<<<< HEAD
     "url" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "thumbnail" character varying(45) NOT NULL,
+=======
+    "url" character varying(45) COLLATE pg_catalog."default" NOT NULL,
+    "thumbnail" bytea NOT NULL,
+>>>>>>> master
     CONSTRAINT "movies_pkey" PRIMARY KEY ("movie_id")
 )
 
