@@ -46,7 +46,9 @@ const signUp = async(req,res) =>{
                         if(err){
                             throw err;                        
                     } 
-                    console.log(results.rows);
+                    else{
+                        res.status(200).send('Signup succesfull');
+                    }
                 })             
             }
       }
