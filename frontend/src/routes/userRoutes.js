@@ -45,10 +45,9 @@ export function signOut(){
         email: email,
         password: password,
         repeatPassword: repeatpassword
-    }).then(
-      console.log("Dodano użytkownika "+username)
-    
-  );
+    }).then(resp => {
+      window.location.href="/";
+  });
   }
 
   export function recommend(receiver_id, movie_id){
