@@ -28,13 +28,12 @@ const commentsApi = axios.create({
 function Player({match}) {
 
     const [movie, setMovie] = useState([]);
-    const [comments, setComments] = useState([]);
-    //const lenght = 3;
+    const [comments, setComments] = useState([]); 
     
     useEffect(() =>{
     getMovie();
     getComments();
-    }, [comments.length]);   
+    }, []);   
     
    
     const getMovie = async () => {
@@ -49,17 +48,18 @@ function Player({match}) {
     }
     
     const addComment = async () => {
-       
-        const content = document.getElementById("content").value;
-        await commentsApi.post(`/add`,{
-                
-                movie_id: movie.movie_id,
-                comment_content: content
-            
-        });
-        console.log(comments.length);
-        comments.length = 3;
         
+        let field = document.getElementById("content");
+        let content = field.value;
+        field.value = null;
+        
+        const comment = {
+            movie_id: movie.movie_id,
+            comment_content: content
+        }
+
+        await commentsApi.post(`/add`,comment);
+        getComments();
     }
 
     const getUser = async (user_id) => {
@@ -109,7 +109,7 @@ function Player({match}) {
                         <input id="content" type="text" class="comment-form-input" placeholder="Napisz komentarz..."/>
                     </div>
                 </div>
-                <button onClick={addComment} class="btn comment-btn-confirm"><img src={angleSmallRight} class="comment-btn-confirm-img" alt="Submit button"/></button>
+                <button type="button" onClick={addComment} class="btn comment-btn-confirm"><img src={angleSmallRight} class="comment-btn-confirm-img" alt="Submit button"/></button>
                 </form>
             </div>
         </div>

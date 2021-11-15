@@ -15,7 +15,7 @@ const addComment = async(req,res) =>{
         (err,results)=>{
 
             if(err) throw err;
-            else res.status(404).send('Comment was added');
+            else res.status(200).send('Comment was added');
            // console.log(results);
         })
     }catch(err){
