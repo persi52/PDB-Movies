@@ -14,6 +14,10 @@ export function signOut(){
   userApi.delete('/signOut');
 }
 
+export function getUserById(user_id){
+  userApi.get('getUserById/' + user_id);
+}
+
   export function getUsers(){
     userApi.get('/getUsers').then(resp => {
   

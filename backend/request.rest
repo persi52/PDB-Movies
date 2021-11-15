@@ -22,12 +22,18 @@ POST http://localhost:5000/api/recommend
 Content-Type: application/json
 
 {    
-    "receiver_id": 9,
+    "receiver_id": 3,
     "movie_id": 2
-
 }
 
+###
+POST http://localhost:5000/api/comments/add
+Content-Type: application/json
 
+{    
+    "movie_id": 1,
+    "comment_content": "siema tutal kolezka"
+}
 
 
 

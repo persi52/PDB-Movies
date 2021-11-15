@@ -28,12 +28,13 @@ const addComment = async(req,res) =>{
 const getComments = async(req,res) =>{
 
     try{
-        pool.query('SELECT * FROM comments WHERE movie_id=$1',
+        pool.query('SELECT * FROM comments WHERE movie_id=$1 ORDER BY comment_id DESC',
         [req.params.movie_id],
         (err,results)=>{
 
             if(results.rows.length>0)
-            return res.status(200).send(results.rows);
+           { res.status(200).send(results.rows);
+            res.end();}
             else return res.status(200).send('No comments')
            // console.log(results);
         })
