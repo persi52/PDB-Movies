@@ -130,7 +130,7 @@ const getUserById = async(req,res) =>{
 
     // const token = req.cookies.token;
     // const user_id = jwt.verify(token, process.env.TOKEN_SECRET);
-    console.log(req.user);
+    //console.log(req.user);
     try{
         pool.query('SELECT * FROM users WHERE user_id=$1',[req.params.id],(err,results)=>{
 

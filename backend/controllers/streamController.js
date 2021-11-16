@@ -22,7 +22,7 @@ const stream_video = async(req,res) =>{
   
     
     const range = req.headers.range;//
-    console.log(req.headers.range);
+    //console.log(req.headers.range);
     const videoPath = movie.url;
     const videoSize = fs.statSync(videoPath).size;
 

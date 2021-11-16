@@ -1,15 +1,13 @@
 import axios from "axios";
 
-const api = axios.create({
+const movieApi = axios.create({
     baseURL: "http://localhost:5000/api/movies",
     withCredentials: true
   })
 
-  export function getMovie(id){
-      var data;
-      api.get('/get/'+id).then(resp => {
-          //console.log(resp.data);
-         data = resp.data;
-      })
+export async function getMovieById(movie_id){      
+
+      let data = await movieApi.get('/get/'+movie_id).then(({data}) => data);
+      console.log(data);
       return data;
-  }
+}
