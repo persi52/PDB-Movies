@@ -1,7 +1,6 @@
-import React, { Component, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {getMovieById} from '../routes/movieRoutes'
-import {getUserById} from '../routes/userRoutes'
-import {Link} from 'react-router-dom'
+import {getComments} from '../routes/commentRoute'
 import '../css/reset.css'
 import '../css/style.css'
 import "../css/comments.css"
@@ -15,11 +14,6 @@ import eye from "../icons/eye.png"
 import following from "../icons/following.png"
 import axios from 'axios'
 
-const movieApi = axios.create({
-    baseURL: "http://localhost:5000/api/movies",
-    withCredentials: true
-  })
-
 const commentsApi = axios.create({
     baseURL: "http://localhost:5000/api/comments",
     withCredentials: true
@@ -31,21 +25,10 @@ function Player({match}) {
     const [comments, setComments] = useState([]); 
     
     useEffect(() =>{
-    getMovie();
-    getComments();
+        getMovieById(match.params.id).then(resp=>{setMovie(resp)});
+        getComments(match.params.id).then(resp=>{setComments(resp)})
     }, []);   
-    
-   
-    const getMovie = async () => {
-        let data = await movieApi.get(`/get/${match.params.id}`).then(({data}) => data);        
-        setMovie(data);
-    }
 
-    const getComments = async () => {       //////trzeba się zająć zwrotką 'No comments'
-        let data = await commentsApi.get(`/get/${match.params.id}`).then(({data}) => data);
-        console.log(data);
-        setComments(data);
-    }
     
     const addComment = async () => {
         
@@ -59,18 +42,9 @@ function Player({match}) {
         }
 
         await commentsApi.post(`/add`,comment);
-        getComments();
+        getComments(match.params.id).then(resp=>{setComments(resp)});
     }
 
-    const getUser = async (user_id) => {
-        let user = await getUserById(user_id);
-        return user;
-    }
-     
-  
-    //pobranie id filmu ale aktualizuje 'state.id' milion razy na sekunde zapychając strone
-    //this.setState({id:this.props.match.params.id});
-    //this.getMovie(this.props.match.params.id)
     return (
         <div>
             <section className=" container">
@@ -121,7 +95,7 @@ function Player({match}) {
                     <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
                 </div>
                 <div class="comment-section-right">
-                    <h3 class="author"></h3>
+                    <h3 class="author"> {comment.nickname} </h3>
                     <div class="comment-content comment-content-bg">
                         <span class="comment-content-text"> {comment.comment_content} </span>
                         <div class="comment-action-buttons">
