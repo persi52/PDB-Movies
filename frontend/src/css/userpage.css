@@ -1,0 +1,136 @@
+.user-avatar-image {
+    height: 130px;
+    width: 130px;
+    border-radius: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.user-info {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.user-section-right {
+    background: linear-gradient(90deg, rgba(86,88,101,0.5) 30%, rgba(170,170,170,0) 100%);
+    height: 130px;
+    width: 500px;
+    position: relative;
+    right: 70px;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-body {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#user-name {
+    font-size: x-large;
+    position: relative;
+    font-weight: 300;
+    right: 55px;
+    margin-bottom: 5px;
+}
+
+#user-email {
+    font-size: small;
+    position: relative;
+    right: 25px;
+}
+
+.edit-user-info {
+    position: relative;
+    left: 40px;
+}
+
+.edit-user-info-image {
+    height: 45px;
+    width: 45px;
+}
+
+.friends-and-stats-section {
+    width: 90%;
+    margin: 40px auto;
+    display: flex;
+    justify-content:space-between;
+}
+
+.header-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+}
+
+.friends-section {
+    width: 50%;
+}
+
+.friends-list {
+    width: 70%;
+    height: 360px;
+    overflow-y: scroll;
+    margin-left: 10px;
+}
+
+.friends-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0 5px 10px;
+}
+
+.stats-section {
+    width: 50%;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+.friends-list-button-img {
+    width: 28px;
+    height: 28px;
+}
+
+.friends-list-button {
+    background-color: transparent;
+    border: none;
+    padding: 1px;
+}
+
+.friend-avatar-img {
+    height: 42px;
+    width: 42px;
+}
+
+.friend-name {
+    position: relative;
+    right: 50px;
+    font-weight: 300;
+}
+
+.friends-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.friends-list::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    margin: 2px ;
+    border-radius: 16px;
+}
+
+.friends-list:hover::-webkit-scrollbar-thumb {
+    background-color: #8D8FA2;
+}

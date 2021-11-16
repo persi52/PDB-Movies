@@ -1,0 +1,35 @@
+.home-page {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 25px;
+}
+
+.photo-collage {
+    width: 60%;
+    padding-left: 20px;
+}
+
+.photo-collage h1{
+    font-size: x-large;
+    font-weight: 300;
+    margin-left: 35px;
+}
+
+.welcome-text {
+    width: 40%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding-right: 20px;
+}
+
+.welcome-text p{
+    font-size: x-large;
+    font-weight: 300;
+    text-align: center;
+}
+
+
+.movie-list-container {
+    padding-top: 40px;
+}

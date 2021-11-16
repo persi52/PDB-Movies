@@ -1,6 +1,7 @@
 import '../css/reset.css'
 import '../css/style.css'
 
+
 export function Footer() {
     return(
         <footer>

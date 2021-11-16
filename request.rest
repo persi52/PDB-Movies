@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/users/signUp
+POST http://localhost:5000/api/users/signUp
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
     "repeatPassword": "bokieeem1"
 }
 ###
-POST http://localhost:3000/api/users/signIn
+POST http://localhost:5000/api/users/signIn
 Content-Type: application/json
 
 {    
@@ -16,7 +16,7 @@ Content-Type: application/json
     "password": "bokieeem1"   
 }
 ###
-GET http://localhost:3000/api/user
+GET http://localhost:5000/api/user
 ###
-GET http://localhost:3000/api/movies
+GET http://localhost:5000/api/movies
 
