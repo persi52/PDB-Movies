@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Login, Registration, Polecanie,Player, Navigation, Footer,Navbar_logged, Home_notLogged, UserPage} from "./components";
-
+import { Home, Login, Registration, Polecanie,Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage} from "./components";
 
 const api = axios.create({
   baseURL: "http://localhost:5000/api/users",
@@ -25,12 +24,11 @@ class App extends Component {
     try {
     const response = await api.get('/getCurrentUser');
     if (response.status === 200) {
-      console.log(response);
       this.setState({navbar: Navbar_logged(response.data[0].user_id), home: <Home/>})
     }
    } catch (err) {
      console.error(err)
-     this.setState({navbar: <Navigation/>, home: <Home_notLogged/>})
+     this.setState({navbar: <Navigation/>, home: <HomeNotLogged/>})
    }
 }
   

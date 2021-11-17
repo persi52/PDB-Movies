@@ -16,17 +16,8 @@ export function signOut(){
 
 export function getUserById(user_id){
   let data = userApi.get('getUserById/' + user_id).then(({data}) => data);
-  console.log(data);
   return data;
 }
-
-  export function getUsers(){
-    userApi.get('/getUsers').then(resp => {
-  
-      console.log(resp.data);
-     
-  });
-  }
 
   export function login(){
     const email = document.getElementById("email").value;

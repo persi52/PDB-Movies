@@ -8,6 +8,10 @@ const movieApi = axios.create({
 export async function getMovieById(movie_id){      
 
       let data = await movieApi.get('/get/'+movie_id).then(({data}) => data);
-      console.log(data);
       return data;
+}
+
+export async function getMovies(){
+  let data = await movieApi.get('get_all').then(({data})=> data);
+  return data;
 }

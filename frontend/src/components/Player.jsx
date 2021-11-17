@@ -27,7 +27,7 @@ function Player({match}) {
     useEffect(() =>{
         getMovieById(match.params.id).then(resp=>{setMovie(resp)});
         getComments(match.params.id).then(resp=>{setComments(resp)})
-    }, []);   
+    }, [match.params.id]);   
 
     
     const addComment = async () => {
@@ -43,6 +43,28 @@ function Player({match}) {
 
         await commentsApi.post(`/add`,comment);
         getComments(match.params.id).then(resp=>{setComments(resp)});
+    }
+
+    function showComments(){
+        if(comments!=="No comments"){
+        return(comments.map(comment => (
+            <div key={comment.comment_id} class="comment-item">            
+                <div class="comment-avatar">
+                    <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
+                </div>
+                <div class="comment-section-right">
+                    <h3 class="author"> {comment.nickname} </h3>
+                    <div class="comment-content comment-content-bg">
+                        <span class="comment-content-text"> {comment.comment_content} </span>
+                        <div class="comment-action-buttons">
+                            <button id="like" class="btn comment-action-btn"><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
+                            <button id="dislike" class="btn comment-action-btn"><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
+                            <button id="comment" class="btn comment-action-btn"><img src={commentIcon} class="comment-btn-img" alt="Comment button"/></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            )))}
     }
 
     return (
@@ -89,57 +111,7 @@ function Player({match}) {
         </div>
 
         <div class="comments-container comments-list">
-        {comments.map(comment => (
-            <div key={comment.comment_id} class="comment-item">            
-                <div class="comment-avatar">
-                    <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
-                </div>
-                <div class="comment-section-right">
-                    <h3 class="author"> {comment.nickname} </h3>
-                    <div class="comment-content comment-content-bg">
-                        <span class="comment-content-text"> {comment.comment_content} </span>
-                        <div class="comment-action-buttons">
-                            <button id="like" class="btn comment-action-btn"><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
-                            <button id="dislike" class="btn comment-action-btn"><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
-                            <button id="comment" class="btn comment-action-btn"><img src={commentIcon} class="comment-btn-img" alt="Comment button"/></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            ))}
-            <div class="comments-response">
-                <div class="comment-response-item">
-                    <div class="comment-avatar">
-                        <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
-                    </div>
-                    <div class="comment-section-right">
-                        <h3 class="author">Karolina</h3>
-                        <div class="comment-content comment-content-bg">
-                            <span class="comment-response-text">treść </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="comments-response">
-                <div class="comment-response-item">
-                    <div class="comment-avatar">
-                        <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
-                    </div>
-                    <div class="comment-section-right">
-                        <h3 class="author">Karolina</h3>
-                        <div class="comment-content comment-content-bg">
-                            <span class="comment-response-text">tewfds ewds qwdse reść  jakas tam sobie komentarza jakas tam sobie 32wds 32rewd thrgfd 
-                                ewfds refdew wefr assadjoi eifwd 2eifj if wefjdsjrg weifdjc wejf owfmfewn reść  jakas tam sobie komentarza jakas tam sobie 32wds 32rewd thrgfd 
-                                ewfds refdew wefr assadjoi eifwd 2eifj if wefjdsjrg weifdjc wejf owfmfewn reść  jakas tam sobie komentarza jakas tam sobie 32wds 32rewd thrgfd 
-                                ewfds refdew wefr assadjoi eifwd 2eifj if wefjdsjrg weifdjc wejf owfmfewn </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
+        {showComments()}
         </div>        
     </section>
             
