@@ -45,7 +45,7 @@ function Home() {
                     <p>
                         Dołącz do nas, aby oglądać <br/>najnowsze produkcje.
                     </p>
-                    <button type="button" class="submit-button">Zarejestruj się</button>
+                    <a href="registration" class="submit-button btn-signup">Zarejestruj się</a>
                 </div>
             </div>
         </div>

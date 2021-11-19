@@ -9,3 +9,4 @@ export { default as Navbar_logged } from "./Navbar_logged";
 export { default as Player } from "./Player";
 export { default as Home_notLogged } from "./Home_notLogged";
 export { default as UserPage } from "./UserPage";
+export { default as Favourites } from "./Favourites";

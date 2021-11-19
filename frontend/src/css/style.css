@@ -46,19 +46,25 @@ nav a {
     align-items: center;
 }
 
-.nav-links {
+.nav-links-logged {
     display: flex;
     justify-content: space-between;
     width: 55%;
 }
 
-.nav-links a:hover {
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.nav-links-a a:hover {
     transform: scale(1.05);
 }
 
-.nav-links a {
+.nav-links-a a {
     transition: 0.5s all;
-    font-weight:200;
+    font-weight: 200;
 }
 
 nav .container{

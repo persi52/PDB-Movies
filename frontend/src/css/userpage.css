@@ -121,7 +121,7 @@ h2 {
     font-weight: 300;
 }
 
-.friends-list::-webkit-scrollbar {
+/* .friends-list::-webkit-scrollbar {
     width: 4px;
 }
 
@@ -133,4 +133,4 @@ h2 {
 
 .friends-list:hover::-webkit-scrollbar-thumb {
     background-color: #8D8FA2;
-}
+} */
