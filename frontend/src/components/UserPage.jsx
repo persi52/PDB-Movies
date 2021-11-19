@@ -10,14 +10,20 @@ import UserRemove from "../icons/user-remove.png"
 import Users from "../icons/users.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
+import {getFriends} from '../routes/friendRoute'
 
 function UserPage({match}) {
 
-    const [user, setUser] = useState([]); 
+    const [user, setUser] = useState([]);
+    const [friends,setFriends] = useState([]); 
     
     useEffect(() =>{
     getUserById(match.params.id).then(resp=>{setUser(resp[0])});
     }, [match.params.id]); 
+
+    useEffect(() =>{
+        getFriends().then((resp)=>{setFriends(resp)});
+    }, []);
 
     return(
         <section class="landing-page">
@@ -44,30 +50,22 @@ function UserPage({match}) {
                     <div className="header-section">
                         <img src={Users} alt="users" class="header-icon"/>
                         <h2>Lista znajomych</h2>
+                        <a href='http://localhost:3000/polecanie/4'><img src={Users} alt="envelope" class="friends-list-button-img"/></a>
                     </div>
                     <div className="friends-list">
-                        <div className="friends-list-item">
-                            <div className="friend-avatar">
-                                <img className="friend-avatar-img" alt="avatar" src={User2}/>
-                            </div>
-                            <div className="friend-name">ziomeczek</div>
-                            <div className="friends-list-buttons">
-                                <button className="friends-list-button"><img src={Envelope} alt="envelope" class="friends-list-button-img"/></button>
-                                <button className="friends-list-button"><img src={UserRemove} alt="remove" class="friends-list-button-img"/></button>
-                            </div>
-                        </div>                        
-                        <div className="friends-list-item">
-                            <div className="friend-avatar">
-                                <img className="friend-avatar-img" alt="friend" src={User2}/>
-                            </div>
-                            <div className="friend-name">ziomeczek</div>
-                            <div className="friends-list-buttons">
-                                <button className="friends-list-button"><img src={Envelope} alt="envelope" class="friends-list-button-img"/></button>
-                                <button className="friends-list-button"><img src={UserRemove} alt="remove" class="friends-list-button-img"/></button>
-                            </div>
-                        </div>
+                            {friends.map(friend => (
+                                <div className="friends-list-item">
+                                    <div className="friend-avatar">
+                                        <img className="friend-avatar-img" alt="avatar" src={User2}/>
+                                    </div>
+                                    <div className="friend-name">{friend.username}</div>
+                                    <div className="friends-list-buttons">
+                                        <button className="friends-list-button"><img src={Envelope} alt="envelope" class="friends-list-button-img"/></button>
+                                        <button className="friends-list-button"><img src={UserRemove} alt="remove" class="friends-list-button-img"/></button>
+                                    </div> 
+                                </div>
+                            ))}       
                         
-        
                     </div>
                 </div>
                 <div className="stats-section">

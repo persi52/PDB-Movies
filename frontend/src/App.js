@@ -42,7 +42,6 @@ class App extends Component {
             <Route path="/login" exact component={() => <Login />} />
             <Route path="/polecanie/:id" exact component={(props) => <Polecanie {...props}/>} />
             <Route path="/" exact component={() => this.state.home} />
-            <Route path="/search" exact component={() => <UserPage />} />
             <Route path="/myprofile/:id" exact component={(props) => <UserPage {...props} />} />
             <Route path="/movie/:id" exact render={(props) => <Player {...props} /> } />
             

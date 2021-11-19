@@ -5,8 +5,6 @@ import { signOut } from '../routes/userRoutes';
 
 export function Navbar_logged(user_id) {
 
-    
-
     return(
         <nav>
         <div className="container">
@@ -14,7 +12,6 @@ export function Navbar_logged(user_id) {
             
             <div className="nav-links">
                 <a href="/search">Szukaj</a>
-                <a href="/polecanie">Polecanie</a>
                 <a href="/favourities">Ulubione</a>
                 <a href="/notifications">Powiadomienia</a>
                 <a href={`/myprofile/${user_id}`} >Mój profil</a>
