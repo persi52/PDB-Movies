@@ -12,11 +12,12 @@ import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import {getFriends} from '../routes/friendRoute'
 
+
 function UserPage({match}) {
 
     const [user, setUser] = useState([]);
     const [friends,setFriends] = useState([]); 
-    
+
     useEffect(() =>{
     getUserById(match.params.id).then(resp=>{setUser(resp[0])});
     }, [match.params.id]); 
@@ -26,7 +27,7 @@ function UserPage({match}) {
     }, []);
 
     return(
-        <section class="landing-page">
+        <section className="landing-page">
         <div className="container">
             <div className="user-info">
                 <div className="user-avatar">
@@ -50,7 +51,6 @@ function UserPage({match}) {
                     <div className="header-section">
                         <img src={Users} alt="users" class="header-icon"/>
                         <h2>Lista znajomych</h2>
-                        <a href='http://localhost:3000/polecanie/4'><img src={Users} alt="envelope" class="friends-list-button-img"/></a>
                     </div>
                     <div className="friends-list">
                             {friends.map(friend => (

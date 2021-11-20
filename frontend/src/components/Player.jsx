@@ -3,6 +3,7 @@ import {getMovieById} from '../routes/movieRoutes'
 import {getComments} from '../routes/commentRoute'
 import '../css/reset.css'
 import '../css/style.css'
+import '../css/modal.css'
 import "../css/comments.css"
 import angleSmallRight from "../icons/angle-small-right.png"
 import thumbsUp from "../icons/thumbs-up.png"
@@ -13,6 +14,7 @@ import heart from "../icons/heart.png"
 import eye from "../icons/eye.png"
 import following from "../icons/following.png"
 import axios from 'axios'
+import { Modal } from "./Modal_recommend";
 
 const commentsApi = axios.create({
     baseURL: "http://localhost:5000/api/comments",
@@ -23,7 +25,12 @@ function Player({match}) {
 
     const [movie, setMovie] = useState([]);
     const [comments, setComments] = useState([]); 
-    
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal(true);
+    };
+
     useEffect(() =>{
         getMovieById(match.params.id).then(resp=>{setMovie(resp)});
         getComments(match.params.id).then(resp=>{setComments(resp)})
@@ -78,7 +85,8 @@ function Player({match}) {
                 <h2 className="movie-title">{movie.title}</h2>
                 <div className="movie-action-btn-box">
                     <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={heart} alt="heart"/></button>
-                    <a href={`/polecanie/${match.params.id}`}><img className="movie-action-btn-img" src={following} alt="following"/></a>
+                    <button className="btn movie-action-btn" onClick={openModal}><img className="movie-action-btn-img" src={following} alt="following"/></button>
+                    {showModal ? <Modal setShowModal={setShowModal} movieId={movie.movie_id} /> : null}
                     <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={eye} alt="eye"/></button>
     
                 </div>
