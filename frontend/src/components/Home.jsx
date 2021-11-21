@@ -7,19 +7,11 @@ import {Link} from 'react-router-dom'
 import { getMovies } from '../routes/movieRoutes';
 import { Swiper, Navigation} from 'swiper';
 
-
-const api = axios.create({
-  baseURL: "http://localhost:5000/api/movies",
-  withCredentials: true
-})
-
 function Home() {
 
   useEffect(() =>{
     getMovies().then((resp)=>{setMovies(resp)});
   }, []);
-
-  
 
   const [movies, setMovies] = useState([]);
 

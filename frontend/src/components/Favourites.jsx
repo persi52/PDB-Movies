@@ -9,27 +9,15 @@ import Heart from "../icons/heart.png"
 import Eye from "../icons/eye.png"
 import {Link} from 'react-router-dom'
 import StarRating from './StarRating';
-
-
-const api = axios.create({
-    baseURL: "http://localhost:5000/api/movies",
-    withCredentials: true
-  })
+import { getMovies } from '../routes/movieRoutes';
 
 function Favourites() {
 
     useEffect(() =>{
-        getMovies();
+        getMovies().then((resp)=>{setMovies(resp)});
       }, []);
     
       const [movies, setMovies] = useState([]);
-     
-    
-      const getMovies = async () => {
-        let data = await api.get('/get_all').then(({data})=> data);
-            setMovies(data);
-      }
-    
       const url = "movie/";
     
     return (

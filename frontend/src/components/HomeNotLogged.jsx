@@ -3,29 +3,19 @@ import '../css/style.css'
 import '../css/moviebrowser.css'
 import '../css/movielistpage.css'
 import '../css/home_notlogged.css'
-import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import PhotoCollage from "../icons/kolaz.png"
 import { Swiper, Navigation} from 'swiper';
-
-const api = axios.create({
-  baseURL: "http://localhost:5000/api/movies",
-  withCredentials: true
-})
+import {Link} from 'react-router-dom'
+import { getMovies } from '../routes/movieRoutes'
 
 function Home() {
 
   useEffect(() =>{
-    getMovies();
+    getMovies().then((res)=>{setMovies(res)});
   }, []);
 
   const [movies, setMovies] = useState([]);
- 
-
-  const getMovies = async () => {
-    let data = await api.get('/get_all').then(({data})=> data);
-        setMovies(data);    
-  }
 
   const url = "movie/";
 
