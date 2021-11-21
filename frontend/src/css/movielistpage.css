@@ -1,8 +1,8 @@
 .movie-list-container {
     padding-top: 40px;
-}
+} 
 
-.main-movie-item {
+/* .main-movie-item {
     margin-right: 14px;
     position: relative;
 }
@@ -14,10 +14,10 @@
 
     border-radius: 2px;
     overflow: hidden;
-}
+} */
 
 .movie-genre-box {
-    margin: 40px auto;
+    margin: 0 auto 30px auto;
 }
 
 .movie-genre-title {

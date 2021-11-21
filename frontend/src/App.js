@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Login, Registration, Polecanie,Player, Navigation, Footer,Navbar_logged, Home_notLogged, UserPage, Favourites} from "./components";
+import { Home, Login, Registration, Polecanie,Player, Navigation, Footer,Navbar_logged, Home_notLogged, UserPage, Favourites, Profile} from "./components";
 
 
 const api = axios.create({
@@ -45,7 +45,7 @@ class App extends Component {
             <Route path="/favourites" exact component={() => <Favourites />} />
             <Route path="/polecanie/:id" exact component={(props) => <Polecanie {...props}/>} />
             <Route path="/" exact component={() => this.state.home} />
-            <Route path="/search" exact component={() => <UserPage />} />
+            <Route path="/search" exact component={() => <Profile />} />
             <Route path="/myprofile/:id" exact component={(props) => <UserPage {...props} />} />
             <Route path="/movie/:id" exact render={(props) => <Player {...props} /> } />
             
