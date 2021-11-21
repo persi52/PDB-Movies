@@ -7,7 +7,6 @@ import Star from "../icons/star.png"
 import Following from "../icons/following.png"
 import Heart from "../icons/heart.png"
 import Eye from "../icons/eye.png"
-import Photo from "../icons/kevin.jpg"
 import {Link} from 'react-router-dom'
 
 
