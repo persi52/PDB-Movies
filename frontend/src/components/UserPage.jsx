@@ -10,70 +10,75 @@ import UserRemove from "../icons/user-remove.png"
 import Users from "../icons/users.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
+import {getFriends} from '../routes/friendRoute'
+
 
 function UserPage({match}) {
 
-    const [user, setUser] = useState([]); 
-    
+    const [user, setUser] = useState([]);
+    const [friends,setFriends] = useState([]); 
+
     useEffect(() =>{
     getUserById(match.params.id).then(resp=>{setUser(resp[0])});
-    console.log(user);
-    }, []); 
+    }, [match.params.id]); 
+
+    useEffect(() =>{
+        getFriends().then((resp)=>{setFriends(resp)});
+    }, []);
 
     return(
-        <section class="landing-page">
-        <div class="container">
-            <div class="user-info">
-                <div class="user-avatar">
-                    <img src={User} class="user-avatar-image"/>
+        <section className="landing-page">
+        <div className="container">
+            <div className="user-info">
+                <div className="user-avatar">
+                    <img src={User} className="user-avatar-image"/>
                 </div>
-                <div class="user-section-right">
-                    <div class="user-body">
-                        <div class="user-name" id="user-name">{user.nickname}</div>
-                        <div class="user-email" id="user-email">{user.email}</div>
+                <div className="user-section-right">
+                    <div className="user-body">
+                        <div className="user-name" id="user-name">{user.nickname}</div>
+                        <div className="user-email" id="user-email">{user.email}</div>
                     </div>
-                    <div class="edit-user-info">
-                        <a href="edit.html">
-                            <img src={Pencil} class="edit-user-info-image"/>
+                    <div className="edit-user-info">
+                        <a href="/editprofile">
+                            <img src={Pencil} className="edit-user-info-image"/>
                         </a>
                     </div>
                 </div>
             </div>
             
-            <div class="friends-and-stats-section">
-                <div class="friends-section">
-                    <div class="header-section">
-                        <img src={Users} class="header-icon"/>
+            <div className="friends-and-stats-section">
+                <div className="friends-section">
+                    <div className="header-section">
+                        <img src={Users} className="header-icon"/>
                         <h2>Lista znajomych</h2>
                     </div>
-                    <div class="friends-list">
-                        <div class="friends-list-item">
-                            <div class="friend-avatar">
-                                <img class="friend-avatar-img" src={User2}/>
+                    <div className="friends-list">
+                        <div className="friends-list-item">
+                            <div className="friend-avatar">
+                                <img className="friend-avatar-img" src={User2}/>
                             </div>
-                            <div class="friend-name">ziomeczek</div>
-                            <div class="friends-list-buttons">
-                                <button class="friends-list-button"><img src={Envelope} class="friends-list-button-img"/></button>
-                                <button class="friends-list-button"><img src={UserRemove} class="friends-list-button-img"/></button>
+                            <div className="friend-name">ziomeczek</div>
+                            <div className="friends-list-buttons">
+                                <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
+                                <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"/></button>
                             </div>
                         </div>                        
-                        <div class="friends-list-item">
-                            <div class="friend-avatar">
-                                <img class="friend-avatar-img" src={User2}/>
+                        <div className="friends-list-item">
+                            <div className="friend-avatar">
+                                <img className="friend-avatar-img" src={User2}/>
                             </div>
-                            <div class="friend-name">ziomeczek</div>
-                            <div class="friends-list-buttons">
-                                <button class="friends-list-button"><img src={Envelope} class="friends-list-button-img"/></button>
-                                <button class="friends-list-button"><img src={UserRemove} class="friends-list-button-img"/></button>
+                            <div className="friend-name">ziomeczek</div>
+                            <div className="friends-list-buttons">
+                                <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
+                                <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"/></button>
                             </div>
                         </div>
                         
-        
                     </div>
                 </div>
-                <div class="stats-section">
-                    <div class="header-section">
-                        <img src={Stats} class="header-icon"/>
+                <div className="stats-section">
+                    <div className="header-section">
+                        <img src={Stats} alt="stats" className="header-icon"/>
                         <h2>Statystyki obejrzanych filmów</h2>
                     </div>
         

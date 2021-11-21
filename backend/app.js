@@ -34,13 +34,15 @@ const streamRoute = require('./routes/stream-route');
 const movieRoute = require('./routes/movie-route');
 const recommendationRoute = require('./routes/recommend-route');
 const commentsRoute = require('./routes/comments-route');
+const ratingsRoute = require('./routes/ratings-route');
 
 //Route Middlewares
 app.use('/api/users/', authRoute );
 app.use('/api/movies/', movieRoute);
 app.use('/api/stream/', streamRoute);
 app.use('/api/recommend/', recommendationRoute);
-app.use('/api/comments', commentsRoute);
+app.use('/api/comments.', commentsRoute);
+app.use('/api/ratings/', ratingsRoute);
 
 app.use(express.urlencoded({ extended: true }))
 

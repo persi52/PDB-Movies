@@ -22,12 +22,16 @@
     height: 26px;
 }
 
-
+.movie-rating-info {
+    display: flex;
+    flex-direction: column;
+}
 
 .movie-title {
     color: white;
     font-size: 26px;
     font-weight: 400 ;
+    margin-bottom: 8px;
 }
 
 .comments {
@@ -167,6 +171,7 @@
 .btn {
     background-color: transparent;
     border: none;
+    cursor: pointer;
 }
 
 .comment-btn-confirm {

@@ -10,23 +10,19 @@ const recommendApi = axios.create({
   withCredentials: true
 })
 
+export function getUsers(){
+  let data = userApi.get('/getUsers');
+  return data;
+}
+
 export function signOut(){
   userApi.delete('/signOut');
 }
 
 export function getUserById(user_id){
   let data = userApi.get('getUserById/' + user_id).then(({data}) => data);
-  console.log(data);
   return data;
 }
-
-  export function getUsers(){
-    userApi.get('/getUsers').then(resp => {
-  
-      console.log(resp.data);
-     
-  });
-  }
 
   export function login(){
     const email = document.getElementById("email").value;
@@ -60,7 +56,5 @@ export function getUserById(user_id){
     recommendApi.post('/',{ 
         receiver_id: receiver_id,  
         movie_id: movie_id
-    }).then(
-      console.log("Polecono "+movie_id+" dla "+receiver_id)
-  );
+    });
   }
