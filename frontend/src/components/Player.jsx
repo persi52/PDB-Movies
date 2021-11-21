@@ -15,6 +15,7 @@ import eye from "../icons/eye.png"
 import following from "../icons/following.png"
 import axios from 'axios'
 import { Modal } from "./Modal_recommend";
+import StarRating from './StarRating'
 
 const commentsApi = axios.create({
     baseURL: "http://localhost:5000/api/comments",
@@ -82,7 +83,10 @@ function Player({match}) {
                 <video id="videoPlayer" width="100%" controls muted="muted" autoPlay src={`http://localhost:5000/api/stream/play/${match.params.id}`} type="video/mp4"></video>
             </div>
             <div className="movie-info-box">
-                <h2 className="movie-title">{movie.title}</h2>
+                <div className="movie-rating-info">
+                    <h2 className="movie-title">{movie.title}</h2>
+                    <StarRating/>
+                </div>
                 <div className="movie-action-btn-box">
                     <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={heart} alt="heart"/></button>
                     <button className="btn movie-action-btn" onClick={openModal}><img className="movie-action-btn-img" src={following} alt="following"/></button>

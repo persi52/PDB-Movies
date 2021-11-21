@@ -8,7 +8,7 @@ export function Navigation() {
         <div className="container">
         <a href="/" className="nav-logo" ><img src={Logo} alt="logo" height="45px" width="45px"/><p className="app-name">PDB Movies</p></a>
             
-            <div className="nav-links">
+            <div className="nav-links nav-links-a ">
                 <a href="/search">Szukaj</a>
                 <a href="/login">Zaloguj się</a>
                 <a href="/registration">Zarejestruj się</a>

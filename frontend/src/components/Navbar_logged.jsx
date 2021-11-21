@@ -10,7 +10,7 @@ export function Navbar_logged(user_id) {
         <div className="container">
             <a href="/" className="nav-logo" ><img src={Logo} alt="logo" height="45px" width="45px"/><p className="app-name">PDB Movies</p></a>
             
-            <div className="nav-links">
+            <div className="nav-links-logged nav-links-a ">
                 <a href="/search">Szukaj</a>
                 <a href="/favourities">Ulubione</a>
                 <a href="/notifications">Powiadomienia</a>

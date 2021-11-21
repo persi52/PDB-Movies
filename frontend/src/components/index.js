@@ -7,5 +7,7 @@ export { default as Registration } from "./Registration";
 export { default as Polecanie } from "./Polecanie";
 export { default as Navbar_logged } from "./Navbar_logged";
 export { default as Player } from "./Player";
-export { default as HomeNotLogged } from "./HomeNotLogged";
+export { default as Home_notLogged } from "./Home_notLogged";
 export { default as UserPage } from "./UserPage";
+export { default as Profile } from "./Profile";
+export { default as Favourites } from "./Favourites";

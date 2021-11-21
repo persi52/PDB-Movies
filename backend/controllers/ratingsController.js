@@ -7,7 +7,7 @@ const verifyToken = require("./verifyToken");
 const addRate = async(req,res) =>{
 
    // console.log(req.user.user_id)//res.send(req.param['set-cookie']);
-   // const user = req.user;     
+   // const user = req.user;
 
     try{
         pool.query('INSERT INTO ratings (user_id,rate,movie_id)' +
@@ -33,8 +33,6 @@ const getBokiem = async(req,res) =>{
        console.log(results.rows[0].sum);
         
     })
-
-
 }catch(err){
     console.log(err);
 }   
@@ -45,8 +43,6 @@ const getRatesByMovieId = async(req,res) =>{
     let ratesAmount, averageRate; 
  
     try{
-        
-       
             pool.query('SELECT COUNT(*) FROM ratings WHERE movie_id=$1',[req.params.movie_id],
                 (err,results)=>{
 
@@ -76,29 +72,9 @@ const getRatesByMovieId = async(req,res) =>{
             else return res.status(200).send('No rates for movie_id= '+req.params.movie_id);           
             
         })
-       
-    
-        
-        
-        
-        
-        
-
-             
-              
-        
-
-
-
-
-
     }catch(err){
         console.log(err);
-    }   
-
-     
-     
-     
+    }     
  }
 
  const getUserRate = async(req,res) =>{
