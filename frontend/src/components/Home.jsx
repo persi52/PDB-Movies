@@ -6,14 +6,17 @@ import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import { getMovies } from '../routes/movieRoutes';
 import { Swiper, Navigation} from 'swiper';
+import { getMoviesByGenre } from '../routes/movieRoutes'
 
 function Home() {
 
   useEffect(() =>{
     getMovies().then((resp)=>{setMovies(resp)});
+    getMoviesByGenre(1).then((resp)=>{setComedy(resp)})
   }, []);
 
   const [movies, setMovies] = useState([]);
+  const [comedy, setComedy] = useState([]);
 
   const url = "movie/";
 
@@ -64,10 +67,10 @@ function Home() {
             </div> 
 
             <div className="movie-genre-box">
-                <h2 className="movie-genre-title">Popularne</h2> 
+                <h2 className="movie-genre-title">Komedie</h2> 
                 <div class="swiper">
                     <div class="swiper-wrapper">
-                    {movies.map(movie => (
+                    {comedy.map(movie => (
                       <div class="swiper-slide">
                         <a key={movie.movie_id}>
                           <Link to={url + `${movie.movie_id}`}>

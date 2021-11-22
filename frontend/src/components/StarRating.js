@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { FaStar } from "react-icons/fa";
 import "../css/starrating.css"
+import { addRating } from '../routes/ratingRoute';
+import { getUserRate } from '../routes/ratingRoute';
 
-const StarRating = () => {
+const StarRating = (movie_id) => {
 
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
+
 
     return (
         <div>
@@ -18,7 +21,10 @@ const StarRating = () => {
                             type="radio" 
                             name="rating" 
                             value={ratingValue} 
-                            onClick={() => setRating(ratingValue)}
+                            onClick={() => {
+                                setRating(ratingValue);
+                                addRating(ratingValue,movie_id)
+                            }}
                             />
                             
                         <FaStar  

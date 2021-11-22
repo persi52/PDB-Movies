@@ -184,3 +184,7 @@
     width: 30px;
 }
 
+.star-rating {
+    display: flex;
+    align-items: center;
+}
