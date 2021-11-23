@@ -5,9 +5,10 @@ const ratingsController = require('../controllers/ratingsController');
 const verifyToken = require("../controllers/verifyToken");
 
 
-router.post('/add',ratingsController.addRate);
+router.post('/add',verifyToken,ratingsController.addRate);
 router.get('/getBokiem',ratingsController.getBokiem);
-router.get('/get/:movie_id',ratingsController.getRatesByMovieId);
+router.get('/getRates/:movie_id',ratingsController.getRatesByMovieId);
+router.post('/getRate',verifyToken,ratingsController.getUserRate);
 
 
 module.exports = router;

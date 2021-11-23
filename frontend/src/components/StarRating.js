@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { FaStar } from "react-icons/fa";
 import "../css/starrating.css"
-import { addRating } from '../routes/ratingRoute';
-import { getUserRate } from '../routes/ratingRoute';
+import { addRating, getUserRate } from '../routes/ratingRoute';
 
 const StarRating = (movie_id) => {
 
     const [rating, setRating] = useState(null);
+    getUserRate(movie_id).then((resp)=>{setRating(resp)})
     const [hover, setHover] = useState(null);
-
 
     return (
         <div>

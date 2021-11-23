@@ -37,10 +37,11 @@ function Player({match}) {
     useEffect(() =>{
         getMovieById(match.params.id).then(resp=>{setMovie(resp)});
         getComments(match.params.id).then(resp=>{setComments(resp)});
-        getRatingsByMovieId(match.params.id).then(resp=>{setRatingAvg(resp)})
+        getRatingsByMovieId(match.params.id).then(resp=>{
+            if(resp==='No rates'){setRatingAvg({averageRate: 'Brak ocen', ratesAmount: '1'})}
+            else {setRatingAvg(resp)}})
     }, [match.params.id]);   
 
-    
     const addComment = async () => {
         
         let field = document.getElementById("content");

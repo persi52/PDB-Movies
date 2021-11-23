@@ -21,7 +21,7 @@ const getMovies = async(req,res) =>{
 const getMoviesByGenre = async(req,res) =>{
     
     try{
-        pool.query('SELECT * FROM movies where $1=ANY(genre_id);',[req.params.movie_id],(err,results)=>{
+        pool.query('SELECT * FROM movies where $1=ANY(genre_id)',[req.params.genre_id],(err,results)=>{
          
 
             res.status(200).send(results.rows);
