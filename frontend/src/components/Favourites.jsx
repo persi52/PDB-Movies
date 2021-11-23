@@ -1,23 +1,25 @@
 import '../css/reset.css'
 import '../css/style.css'
 import '../css/favourites.css'
-import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import Star from "../icons/star.png"
 import Following from "../icons/following.png"
 import Heart from "../icons/heart.png"
 import Eye from "../icons/eye.png"
 import {Link} from 'react-router-dom'
-import StarRating from './StarRating';
+import StarRatingStatic from './StarRatingStatic';
 import { getMovies } from '../routes/movieRoutes';
+import {getUserRate} from '../routes/ratingRoute'
 
 function Favourites() {
 
     useEffect(() =>{
         getMovies().then((resp)=>{setMovies(resp)});
       }, []);
-    
+
       const [movies, setMovies] = useState([]);
+      
+
       const url = "movie/";
     
     return (
@@ -39,7 +41,7 @@ function Favourites() {
                                             <p className="fav-movie-title">{movie.title}</p>
                                             <p className="year-of-production">{movie.year_of_production}</p>
                                         </div>
-                                        <div className="rating"><StarRating/></div>
+                                        <div className="rating">{StarRatingStatic(movie.movie_id-1)}</div>
                                         </div> 
                                     </Link>
                                     </a>

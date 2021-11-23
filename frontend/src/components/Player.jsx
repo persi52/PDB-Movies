@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {getMovieById} from '../routes/movieRoutes'
 import {getComments} from '../routes/commentRoute'
+import { getRatingsByMovieId } from '../routes/ratingRoute'
 import '../css/reset.css'
 import '../css/style.css'
 import '../css/modal.css'
@@ -27,6 +28,7 @@ function Player({match}) {
     const [movie, setMovie] = useState([]);
     const [comments, setComments] = useState([]); 
     const [showModal, setShowModal] = useState(false);
+    const [ratingAvg, setRatingAvg] = useState([]);
 
     const openModal = () => {
         setShowModal(true);
@@ -34,10 +36,12 @@ function Player({match}) {
 
     useEffect(() =>{
         getMovieById(match.params.id).then(resp=>{setMovie(resp)});
-        getComments(match.params.id).then(resp=>{setComments(resp)})
+        getComments(match.params.id).then(resp=>{setComments(resp)});
+        getRatingsByMovieId(match.params.id).then(resp=>{
+            if(resp==='No rates'){setRatingAvg({averageRate: 'Brak ocen', ratesAmount: '1'})}
+            else {setRatingAvg(resp)}})
     }, [match.params.id]);   
 
-    
     const addComment = async () => {
         
         let field = document.getElementById("content");
@@ -85,7 +89,11 @@ function Player({match}) {
             <div className="movie-info-box">
                 <div className="movie-rating-info">
                     <h2 className="movie-title">{movie.title}</h2>
-                    <StarRating/>
+                    <div className="star-rating">
+                        {StarRating(movie.movie_id)}
+                    ({ratingAvg.averageRate})
+                    </div>
+                    
                 </div>
                 <div className="movie-action-btn-box">
                     <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={heart} alt="heart"/></button>
