@@ -15,26 +15,35 @@
   width: 200px;
   height: 300px;
   background: linear-gradient(180deg, rgb(111, 113, 128) 0%, rgb(91, 93, 107) 100%);
-  border-radius: 5px;
+  border-radius: 10px;
   bottom: 0;
   padding: 20px;
-  right: 0;
+  right: 10px;
   position: absolute;
   animation: animate 1s;
 }
 .modal button {
+  font-family: 'Poppins', sans-serif;
+  color:white;
+  border-radius: 8px;
+  border: none;
   right: 0;
   margin-right: 20px;
   position: absolute;
   background: linear-gradient(180deg, rgba(198,132,191,0.55) 0%, rgba(145,176,189,0.5) 100%);
-  height: 20px;
+  padding: 2% 5%;
   cursor: pointer;
-  font-weight: bold;
-  
+  font-size: x-small;
+  font-weight: 400;  
 }
 
 .modal button:hover {
-  color:white;
+  background: linear-gradient(180deg, rgba(198,132,191,0.7) 0%, rgba(145,176,189,0.8) 100%);
+}
+
+.modal-header {
+  font-weight: 300;
+  font-size: large;
 }
 
 @keyframes animate {
@@ -47,7 +56,8 @@
 }
 
 .users-list-item{
-  height: 10px;
+  font-size: small;
+  font-weight: 200;
   margin: auto;
   color: white;
   margin-top: 30px;

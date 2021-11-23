@@ -13,6 +13,7 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 import StarRating from './StarRating'
 import {Link} from 'react-router-dom'
+import PieChart from './PieChart'
 
 const api = axios.create({
     baseURL: "http://localhost:5000/api/movies",
@@ -69,6 +70,7 @@ function Profile() {
                     <img src={Stats} className="stats-header-icon"/>
                     <h2>Statystyki obejrzanych filmów</h2>
                 </div>
+                <PieChart />
     
             </div>
             <div className="statistics-section-item similarity-section">
