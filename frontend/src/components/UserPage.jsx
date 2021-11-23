@@ -11,6 +11,7 @@ import Users from "../icons/users.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import {getFriends} from '../routes/friendRoute'
+import PieChart from './PieChart'
 
 
 function UserPage({match}) {
@@ -57,7 +58,7 @@ function UserPage({match}) {
                             <div className="friend-avatar">
                                 <img className="friend-avatar-img" src={User2}/>
                             </div>
-                            <div className="friend-name">ziomeczek</div>
+                            <div className="friend-name">adam12</div>
                             <div className="friends-list-buttons">
                                 <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
                                 <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"/></button>
@@ -67,7 +68,7 @@ function UserPage({match}) {
                             <div className="friend-avatar">
                                 <img className="friend-avatar-img" src={User2}/>
                             </div>
-                            <div className="friend-name">ziomeczek</div>
+                            <div className="friend-name">wojtas99</div>
                             <div className="friends-list-buttons">
                                 <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
                                 <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"/></button>
@@ -80,6 +81,9 @@ function UserPage({match}) {
                     <div className="header-section">
                         <img src={Stats} alt="stats" className="header-icon"/>
                         <h2>Statystyki obejrzanych filmów</h2>
+                    </div>
+                    <div className="pie-chart">                        
+                     <PieChart/>
                     </div>
         
                 </div>

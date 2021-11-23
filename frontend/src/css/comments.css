@@ -17,6 +17,14 @@
     padding: 15px 0;
 }
 
+.movie-action-btn-box button:hover{
+    transform: scale(1.1);
+}
+
+.movie-action-btn-box {
+    transition: 0.5s all;
+}
+
 .movie-action-btn-img {
     width: 26px;
     height: 26px;

@@ -24,10 +24,10 @@ export const Modal = ({ setShowModal, movieId }) => {
   return ReactDom.createPortal(
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal">
-          <h2>Poleć film znajomym:</h2>
+          <h2 className="modal-header">Poleć film znajomym:</h2>
           {users.map(user => 
             <h2 className="users-list-item" key={user.user_id}>{user.nickname}
-              <button className="btn-list-item" onClick={()=>{recommend(user.user_id,movieId);alert.show("Polecono film!")}}>Poleć</button>
+              <button className="" onClick={()=>{recommend(user.user_id,movieId);alert.show("Polecono film!")}}>Poleć</button>
             </h2>
           )}
           

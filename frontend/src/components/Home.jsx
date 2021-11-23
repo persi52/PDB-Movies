@@ -29,8 +29,8 @@ function Home() {
     // Optional parameters
     slidesPerView: 6,
     loop: true,
+    slidesPerGroup: 2,
     freeMode: true,
-    //loopAdditionalSlides: 5,
     speed: 500,
   
     // Navigation arrows
