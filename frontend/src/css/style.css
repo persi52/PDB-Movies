@@ -6,6 +6,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background: #474854;
     background: linear-gradient(180deg, rgba(141,143,163,1) 0%, rgba(71,72,84,1) 100%);    
+    background-attachment: fixed;
     color: white;
 }
 
@@ -117,7 +118,7 @@ nav .container{
 .form-element {
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .form-element > input {
@@ -164,18 +165,28 @@ nav .container{
 
 .box-info {
     display: flex;
-    margin-top: 25px;
     margin-bottom: 15px;
     justify-content: space-around;
+}
+
+.login-box .box-info{
+    margin-top: 20px;    
+}
+
+.registration-error {
+    color: #ff1a1a;
+    font-size: small;
+    margin: 2px 0;
 }
 
 
 .submit-button {
     background: linear-gradient(180deg, rgba(198,132,191,0.55) 0%, rgba(145,176,189,0.5) 100%);
     border: none;
+    text-decoration: none;
     text-transform: uppercase;
     border-radius: 8px;
-    font-weight: 100;
+    font-weight: 400;
     color: white;
     font-size: 16px;
     padding: 15px 28px;

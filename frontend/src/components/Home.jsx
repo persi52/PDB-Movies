@@ -30,7 +30,6 @@ function Home() {
     slidesPerView: 6,
     loop: true,
     slidesPerGroup: 2,
-    freeMode: true,
     speed: 500,
   
     // Navigation arrows
@@ -118,6 +117,7 @@ function Home() {
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
                   </div>
+                  </div>
                   
                   <div className="movie-genre-box">
                 <h2 className="main-movie-genre-title">Przygodowe</h2> 
@@ -143,8 +143,6 @@ function Home() {
                     <div class="swiper-button-next"></div>
                   </div>
             </div>
-
-            </div> 
 
     </section>
     </div>
