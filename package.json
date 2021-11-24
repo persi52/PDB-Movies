@@ -2,7 +2,8 @@
     "scripts": {
         "backend": "cd backend && nodemon app.js",
         "frontend": "cd frontend && npm start",
-        "start": "concurrently \"npm run backend\" \"npm run frontend\""
+        "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+        "install": "concurrently \"cd backend && npm install\" \"cd frontend && npm install && npm ci\""
     },
     "dependencies": {
         "chart.js": "^3.6.0",

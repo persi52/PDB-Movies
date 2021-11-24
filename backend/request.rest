@@ -34,6 +34,34 @@ Content-Type: application/json
     "movie_id": 1,
     "comment_content": "siema tutal kolezka"
 }
+###
+POST http://localhost:5000/api/friends/add
+Content-Type: application/json
+
+{    
+    "receiver_id": 7
+}
+###
+GET http://localhost:5000/api/friends/get
+###
+POST http://localhost:5000/api/friends/remove
+Content-Type: application/json
+
+{    
+    "receiver_id": 1   
+}
+###
+POST http://localhost:5000/api/notifications/send
+Content-Type: application/json
+
+{   
+    "type": "Buokieeem",
+    "movie_id": null,     
+    "receiver_id": 1   
+}
+###
+POST http://localhost:5000/api/notifications/get
+
 
 
 
