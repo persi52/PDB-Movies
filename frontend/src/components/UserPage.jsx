@@ -10,22 +10,45 @@ import UserRemove from "../icons/user-remove.png"
 import Users from "../icons/users.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
-import {getFriends} from '../routes/friendRoute'
+import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
+import { useAlert } from 'react-alert'
+
 
 
 function UserPage({match}) {
 
     const [user, setUser] = useState([]);
     const [friends,setFriends] = useState([]); 
+    //const alert = useAlert();
+   
 
     useEffect(() =>{
     getUserById(match.params.id).then(resp=>{setUser(resp[0])});
     }, [match.params.id]); 
 
     useEffect(() =>{
-        getFriends().then((resp)=>{setFriends(resp)});
+        friendsApi.getFriends().then((resp)=>{setFriends(resp)});
+        console.log(friends);
     }, []);
+
+    function showFriends(){
+        if(friends!=="You got no friends che che"){
+            return(friends.map(friend => (
+                <div key={friend.user_id} className="friends-list-item">
+                    <div className="friend-avatar">
+                        <img className="friend-avatar-img" src={User2}/>
+                    </div>
+                    <div className="friend-name">{friend.nickname}</div>
+                    <div className="friends-list-buttons">
+                        <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
+                        <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"
+                        onClick={()=>{friendsApi.removeFriend(friend.user_id);}}/></button>
+                    </div>
+                </div>   
+            
+            )))}
+    }
 
     return(
         <section className="landing-page">
@@ -53,28 +76,8 @@ function UserPage({match}) {
                         <img src={Users} className="header-icon"/>
                         <h2>Lista znajomych</h2>
                     </div>
-                    <div className="friends-list">
-                        <div className="friends-list-item">
-                            <div className="friend-avatar">
-                                <img className="friend-avatar-img" src={User2}/>
-                            </div>
-                            <div className="friend-name">adam12</div>
-                            <div className="friends-list-buttons">
-                                <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
-                                <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"/></button>
-                            </div>
-                        </div>                        
-                        <div className="friends-list-item">
-                            <div className="friend-avatar">
-                                <img className="friend-avatar-img" src={User2}/>
-                            </div>
-                            <div className="friend-name">wojtas99</div>
-                            <div className="friends-list-buttons">
-                                <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
-                                <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"/></button>
-                            </div>
-                        </div>
-                        
+                    <div className="friends-list">                                                           
+                        {showFriends()}                        
                     </div>
                 </div>
                 <div className="stats-section">
