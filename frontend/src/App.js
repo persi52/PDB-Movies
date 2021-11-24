@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Login, Registration, Polecanie,Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage, Favourites, Profile} from "./components";
+import { Home, Login, Registration, Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage, Favourites, Profile} from "./components";
 
 
 const api = axios.create({

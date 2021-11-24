@@ -1,5 +1,6 @@
 import '../css/reset.css'
 import '../css/style.css'
+import '../css/modal_removeFriend.css'
 import '../css/userpage.css'
 import User from "../icons/avatar.png"
 import User2 from "../icons/avatar2.png"
@@ -12,6 +13,7 @@ import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
+import { Modal } from "./Modal_removeFriend";
 import { useAlert } from 'react-alert'
 
 
@@ -20,8 +22,13 @@ function UserPage({match}) {
 
     const [user, setUser] = useState([]);
     const [friends,setFriends] = useState([]); 
+    const [showModal, setShowModal] = useState(false);
     //const alert = useAlert();
    
+    const openModal = () => {
+        setShowModal(true);
+    };
+
 
     useEffect(() =>{
     getUserById(match.params.id).then(resp=>{setUser(resp[0])});
@@ -33,7 +40,7 @@ function UserPage({match}) {
     }, []);
 
     function showFriends(){
-        if(friends!=="You got no friends che che"){
+        if(friends!="You got no friends che che"){
             return(friends.map(friend => (
                 <div key={friend.user_id} className="friends-list-item">
                     <div className="friend-avatar">
@@ -43,7 +50,8 @@ function UserPage({match}) {
                     <div className="friends-list-buttons">
                         <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
                         <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"
-                        onClick={()=>{friendsApi.removeFriend(friend.user_id);}}/></button>
+                        onClick={openModal}/></button>
+                        {showModal ? <Modal setShowModal={setShowModal} user_id={friend.user_id} /> : null}
                     </div>
                 </div>   
             

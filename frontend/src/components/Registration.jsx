@@ -36,7 +36,8 @@ export function Registration() {
                 </div>    
 
 
-                    <button type="submit" className="submit-button" onClick={signup}>Zarejestruj</button>
+                    <button type="submit" className="submit-button" onClick={()=>{console.log(signup())}}>Zarejestruj</button>
+                    
 
                 <div className="box-info">       
                     <div className="box-info-text">

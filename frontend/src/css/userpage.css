@@ -108,6 +108,7 @@ h2 {
     background-color: transparent;
     border: none;
     padding: 1px;
+    cursor: pointer;
 }
 
 .friend-avatar-img {

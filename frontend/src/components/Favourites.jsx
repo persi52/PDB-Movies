@@ -41,7 +41,7 @@ function Favourites() {
                                             <p className="fav-movie-title">{movie.title}</p>
                                             <p className="year-of-production">{movie.year_of_production}</p>
                                         </div>
-                                        <div className="rating">{StarRatingStatic(movie.movie_id-1)}</div>
+                                        <div className="rating">{StarRatingStatic(movie.movie_id)}</div>
                                         </div> 
                                     </Link>
                                     </a>
