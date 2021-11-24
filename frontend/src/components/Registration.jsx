@@ -1,12 +1,53 @@
 import {signup} from '../routes/userRoutes'
 import React from 'react';
+import { useState} from 'react';
 import '../css/reset.css'
 import '../css/style.css'
 
-
-
 export function Registration() {
-  return (
+    
+    const initialValues = {username: "", email: "", password: "", repeatpassword: "" };
+    const [formValues, setformValues] = useState(initialValues);
+    const [formErrors, setformErrors] = useState({});
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setformValues({...formValues, [name]: value});
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setformErrors(validate(formValues));
+    }
+
+
+    const validate = (values) => {
+        const errors = {};
+        const regex = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
+        if(!values.username){
+            errors.username = "Podaj nazwę użytkownika!"
+        }
+
+        if(!values.email){
+            errors.email = "Podaj email!"
+        } else if (!regex.test(values.email)){
+            errors.email = "Podaj poprawny format email!"
+        }
+
+        if(!values.password){
+            errors.password = "Podaj hasło!";
+        } else if (values.password.length < 8) {
+            errors.password = "Hasło musi zawierać co najmniej 8 znaków!";
+        }
+
+        if (values.repeatpassword != values.password || !values.repeatpassword){
+            errors.repeatpassword = "Hasła muszą być takie same!";
+        } 
+
+        return errors;
+    }
+
+    return (
     <div>
 
     <section className="landing-page">
@@ -15,29 +56,30 @@ export function Registration() {
                 <div className="box-logo">
                     <h1>Zarejestruj się</h1>
                 </div>
-
-                <div className="registration-form">
+                <form className="registration-form" onSubmit={ handleSubmit }>
                     <div className="form-element">
                         <label htmlFor="username">Nazwa użytkownika: </label>
-                        <input type="text" id="username" name="username"/>
+                        <input type="text" id="username" name="username" value={ formValues.username } onChange={handleChange}/>
+                        <p className="registration-error">{ formErrors.username }</p>
                     </div>
                     <div className="form-element">
                         <label htmlFor="email">E-mail: </label>
-                        <input type="text" id="email" name="email"/>
+                        <input type="text" id="email" name="email" value={ formValues.email } onChange={handleChange}/>
+                        <p className="registration-error">{ formErrors.email }</p>
                     </div>
                     <div className="form-element">
                         <label htmlFor="password">Hasło: </label>
-                        <input type="password" id="password" name="password"/>
+                        <input type="password" id="password" name="password" value={ formValues.password } onChange={handleChange}/>
+                        <p className="registration-error">{ formErrors.password }</p>
                     </div>
                     <div className="form-element">
                         <label htmlFor="repeatpassword">Powtórz hasło: </label>
-                        <input type="password" id="repeatpassword" name="repeatpassword"/>
-                    </div>
-                </div>    
-
-
-                    <button type="submit" className="submit-button" onClick={()=>{console.log(signup())}}>Zarejestruj</button>
+                        <input type="password" id="repeatpassword" name="repeatpassword" value={ formValues.repeatpassword } onChange={handleChange}/>
+                        <p className="registration-error">{ formErrors.repeatpassword }</p>
+                    </div>    
                     
+                    <button type="submit" className="submit-button" onClick={signup}>Zarejestruj</button>
+                    </form>
 
                 <div className="box-info">       
                     <div className="box-info-text">

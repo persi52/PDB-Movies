@@ -48,8 +48,7 @@ export function getUserById(user_id){
         password: password,
         repeatPassword: repeatpassword
     }).then(resp => {
-      window.location.href="/";
-       return resp.status;
+      window.location.href="/confirmation";
   });
   
   }
