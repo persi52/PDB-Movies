@@ -48,6 +48,7 @@ class App extends Component {
             <Route path="/confirmation" exact component={() => <RegistrationConfirmation />} />
             <Route path="/myprofile/:id" exact component={(props) => <UserPage {...props} />} />
             <Route path="/movie/:id" exact render={(props) => <Player {...props} /> } />
+            <Route path="/profile/:id" exact render={(props) => <Profile {...props} /> } />
             
           </Switch>
           <Footer/>

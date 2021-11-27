@@ -10,9 +10,38 @@ const sendFriendRequest = async(req,res) =>{
 
 }
 
+const getFriendStatus = async(req,res) =>{
+
+    const user = req.user;
+
+    if(req.body.receiver_id == user.user_id)
+        res.status(400).send('Wrong request');
+
+    try{
+        pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+        [user.user_id,req.body.receiver_id],(err,results)=>{
+
+            if(results.rowCount==0) res.status(200).send('notFriend');
+            else {
+                pool.query('SELECT * FROM friends WHERE ((friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)) ' +
+                'AND is_accepted=true',
+                [user.user_id,req.body.receiver_id],(err,results)=>{
+
+                    if(results.rowCount==0) res.status(200).send('invitationWaiting');
+                    else res.status(200).send('friend');
+
+                })
+            } 
+
+
+        })
+    }catch(err){
+        res.status(403).send('Invalid statement');
+    }
+}
+
 const addFriend = async(req,res) =>{
       const user = req.user;
-
     if(req.body.receiver_id == user.user_id)
         res.status(400).send('Wrong request'); 
     
@@ -98,5 +127,6 @@ module.exports = {
     addFriend,
     removeFriend,
     getUserFriends,
-    getBokiem
+    getBokiem,
+    getFriendStatus
 }
