@@ -7,56 +7,48 @@ const verifyToken = require("./verifyToken");
 //import { sendNotification } from "./notificationsController";
 
 const sendFriendRequest = async(req,res) =>{
-
-}
-
-const getFriendStatus = async(req,res) =>{
-
     const user = req.user;
 
     if(req.body.receiver_id == user.user_id)
-        res.status(400).send('Wrong request');
+        res.status(400).send('Wrong request'); 
 
-    try{
-        pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
-        [user.user_id,req.body.receiver_id],(err,results)=>{
-
-            if(results.rowCount==0) res.status(200).send('notFriend');
-            else {
-                pool.query('SELECT * FROM friends WHERE ((friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)) ' +
-                'AND is_accepted=true',
-                [user.user_id,req.body.receiver_id],(err,results)=>{
-
-                    if(results.rowCount==0) res.status(200).send('invitationWaiting');
-                    else res.status(200).send('friend');
-
+        try{
+            pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+            [user.user_id,req.body.receiver_id],(err,results)=>{
+               
+            if(results.rows.length>0) res.status(400).send('Invitation was already sent!');
+            else
+                pool.query('INSERT INTO friends (friend_one_id,friend_two_id, is_accepted) ' +
+                'values ($1, $2, false)',[user.user_id, req.body.receiver_id],(err,results)=>{ 
+    
+                    if(err) throw err;
+                    else res.status(200).send('Invitation sent succesfully');                
                 })
-            } 
-
-
         })
-    }catch(err){
-        res.status(403).send('Invalid statement');
-    }
+        }catch(err){
+            res.status(403).send('Invalid statement');
+    
+        }
 }
 
-const addFriend = async(req,res) =>{
+const acceptFriendRequest = async(req,res) =>{
       const user = req.user;
-    if(req.body.receiver_id == user.user_id)
+
+    if(req.body.sender_id == user.user_id)
         res.status(400).send('Wrong request'); 
     
 
     try{
-        pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
-        [user.user_id,req.body.receiver_id],(err,results)=>{
+        pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2)',
+        [req.body.sender_id,user.user_id],(err,results)=>{
            
-        if(results.rows.length>0) res.status(400).send('User is already your friend!');
+        if(results.rows.length==0) res.status(400).send('Invitation does not exist!');
         else
-            pool.query('INSERT INTO friends (friend_one_id,friend_two_id) ' +
-            'values ($1, $2)',[user.user_id, req.body.receiver_id],(err,results)=>{ 
+            pool.query('UPDATE friends SET is_accepted=true' +
+            'WHERE friend_one_id=$1 AND friend_two_id=$2',[req.body.sender_id,user.user_id],(err,results)=>{ 
 
                 if(err) throw err;
-                else res.status(200).send('User added to friends');                
+                else res.status(200).send('Invitation accepted');                
             })
     })
     }catch(err){
@@ -64,6 +56,30 @@ const addFriend = async(req,res) =>{
 
     }
 
+}
+
+const declineFriendRequest = async(req,res) =>{
+    const user = req.user;
+
+    if(req.body.sender_id == user.user_id)
+        res.status(400).send('Wrong request'); 
+
+        try{
+            pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+            [user.user_id,req.body.sender_id],(err,results)=>{
+               
+            if(results.rows.length>0) 
+                pool.query('DELETE FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+                [user.user_id,req.body.sender_id],(err,results)=>{
+                    res.send(200).send('Invitation declined');
+            })
+            else res.status(400).send('No invitation to decline');
+              
+        })
+        }catch(err){
+            res.status(403).send('Invalid statement');
+    
+        }
 }
 
 const removeFriend = async(req,res) =>{
@@ -85,18 +101,34 @@ const removeFriend = async(req,res) =>{
         console.log(err);
     }
 }
-const getBokiem = async(req,res) =>{
+const getFriendStatus = async(req,res) =>{
+
+    const user = req.user;
+
+    if(req.body.receiver_id == user.user_id)
+        res.status(400).send('Wrong request');   
 
     try{
-    pool.query('SELECT SUM(rate) FROM ratings WHERE movie_id=1',
-    (err,results)=>{
+        pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+        [user.user_id,req.body.receiver_id],(err,results)=>{
 
-       console.log(results.rows[0].sum);
-
-    })
-}catch(err){
-    console.log(err);
-}
+            if(results.rowCount==0) res.status(200).send('notFriend');
+            else {
+                pool.query('SELECT * FROM friends WHERE ((friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)) ' +
+                'AND is_accepted=true',
+                [user.user_id,req.body.receiver_id],(err,results)=>{
+                    
+                    if(results.rowCount==0) res.status(200).send('invitationWaiting');
+                    else res.status(200).send('friend');
+                        
+                })              
+            } 
+               
+                
+        })
+    }catch(err){
+        res.status(403).send('Invalid statement');
+    }
 }
 
  const getUserFriends = async(req,res) =>{
@@ -105,7 +137,7 @@ const getBokiem = async(req,res) =>{
     try{
         pool.query('SELECT DISTINCT u.nickname,u.user_id FROM users u INNER JOIN friends f ' + 
         'ON (u.user_id = f.friend_one_id OR u.user_id = f.friend_two_id) ' +
-        'WHERE (f.friend_one_id=$1 OR f.friend_two_id=$1) AND u.user_id <> $1',[user.user_id],
+        'WHERE ((f.friend_one_id=$1 OR f.friend_two_id=$1) AND u.user_id <> $1 AND f.is_accepted=true)',[user.user_id],
 //         SELECT DISTINCT u.nickname,u.user_id 
 //          FROM users u 
 //          INNER JOIN friends f ON (u.user_id=f.friend_two_id OR u.user_id = f.friend_one_id)
@@ -124,9 +156,9 @@ const getBokiem = async(req,res) =>{
  
 
 module.exports = {
-    addFriend,
+    acceptFriendRequest,
+    declineFriendRequest,
     removeFriend,
     getUserFriends,
-    getBokiem,
-    getFriendStatus
+    sendFriendRequest
 }
