@@ -4,25 +4,32 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 const verifyToken = require("./verifyToken");
-//import { sendNotification } from "./notificationsController";
+const {sendNotification} = require("../controllers/notificationsController.js")
 
 const sendFriendRequest = async(req,res) =>{
-    const user = req.user;
+    const user_id = req.user.user_id;
+    const receiver_id = req.body.receiver_id;
 
-    if(req.body.receiver_id == user.user_id)
+    if(receiver_id == user.user_id)
         res.status(400).send('Wrong request'); 
 
         try{
             pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
-            [user.user_id,req.body.receiver_id],(err,results)=>{
+            [user_id,receiver_id],(err,results)=>{
                
             if(results.rows.length>0) res.status(400).send('Invitation was already sent!');
             else
                 pool.query('INSERT INTO friends (friend_one_id,friend_two_id, is_accepted) ' +
-                'values ($1, $2, false)',[user.user_id, req.body.receiver_id],(err,results)=>{ 
+                'values ($1, $2, false)',[user_id,receiver_id],(err,results)=>{ 
     
                     if(err) throw err;
-                    else res.status(200).send('Invitation sent succesfully');                
+                    
+                    else sendNotification({
+                        sender_id : user_id,
+                        type : 'friendRequest',
+                        movie_id : null,
+                        receiver_id : receiver_id
+                    }).then(res.status(200).send('Invitation sent succesfully'));                
                 })
         })
         }catch(err){
