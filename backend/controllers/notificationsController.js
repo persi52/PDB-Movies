@@ -3,14 +3,10 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 
-
-
-
 const getUserNotifications = async(req,res) =>{
-  //const user = req.user;
-
+  const user_id = req.user.user_id;
   try{
-    pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[1],
+    pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[user_id],
     (err,results)=>{
         if(results.rows.length>0)
         res.status(200).send(results.rows);
@@ -29,7 +25,7 @@ const sendNotification = async(body) =>{
   try{
     pool.query('INSERT INTO notifications (type,movie_id,sender_id,receiver_id) ' +
     'values ($1, $2, $3, $4)',[body.type,body.movie_id,
-      body.user_id,body.receiver_id],
+      body.sender_id,body.receiver_id],
     (err,results)=>{
         if (err) throw err;
        // console.log(results);

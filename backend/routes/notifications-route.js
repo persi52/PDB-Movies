@@ -5,7 +5,6 @@ const notificationsController = require('../controllers/notificationsController'
 const verifyToken = require("../controllers/verifyToken");
 
 
-router.get('/get',notificationsController.getUserNotifications);
-router.post('/send',notificationsController.sendNotification);
+router.get('/get',verifyToken,notificationsController.getUserNotifications);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Login, Registration, Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage, Favourites, Profile, NoAccess} from "./components";
+import { Notifications,  Home, Login, Registration, Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage, Favourites, Profile, NoAccess} from "./components";
 import RegistrationConfirmation from "./components/RegistrationConfirmation";
 
 
@@ -49,6 +49,7 @@ class App extends Component {
             <Route path="/myprofile/:id" exact component={(props) => <UserPage {...props} />} />
             <Route path="/movie/:id" exact render={(props) => <Player {...props} /> } />
             <Route path="/profile/:id" exact render={(props) => <Profile {...props} /> } />
+            <Route path="/notifications" exact render={() => <Notifications /> } />
             
           </Switch>
           <Footer/>
