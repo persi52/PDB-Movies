@@ -7,7 +7,7 @@ const verifyToken = require("./verifyToken");
 //import { sendNotification } from "./notificationsController";
 
 const sendFriendRequest = async(req,res) =>{
-
+     
 }
 
 const addFriend = async(req,res) =>{
@@ -82,6 +82,7 @@ const getBokiem = async(req,res) =>{
 //          INNER JOIN friends f ON (u.user_id=f.friend_two_id OR u.user_id = f.friend_one_id)
 //         WHERE (f.friend_one_id=7 OR f.friend_two_id=7) AND u.user_id<>7
         (err,results)=>{
+            console.log(results);
             if(results.rows.length>0)
             res.status(200).send(results.rows);
             else res.status(200).send('You got no friends che che');
