@@ -10,7 +10,7 @@ router.post('/declineFriendRequest',verifyToken,friendsController.declineFriendR
 router.post('/acceptFriendRequest',verifyToken,friendsController.acceptFriendRequest);
 router.post('/remove',verifyToken,friendsController.removeFriend);
 router.get('/get',verifyToken,friendsController.getUserFriends);
-router.post('/getFriendStatus',verifyToken,friendsController.getUserFriends);
+router.post('/getFriendStatus',verifyToken,friendsController.getFriendStatus);
 
 
 

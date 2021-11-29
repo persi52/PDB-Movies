@@ -33,20 +33,20 @@ const sendFriendRequest = async(req,res) =>{
 
 const acceptFriendRequest = async(req,res) =>{
       const user = req.user;
-
+    
     if(req.body.sender_id == user.user_id)
         res.status(400).send('Wrong request'); 
     
-
     try{
         pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2)',
         [req.body.sender_id,user.user_id],(err,results)=>{
            
-        if(results.rows.length==0) res.status(400).send('Invitation does not exist!');
+        if(results.rowCount==0) res.status(400).send('Invitation does not exist!');
         else
             pool.query('UPDATE friends SET is_accepted=true' +
-            'WHERE friend_one_id=$1 AND friend_two_id=$2',[req.body.sender_id,user.user_id],(err,results)=>{ 
-
+            'WHERE friend_one_id=$1 AND friend_two_id=$2',
+            [req.body.sender_id,user.user_id],(err,results)=>{ 
+                
                 if(err) throw err;
                 else res.status(200).send('Invitation accepted');                
             })
@@ -70,8 +70,8 @@ const declineFriendRequest = async(req,res) =>{
                
             if(results.rows.length>0) 
                 pool.query('DELETE FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
-                [user.user_id,req.body.sender_id],(err,results)=>{
-                    res.send(200).send('Invitation declined');
+                [req.body.sender_id,user.user_id],(err,results)=>{
+                    res.status(200).send('Invitation declined');
             })
             else res.status(400).send('No invitation to decline');
               
@@ -118,7 +118,7 @@ const getFriendStatus = async(req,res) =>{
                 'AND is_accepted=true',
                 [user.user_id,req.body.receiver_id],(err,results)=>{
                     
-                    if(results.rowCount==0) res.status(200).send('invitationWaiting');
+                    if(results.rowCount==0) res.status(200).send('invitationWaiting')
                     else res.status(200).send('friend');
                         
                 })              
@@ -160,5 +160,6 @@ module.exports = {
     declineFriendRequest,
     removeFriend,
     getUserFriends,
-    sendFriendRequest
+    sendFriendRequest,
+    getFriendStatus
 }

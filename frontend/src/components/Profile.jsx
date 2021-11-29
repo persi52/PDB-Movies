@@ -15,7 +15,7 @@ import axios from 'axios'
 import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
-import { addFriend, areFriends, removeFriend } from '../routes/friendsRoute'
+import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
 
 const api = axios.create({
     baseURL: "http://localhost:5000/api/movies",
@@ -23,24 +23,15 @@ const api = axios.create({
   })
 
 function Profile({match}) {
-
-    // const [user, setUser] = useState([]); 
-    
-    // useEffect(() =>{
-    // getUserById(match.params.id).then(resp=>{setUser(resp[0])});
-    // console.log(user);
-    // }, []); 
     
       const [user, setUser] = useState([]);
       const [movies, setMovies] = useState([]);
-     
-    // useEffect(()=>{
-    //     getUserById(match.params.id).then(resp=>{setUser(resp[0])});
-    // }), [match.params.id];
+      const [status, setStatus] = useState([]);
 
       useEffect(() =>{
         getMovies();
         getUserById(match.params.id).then(resp=>{setUser(resp[0])});
+        areFriends(match.params.id).then((resp)=>setStatus(resp))
       }, [match.params.id]);
     
       const getMovies = async () => {
@@ -50,7 +41,35 @@ function Profile({match}) {
     
       const url = "movie/";
 
+    function showUserButtons(){
 
+        if(status=="friend"){
+            console.log("if "+console.log(status));
+            return(
+                <div className="user-buttons">
+                    <button className="user-button" ><img src={Envelope} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                </div>
+            )
+        }
+        else if(status=="notFriend"){
+            console.log("if "+console.log(status));
+            return(
+                <div className="user-buttons">
+                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                </div>
+            )
+        }else{
+            console.log("if "+console.log(status));
+            return(
+            <div className="user-buttons">
+                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+            </div>
+            )
+        }
+    
+    }
 
     return(
         <section className="container">
@@ -63,11 +82,7 @@ function Profile({match}) {
                         <div className="prof-user-name" >{user.nickname}</div>
                         <div className="prof-user-email" >{user.email}</div>
                     </div>
-                    <div className="user-buttons">
-                        <button className="user-button" onClick={()=>{addFriend(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
-                        <button className="user-button" onClick={()=>{areFriends(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Envelope} className="user-button-img" alt="button"/></button>
-                        <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
-                    </div>
+                    {showUserButtons()}
                 </div>
             </div>
             

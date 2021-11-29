@@ -24,8 +24,20 @@ export async function removeFriend(receiver_id) {
     }).then(console.log("deleted"));  
 }
 
-export async function addFriend(receiver_id){
-    await friendsApi.post('/add',{
+export async function sendInvitation(receiver_id){
+    await friendsApi.post('/sendRequest',{
         receiver_id: receiver_id
+    }).then((resp)=>{return resp.status})
+}
+
+export async function acceptInvitation(sender_id){
+    await friendsApi.post('/acceptFriendRequest',{
+        sender_id: sender_id
+    }).then((resp)=>{return(resp.status)})
+}
+
+export async function declineInvitation(sender_id){
+    await friendsApi.post('/declineFriendRequest',{
+        sender_id: sender_id
     }).then((resp)=>{return resp.status})
 }
