@@ -16,6 +16,8 @@ const sendFriendRequest = async(req,res) =>{
             pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
             [user.user_id,req.body.receiver_id],(err,results)=>{
                
+            if(err) throw err;
+
             if(results.rows.length>0) res.status(400).send('Invitation was already sent!');
             else
                 pool.query('INSERT INTO friends (friend_one_id,friend_two_id, is_accepted) ' +
@@ -44,7 +46,7 @@ const acceptFriendRequest = async(req,res) =>{
            
         if(results.rows.length==0) res.status(400).send('Invitation does not exist!');
         else
-            pool.query('UPDATE friends SET is_accepted=true' +
+            pool.query('UPDATE friends SET is_accepted=true ' +
             'WHERE friend_one_id=$1 AND friend_two_id=$2',[req.body.sender_id,user.user_id],(err,results)=>{ 
 
                 if(err) throw err;
@@ -65,13 +67,15 @@ const declineFriendRequest = async(req,res) =>{
         res.status(400).send('Wrong request'); 
 
         try{
-            pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+            pool.query('SELECT * FROM friends WHERE (friend_two_id=$1 AND friend_one_id=$2)',
             [user.user_id,req.body.sender_id],(err,results)=>{
                
+            if(err) throw err;
+            
             if(results.rows.length>0) 
-                pool.query('DELETE FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
+                pool.query('DELETE FROM friends WHERE (friend_two_id=$1 AND friend_one_id=$2)',
                 [user.user_id,req.body.sender_id],(err,results)=>{
-                    res.send(200).send('Invitation declined');
+                    res.status(200).send('Invitation declined');
             })
             else res.status(400).send('No invitation to decline');
               
