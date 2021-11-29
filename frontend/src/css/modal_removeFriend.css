@@ -1,0 +1,13 @@
+.modal-remove-friend {
+    z-index: 3;
+    width: 400px;
+    height: 200px;
+    background: linear-gradient(180deg, rgba(198,132,191,0.7) 0%, rgba(145,176,189,0.7) 100%);
+    border-radius: 5px;
+    margin: auto;
+    position: absolute;
+    animation: animate 1s;
+    top: 40%;
+    left: 40%;
+    
+  }

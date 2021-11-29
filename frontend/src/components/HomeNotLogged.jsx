@@ -24,8 +24,8 @@ function Home() {
     // Optional parameters
     slidesPerView: 6,
     loop: true,
+    slidesPerGroup: 2,
     freeMode: true,
-    loopAdditionalSlides: 5,
     speed: 500,
   
     // Navigation arrows
@@ -66,15 +66,13 @@ function Home() {
                   {movies.map(movie => (
                     <div class="swiper-slide">
                       <a key={movie.movie_id}>
-                        <Link to={url + `${movie.movie_id}`}>
                           <div className="movie-item">
                             <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="movie-cover" alt={movie.title} key={movie.movie_id}/>
                             <div class="image-overlay">
                               <div class="movie-title-overlay">{movie.title}
                               </div>
                             </div>
-                        </div> 
-                        </Link>
+                        </div>    
                         </a>
                         </div>
                     ))} 

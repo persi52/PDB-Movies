@@ -47,7 +47,6 @@ const PieChart = () => {
                     datalabels: {
                         color: 'rgba(255,255,255,0.6',
                         formatter: (value, context) => {
-                            console.log(context);
                             return context.chart.data.labels[context.dataIndex];
                         },
                         font: {

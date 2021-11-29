@@ -10,3 +10,5 @@ export { default as HomeNotLogged } from "./HomeNotLogged";
 export { default as UserPage } from "./UserPage";
 export { default as Profile } from "./Profile";
 export { default as Favourites } from "./Favourites";
+export { default as NoAccess } from "./NoAccess";
+export { default as RegistrationConfirmation } from "./RegistrationConfirmation";
