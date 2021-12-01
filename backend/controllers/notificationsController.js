@@ -4,12 +4,12 @@ const router = express.Router();
 const pool = require('../models/db');
 
 const getUserNotifications = async(req,res) =>{
-<<<<<<< HEAD
+
   const user_id = req.user.user_id;  
 
-=======
+
   const user_id = req.user.user_id;
->>>>>>> 22e2d8cf2fd9cbada7a260d6ad25c2d8f1fe6484
+
   try{
     pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[user_id],
     (err,results)=>{
@@ -31,7 +31,6 @@ const getUserNotifications = async(req,res) =>{
       
 }
 
-<<<<<<< HEAD
 async function sortNotifications(notifications){ 
 
   let sortedNotifications = [];
@@ -83,12 +82,9 @@ async function sortNotifications(notifications){
 }
 
 
-const sendNotification = async(req,res) =>{
-  //const user = req.user;
-=======
-const sendNotification = async(body) =>{
+const sendNotification = async(body) =>
   //console.log(body);
->>>>>>> 22e2d8cf2fd9cbada7a260d6ad25c2d8f1fe6484
+
 
   try{
     pool.query('INSERT INTO notifications (type,movie_id,sender_id,receiver_id) ' +
