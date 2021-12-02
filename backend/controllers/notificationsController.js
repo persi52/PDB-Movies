@@ -7,9 +7,6 @@ const getUserNotifications = async(req,res) =>{
 
   const user_id = req.user.user_id;  
 
-
-  const user_id = req.user.user_id;
-
   try{
     pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[user_id],
     (err,results)=>{
@@ -82,7 +79,7 @@ async function sortNotifications(notifications){
 }
 
 
-const sendNotification = async(body) =>
+const sendNotification = async(body) =>{
   //console.log(body);
 
 
