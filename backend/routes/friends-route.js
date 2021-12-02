@@ -5,7 +5,7 @@ const friendsController = require('../controllers/friendsController');
 const verifyToken = require("../controllers/verifyToken");
 
 
-router.post('/sendRequest',verifyToken,friendsController.sendFriendRequest);
+router.post('/sendRequest',friendsController.sendFriendRequest);
 router.post('/declineFriendRequest',verifyToken,friendsController.declineFriendRequest);
 router.post('/acceptFriendRequest',verifyToken,friendsController.acceptFriendRequest);
 router.post('/remove',verifyToken,friendsController.removeFriend);

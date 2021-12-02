@@ -7,15 +7,15 @@ const pool = require('../models/db');
 
 
 const getUserNotifications = async(req,res) =>{
-  //const user = req.user;
+  const user_id = req.user.user_id;
 
   try{
-    pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[1],
+    pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[user_id],
     (err,results)=>{
         if(results.rows.length>0)
         res.status(200).send(results.rows);
         else res.status(200).send('No nofifications');
-       // console.log(results);
+      
     })
     }catch(err){
     console.log(err);
@@ -24,7 +24,7 @@ const getUserNotifications = async(req,res) =>{
 }
 
 const sendNotification = async(body) =>{
-  //console.log(body);
+  //npmconsole.log(body);
 
   try{
     pool.query('INSERT INTO notifications (type,movie_id,sender_id,receiver_id) ' +
