@@ -9,12 +9,15 @@ import Heart from "../icons/heart.png"
 import Users from "../icons/users.png"
 import {FaPercent} from "react-icons/fa"
 import UserRemove from "../icons/user-remove.png"
+import UserAdd from "../icons/user-add.png"
+import UserAccept from "../icons/user-accept.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
+import { Modal } from './Modal_removeFriend'
 import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
 
 const api = axios.create({
@@ -27,6 +30,11 @@ function Profile({match}) {
       const [user, setUser] = useState([]);
       const [movies, setMovies] = useState([]);
       const [status, setStatus] = useState([]);
+      const [showModal, setShowModal] = useState(false);
+   
+    const openModal = () => {
+        setShowModal(true);
+    };
 
       useEffect(() =>{
         getMovies();
@@ -48,7 +56,9 @@ function Profile({match}) {
             return(
                 <div className="user-buttons">
                     <button className="user-button" ><img src={Envelope} className="user-button-img" alt="button"/></button>
-                    <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={openModal}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                    {showModal ? <Modal setShowModal={setShowModal} user_id={user.user_id} /> : null}
+                    {/* <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button> */}
                 </div>
             )
         }
@@ -63,7 +73,7 @@ function Profile({match}) {
             console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
-                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={UserAccept} className="user-button-img" alt="button"/></button>
                 <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
             </div>
             )

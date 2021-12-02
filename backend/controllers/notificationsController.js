@@ -5,9 +5,6 @@ const pool = require('../models/db');
 
 const getUserNotifications = async(req,res) =>{
 
-  const user_id = req.user.user_id;  
-
-
   const user_id = req.user.user_id;
 
   try{
@@ -82,7 +79,7 @@ async function sortNotifications(notifications){
 }
 
 
-const sendNotification = async(body) =>
+const sendNotification = async(body) =>{
   //console.log(body);
 
 

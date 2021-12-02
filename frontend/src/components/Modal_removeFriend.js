@@ -17,7 +17,7 @@ export const Modal = ({ setShowModal, user_id}) => {
   function removeFromFriends(user_id){
     friendsApi.removeFriend(user_id);
     setShowModal(false);
-    alert.show("Usunięto znajomego")
+    alert.show("Usunięto znajomego");
     window.location.reload(false);
 }
   
