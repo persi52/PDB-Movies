@@ -104,7 +104,7 @@ const addToFavourites = async(req,res) => {
     const movie_id = req.body.movie_id 
 
     try{
-        pool.query('INSERT INTO favouriteMovies (user_id,movie_id) VALUES ($1,$2)',[user_id,movie_id],
+        pool.query('INSERT INTO favourite_movies (user_id,movie_id) VALUES ($1,$2)',[user_id,movie_id],
         (err,results)=>{
             if(err) throw err;
             else res.status(200).send('Movie added to favourites');          
@@ -117,18 +117,19 @@ const addToFavourites = async(req,res) => {
 const getUserFavourites = async(req,res) => {
     const user_id = req.user.user_id;
     try{
-        pool.query('SELECT movie_id,title, year_of_production, thumbnail FROM movies WHERE user_id=$1',[user_id],
+        pool.query('SELECT m.movie_id,m.title, m.year_of_production, m.thumbnail FROM movies m ' +
+        'INNER JOIN favourite_movies f ON f.movie_id=m.movie_id WHERE f.user_id=$1',[user_id],
         (err,results)=>{
             if(err) throw err;
 
-            if(results.rowCount>0) res.status(200).send(results.rows);   
+            if(results.rowCount>0) res.status(200).send(results.rows);
             else res.status(200).send('No favourite movies')
-                   
+
         })
     }catch(err){
         console.log(err);
-    }  
-} 
+    }
+}
 
 
 module.exports = {
