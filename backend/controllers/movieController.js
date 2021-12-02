@@ -66,7 +66,7 @@ const getRatedMovies = async(req,res) =>{
     const user_id = req.user.user_id;
     
     try{
-        pool.query('SELECT rate, movie_id FROM ratings WHERE user_id=$1',[user_id],
+        pool.query('SELECT rate, movie_id FROM ratings WHERE user_id=$1 ORDER BY rate DESC',[user_id],
         (err,results)=>{
             if(err) throw err;
 
@@ -99,10 +99,50 @@ async function assignRatesToMovies(rates){
     return ratedMovies;
 }
 
+<<<<<<< HEAD
+=======
+const addToFavourites = async(req,res) => {
+    const user_id = req.user.user_id;
+    const movie_id = req.body.movie_id 
+
+    try{
+        pool.query('INSERT INTO favouriteMovies (user_id,movie_id) VALUES ($1,$2)',[user_id,movie_id],
+        (err,results)=>{
+            if(err) throw err;
+            else res.status(200).send('Movie added to favourites');          
+        })
+    }catch(err){
+        console.log(err);
+    }  
+} 
+
+const getUserFavourites = async(req,res) => {
+    const user_id = req.user.user_id;
+    try{
+        pool.query('SELECT movie_id,title, year_of_production, thumbnail FROM movies WHERE user_id=$1',[user_id],
+        (err,results)=>{
+            if(err) throw err;
+
+            if(results.rowCount>0) res.status(200).send(results.rows);   
+            else res.status(200).send('No favourite movies')
+                   
+        })
+    }catch(err){
+        console.log(err);
+    }  
+} 
+
+
+>>>>>>> 318d66aa6164422878f87152e22d00f7573322a3
 module.exports = {
     getMovies,
     getMoviesByGenre,
     getMovieById,
     getRatedMovies,
+<<<<<<< HEAD
+=======
+    getUserFavourites,
+    addToFavourites,
+>>>>>>> 318d66aa6164422878f87152e22d00f7573322a3
     getGenres
 }

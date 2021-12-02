@@ -250,3 +250,41 @@ TABLESPACE pg_default;
 
 ALTER TABLE public."friends"
     OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public."favouriteMovies"
+(
+    movie_id integer NOT NULL,
+    user_id integer NOT NULL,
+    CONSTRAINT movie_id FOREIGN KEY (movie_id)
+        REFERENCES public.movies (movie_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID,
+    CONSTRAINT user_id FOREIGN KEY (movie_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+);
+
+ALTER TABLE public."favouriteMovies"
+    OWNER to postgres;
+
+    CREATE TABLE IF NOT EXISTS public."moviesToWatch"
+(
+    movie_id integer NOT NULL,
+    user_id integer NOT NULL,
+    CONSTRAINT movie_id FOREIGN KEY (movie_id)
+        REFERENCES public.movies (movie_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID,
+    CONSTRAINT user_id FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+);
+
+ALTER TABLE public."moviesToWatch"
+    OWNER to postgres;

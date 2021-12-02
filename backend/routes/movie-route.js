@@ -8,5 +8,7 @@ router.get('/get/:movie_id',movieController.getMovieById);
 router.get('/get_all/genres/:genre_id',movieController.getMoviesByGenre);
 router.get('/genres/get_all',movieController.getGenres);
 router.get('/getRated',verifyToken,movieController.getRatedMovies);
+router.post('/add/favourites',verifyToken,movieController.addToFavourites);
+router.get('/get/favourites',verifyToken,movieController.getUserFavourites);
 
 module.exports = router;
