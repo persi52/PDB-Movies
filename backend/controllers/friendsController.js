@@ -7,6 +7,7 @@ const verifyToken = require("./verifyToken");
 const {sendNotification} = require("../controllers/notificationsController.js")
 
 const sendFriendRequest = async(req,res) =>{
+
     const user_id = req.user.user_id;
     const receiver_id = req.body.receiver_id;
 

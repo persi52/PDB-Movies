@@ -6,7 +6,7 @@ const movieApi = axios.create({
   })
 
 export async function getMovieById(movie_id){      
-      let data = await movieApi.get('/get/'+movie_id).then(({data}) => data);
+      let data = await movieApi.get('/getMovie/'+movie_id).then(({data}) => data);
       return data;
 }
 
@@ -24,5 +24,15 @@ export async function getMoviesByGenre(genre_id){
 
 export async function getRatedMovies(){
   let data = await movieApi.get('getRated/').then(({data})=>data);
+  return data;
+}
+
+export async function getFavouritesMovies(){
+  let data = await movieApi.get('get/favourites').then(({data})=>data);
+  return data;
+}
+
+export async function addToFavourites(movie_id) {
+  let data = await movieApi.post('add/favourites',{movie_id: movie_id}).then(({data})=>data);
   return data;
 }
