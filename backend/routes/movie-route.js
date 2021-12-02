@@ -10,5 +10,9 @@ router.get('/genres/get_all',movieController.getGenres);
 router.get('/getRated',verifyToken,movieController.getRatedMovies);
 router.post('/add/favourites',verifyToken,movieController.addToFavourites);
 router.get('/get/favourites',verifyToken,movieController.getUserFavourites);
+router.post('/remove/favourites',verifyToken,movieController.removeFromFavourites);
+// router.post('add/toWatch',verifyToken,movieController.addToWatch);
+// router.get('/get/toWatch',verifyToken,movieController.getToWatch);
+// router.post('/remove/toWatch',verifyToken,movieController.removeFromToWatch);
 
 module.exports = router;

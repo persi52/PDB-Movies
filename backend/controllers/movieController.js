@@ -101,19 +101,27 @@ async function assignRatesToMovies(rates){
 
 const addToFavourites = async(req,res) => {
     const user_id = req.user.user_id;
-    const movie_id = req.body.movie_id 
+    const movie_id = req.body.movie_id; 
+
+
 
     try{
         pool.query('INSERT INTO favouriteMovies (user_id,movie_id) VALUES ($1,$2)',[user_id,movie_id],
         (err,results)=>{
             if(err) throw err;
-            else res.status(200).send('Movie added to favourites');          
+
+            if(results.rowCount>0) res.status(400).send('Movie is already in favourites!');
+            else 
+                pool.query('INSERT INTO favouriteMovies (user_id,movie_id) VALUES ($1,$2)',[user_id,movie_id],
+                (err,results)=>{
+                    if(err) throw err;
+                    else res.status(200).send('Movie added to favourites'); 
+                })      
         })
     }catch(err){
         console.log(err);
     }  
 } 
-
 const getUserFavourites = async(req,res) => {
     const user_id = req.user.user_id;
     try{
@@ -130,6 +138,22 @@ const getUserFavourites = async(req,res) => {
     }  
 } 
 
+const removeFromFavourites = async(req,res) => {
+    const user_id = req.user.user_id;
+    const movie_id = req.body.movie_id;
+    try{
+        pool.query('DELETE FROM movies WHERE user_id=$1 AND movie_id=$2',[user_id,movie_id],
+        (err,results)=>{
+
+            if(err) throw err;
+            else res.status(200).send('Movie succesfully deleted from favourites')
+                   
+        })
+    }catch(err){
+        console.log(err);
+    }  
+} 
+
 
 module.exports = {
     getMovies,
@@ -138,5 +162,6 @@ module.exports = {
     getRatedMovies,
     getUserFavourites,
     addToFavourites,
+    removeFromFavourites,
     getGenres
 }
