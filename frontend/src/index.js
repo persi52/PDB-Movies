@@ -6,7 +6,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-basic'
-import { FaBluetooth } from 'react-icons/fa';
 
 const options = {
   position: positions.TOP_RIGHT,

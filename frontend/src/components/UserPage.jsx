@@ -43,10 +43,13 @@ function UserPage({match}) {
         if(friends!="You got no friends che che"){
             return(friends.map(friend => (
                 <div key={friend.user_id} className="friends-list-item">
-                    <div className="friend-avatar">
-                        <img className="friend-avatar-img" src={User2}/>
+                    <div className="friend-list-data">
+                        <div className="friend-avatar">
+                            <img className="friend-avatar-img" src={User2}/>
+                        </div>
+                        <div className="friend-name">{friend.nickname}</div>
                     </div>
-                    <div className="friend-name">{friend.nickname}</div>
+                    
                     <div className="friends-list-buttons">
                         <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
                         <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"

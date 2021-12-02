@@ -111,15 +111,19 @@ h2 {
     cursor: pointer;
 }
 
+.friend-list-data {
+    display: flex;
+    align-items: center;
+}
+
 .friend-avatar-img {
     height: 42px;
     width: 42px;
 }
 
 .friend-name {
-    position: relative;
-    right: 50px;
     font-weight: 300;
+    margin-left: 20px;
 }
 
 .friends-list::-webkit-scrollbar {
