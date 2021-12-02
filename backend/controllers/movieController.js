@@ -159,7 +159,7 @@ const addToWatch = async(req,res) =>{
     const movie_id = req.body.movie_id; 
 
     try{
-        pool.query('SELECT * FROM movies_to_watch WHERE user_id=$1 AND movie_id=$2)',[user_id,movie_id],
+        pool.query('SELECT * FROM movies_to_watch WHERE user_id=$1 AND movie_id=$2',[user_id,movie_id],
         (err,results)=>{
             if(err) throw err;
 
