@@ -10,7 +10,7 @@ const sendFriendRequest = async(req,res) =>{
     const user_id = req.user.user_id;
     const receiver_id = req.body.receiver_id;
 
-    if(receiver_id == user.user_id)
+    if(receiver_id == user_id)
         res.status(400).send('Wrong request'); 
 
         try{
@@ -42,16 +42,15 @@ const sendFriendRequest = async(req,res) =>{
 
 const acceptFriendRequest = async(req,res) =>{
       const user = req.user;
-
+    
     if(req.body.sender_id == user.user_id)
         res.status(400).send('Wrong request'); 
     
-
     try{
         pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2)',
         [req.body.sender_id,user.user_id],(err,results)=>{
            
-        if(results.rows.length==0) res.status(400).send('Invitation does not exist!');
+        if(results.rowCount==0) res.status(400).send('Invitation does not exist!');
         else
             pool.query('UPDATE friends SET is_accepted=true ' +
             'WHERE friend_one_id=$1 AND friend_two_id=$2',[req.body.sender_id,user.user_id],(err,results)=>{ 
@@ -103,8 +102,7 @@ const removeFriend = async(req,res) =>{
         'WHERE (friend_one_id=$1 AND friend_two_id=$2) ' + 
         'OR (friend_one_id=$2 AND friend_two_id=$1)',[user.user_id,req.body.receiver_id],
         (err,results)=>{
-            
-            //console.log(req.body.receiver_id,user);
+        
            res.status(200).send('User deleted from friends succesfully');
     
         })
@@ -129,7 +127,7 @@ const getFriendStatus = async(req,res) =>{
                 'AND is_accepted=true',
                 [user.user_id,req.body.receiver_id],(err,results)=>{
                     
-                    if(results.rowCount==0) res.status(200).send('invitationWaiting');
+                    if(results.rowCount==0) res.status(200).send('invitationWaiting')
                     else res.status(200).send('friend');
                         
                 })              
@@ -154,11 +152,9 @@ const getFriendStatus = async(req,res) =>{
 //          INNER JOIN friends f ON (u.user_id=f.friend_two_id OR u.user_id = f.friend_one_id)
 //         WHERE (f.friend_one_id=7 OR f.friend_two_id=7) AND u.user_id<>7
         (err,results)=>{
-            console.log(results);
             if(results.rows.length>0)
             res.status(200).send(results.rows);
             else res.status(200).send('You got no friends che che');
-           // console.log(results);
         })
     }catch(err){
         console.log(err);
@@ -172,5 +168,6 @@ module.exports = {
     declineFriendRequest,
     removeFriend,
     getUserFriends,
-    sendFriendRequest
+    sendFriendRequest,
+    getFriendStatus
 }

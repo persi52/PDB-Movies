@@ -6,36 +6,33 @@ import Envelope from "../icons/envelope.png"
 import Stats from "../icons/stats.png"
 import Star from "../icons/star.png"
 import Heart from "../icons/heart.png"
+import Users from "../icons/users.png"
 import {FaPercent} from "react-icons/fa"
 import UserRemove from "../icons/user-remove.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
-import StarRating from './StarRating'
+import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
+import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
 
 const api = axios.create({
     baseURL: "http://localhost:5000/api/movies",
     withCredentials: true
   })
 
-function Profile() {
-
-    // const [user, setUser] = useState([]); 
+function Profile({match}) {
     
-    // useEffect(() =>{
-    // getUserById(match.params.id).then(resp=>{setUser(resp[0])});
-    // console.log(user);
-    // }, []); 
-
-
-    useEffect(() =>{
-        getMovies();
-      }, []);
-    
+      const [user, setUser] = useState([]);
       const [movies, setMovies] = useState([]);
-     
+      const [status, setStatus] = useState([]);
+
+      useEffect(() =>{
+        getMovies();
+        getUserById(match.params.id).then(resp=>{setUser(resp[0])});
+        areFriends(match.params.id).then((resp)=>setStatus(resp))
+      }, [match.params.id]);
     
       const getMovies = async () => {
         let data = await api.get('/get_all').then(({data})=> data);
@@ -44,7 +41,35 @@ function Profile() {
     
       const url = "movie/";
 
+    function showUserButtons(){
 
+        if(status=="friend"){
+            console.log("if "+console.log(status));
+            return(
+                <div className="user-buttons">
+                    <button className="user-button" ><img src={Envelope} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                </div>
+            )
+        }
+        else if(status=="notFriend"){
+            console.log("if "+console.log(status));
+            return(
+                <div className="user-buttons">
+                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                </div>
+            )
+        }else{
+            console.log("if "+console.log(status));
+            return(
+            <div className="user-buttons">
+                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+            </div>
+            )
+        }
+    
+    }
 
     return(
         <section className="container">
@@ -54,13 +79,10 @@ function Profile() {
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
-                        <div className="prof-user-name" >User nickname</div>
-                        <div className="prof-user-email" >User email</div>
+                        <div className="prof-user-name" >{user.nickname}</div>
+                        <div className="prof-user-email" >{user.email}</div>
                     </div>
-                    <div className="user-buttons">
-                        <button className="user-button"><img src={Envelope} className="user-button-img"/></button>
-                        <button className="user-button"><img src={UserRemove} className="user-button-img"/></button>
-                    </div>
+                    {showUserButtons()}
                 </div>
             </div>
             
@@ -98,7 +120,7 @@ function Profile() {
                                             <p className="fav-movie-title">{movie.title}</p>
                                             <p className="year-of-production">{movie.year_of_production}</p>
                                         </div>
-                                        <div className="rating"><StarRating/></div>
+                                        <div className="rating">{StarRatingStatic(movie.movie_id)}</div>
                                         </div> 
                                     </Link>
                                     </a>
