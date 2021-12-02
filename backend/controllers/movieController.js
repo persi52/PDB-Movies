@@ -99,8 +99,6 @@ async function assignRatesToMovies(rates){
     return ratedMovies;
 }
 
-<<<<<<< HEAD
-=======
 const addToFavourites = async(req,res) => {
     const user_id = req.user.user_id;
     const movie_id = req.body.movie_id 
@@ -133,16 +131,12 @@ const getUserFavourites = async(req,res) => {
 } 
 
 
->>>>>>> 318d66aa6164422878f87152e22d00f7573322a3
 module.exports = {
     getMovies,
     getMoviesByGenre,
     getMovieById,
     getRatedMovies,
-<<<<<<< HEAD
-=======
     getUserFavourites,
     addToFavourites,
->>>>>>> 318d66aa6164422878f87152e22d00f7573322a3
     getGenres
 }
