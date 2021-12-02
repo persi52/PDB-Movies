@@ -5,7 +5,7 @@ const pool = require('../models/db');
 
 const getUserNotifications = async(req,res) =>{
 
-  const user_id = req.user.user_id;  
+  const user_id = req.user.user_id;
 
   try{
     pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[user_id],

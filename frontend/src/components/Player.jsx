@@ -16,7 +16,10 @@ import eye from "../icons/eye.png"
 import following from "../icons/following.png"
 import axios from 'axios'
 import { Modal } from "./Modal_recommend";
-import StarRating from './StarRating'
+import { FaStar } from "react-icons/fa";
+import "../css/starrating.css"
+import { addRating, getUserRate } from '../routes/ratingRoute';
+
 
 const commentsApi = axios.create({
     baseURL: "http://localhost:5000/api/comments",
@@ -29,6 +32,8 @@ function Player({match}) {
     const [comments, setComments] = useState([]); 
     const [showModal, setShowModal] = useState(false);
     const [ratingAvg, setRatingAvg] = useState([]);
+    const [hover, setHover] = useState(null);
+    const [rating, setRating] = useState(null);
 
     const openModal = () => {
         setShowModal(true);
@@ -40,7 +45,47 @@ function Player({match}) {
         getRatingsByMovieId(match.params.id).then(resp=>{
             if(resp==='No rates'){setRatingAvg({averageRate: 'Brak ocen', ratesAmount: '1'})}
             else {setRatingAvg(resp)}})
+        getUserRate(match.params.id).then((resp)=>{setRating(resp)})
+        
     }, [match.params.id]);   
+
+    function StarRating(){
+        return (
+            <div>
+                {[...Array(5)].map((star, i) => {
+                    const ratingValue = i + 1;
+    
+                    return (
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="rating" 
+                                value={ratingValue} 
+                                onClick={() => {
+                                    setRating(ratingValue);
+                                    addRating(ratingValue,match.params.id);
+                                    getRatingsByMovieId(match.params.id).then(resp=>{setRatingAvg(resp)})
+                                }}
+                                />
+                                
+                            <FaStar  
+                                className="star" 
+                                color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9" } 
+                                size={25}
+                                onMouseEnter={() => {setHover(ratingValue);getRatingsByMovieId(match.params.id).then(resp=>{setRatingAvg(resp)})}}
+                                onMouseLeave={() => {setHover(null);getRatingsByMovieId(match.params.id).then(resp=>{setRatingAvg(resp)})}}
+                                />
+                                
+                        </label>
+                        
+                    );
+                   
+                })}
+                 
+            </div>
+        )
+    }
+
 
     const addComment = async () => {
         
@@ -91,7 +136,7 @@ function Player({match}) {
                     <h2 className="movie-title">{movie.title}</h2>
                     <div className="star-rating">
                         {StarRating(movie.movie_id)}
-                    ({ratingAvg.averageRate})
+                        ({ratingAvg.averageRate})
                     </div>
                     
                 </div>

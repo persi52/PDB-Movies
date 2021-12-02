@@ -50,7 +50,6 @@ export function getUserById(user_id){
     }).then(resp => {
       window.location.href="/confirmation";
   });
-  
   }
 
   export function recommend(receiver_id, movie_id){

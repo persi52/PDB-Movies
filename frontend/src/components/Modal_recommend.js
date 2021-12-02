@@ -25,13 +25,18 @@ export const Modal = ({ setShowModal, movieId }) => {
     <div className="container" ref={modalRef} onClick={closeModal}>
       <div className="modal">
           <h2 className="modal-header">Poleć film znajomym:</h2>
+          <div className="modal-list">
           {users.map(user => 
-            <h2 className="users-list-item" key={user.user_id}>{user.nickname}
-              <button className="" onClick={()=>{
+          <div className="user-list-item">
+            <h2 className="user-list-name" key={user.user_id}>{user.nickname}</h2>
+              <button onClick={()=>{
                 recommend(user.user_id,movieId);
                 alert.show("Polecono film!")}}>Poleć</button>
-            </h2>
+                </div>
+            
           )}
+          </div>
+          
           
       </div>
     </div>,

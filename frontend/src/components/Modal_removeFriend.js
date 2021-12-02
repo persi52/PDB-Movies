@@ -17,16 +17,18 @@ export const Modal = ({ setShowModal, user_id}) => {
   function removeFromFriends(user_id){
     friendsApi.removeFriend(user_id);
     setShowModal(false);
-    alert.show("Usunięto znajomego")
+    alert.show("Usunięto znajomego");
     window.location.reload(false);
 }
   
   return ReactDom.createPortal(
     <div className="container-remove-friend" ref={modalRef} onClick={closeModal}>
       <div className="modal-remove-friend">
-          <h2 className="modal-header">Na pewno chcesz usunąć znajomego?</h2>
-          <button onClick={()=>{removeFromFriends(user_id)}}>Usuń</button>
-          <button onClick={()=>{setShowModal(false)}}>Anuluj</button>
+          <h2 className="modal-header-rmv">Na pewno chcesz usunąć znajomego?</h2>
+          <div className="modal-buttons">
+            <button onClick={()=>{removeFromFriends(user_id)}}>Usuń</button>
+            <button onClick={()=>{setShowModal(false)}}>Anuluj</button>
+          </div>
           
       </div>
     </div>,

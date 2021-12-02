@@ -17,9 +17,9 @@
   "version": "1.0.0",
   "description": "inzynieris",
   "main": "app.js",
-  "scripts": {    
+  "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "Imaginaris",  
+  "author": "Imaginaris",
   "license": "ISC"
 }

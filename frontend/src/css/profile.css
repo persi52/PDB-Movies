@@ -48,14 +48,15 @@
 }
 
 .user-button-img {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
+    color: white;
 }
 
 .user-button {
     background-color: transparent;
     border: none;
-    padding: 1px;
+    padding-right: 2px;
     cursor: pointer;
 }
 
@@ -66,7 +67,7 @@
 
 .statistics-section {
     width: 90%;
-    margin: 40px auto;
+    margin: 40px 40px 40px 0;
     display: flex;
     justify-content:space-between;
 }
