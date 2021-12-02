@@ -288,3 +288,23 @@ ALTER TABLE public."favourite_movies"
 
 ALTER TABLE public."movies_to_watch"
     OWNER to postgres;
+
+    CREATE TABLE IF NOT EXISTS public.seen_movies
+(
+    movie_id integer NOT NULL,
+    user_id integer NOT NULL,
+    "finishedAt" timestamp without time zone,
+    CONSTRAINT user_id FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID,
+    CONSTRAINT movie_id FOREIGN KEY (movie_id)
+        REFERENCES public.movies (movie_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        NOT VALID
+);
+
+ALTER TABLE public.seen_movies
+    OWNER to postgres;
