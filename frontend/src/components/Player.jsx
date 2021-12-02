@@ -124,6 +124,18 @@ function Player({match}) {
             )))}
     }
 
+    function buttons(){
+        return(
+            <div className="movie-action-btn-box">
+            <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={heart} alt="heart"/></button>
+             <button className="btn movie-action-btn" onClick={openModal}><img className="movie-action-btn-img" src={following} alt="following"/></button>
+            {showModal ? <Modal setShowModal={setShowModal} movieId={movie.movie_id} /> : null}
+            <button className="btn movie-action-btn" ><img className="movie-action-btn-img" src={eye} alt="eye"/></button>
+            <button id='favourites' onClick={console.log("KLIK")}>klikaj</button>
+            </div>
+        )
+    }
+
     return (
         <div>
             <section className=" container">
@@ -140,14 +152,11 @@ function Player({match}) {
                     </div>
                     
                 </div>
-                <div className="movie-action-btn-box">
-                    <button className="btn movie-action-btn" onClick={addToFavourites(movie.movie_id)}><img className="movie-action-btn-img" src={heart} alt="heart"/></button>
-                    <button className="btn movie-action-btn" onClick={openModal}><img className="movie-action-btn-img" src={following} alt="following"/></button>
-                    {showModal ? <Modal setShowModal={setShowModal} movieId={movie.movie_id} /> : null}
-                    <button className="btn movie-action-btn"><img className="movie-action-btn-img" src={eye} alt="eye"/></button>
+                
+                    {buttons()}                    
     
-                </div>
-    
+                
+                
             </div>
         </div>
         
