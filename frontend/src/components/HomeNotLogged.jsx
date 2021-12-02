@@ -6,7 +6,6 @@ import '../css/home_notlogged.css'
 import React, { useState, useEffect } from 'react'
 import PhotoCollage from "../icons/kolaz.png"
 import { Swiper, Navigation} from 'swiper';
-import {Link} from 'react-router-dom'
 import { getMovies } from '../routes/movieRoutes'
 
 function Home() {
@@ -16,8 +15,6 @@ function Home() {
   }, []);
 
   const [movies, setMovies] = useState([]);
-
-  const url = "movie/";
 
   Swiper.use([Navigation]);
   const swiper = new Swiper('.swiper', {
@@ -65,7 +62,7 @@ function Home() {
                   <div class="swiper-wrapper">
                   {movies.map(movie => (
                     <div class="swiper-slide">
-                      <a key={movie.movie_id}>
+                      <a href="#" key={movie.movie_id}>
                           <div className="movie-item">
                             <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="movie-cover" alt={movie.title} key={movie.movie_id}/>
                             <div class="image-overlay">

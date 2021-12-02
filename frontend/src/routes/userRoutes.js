@@ -49,6 +49,7 @@ export function getUserById(user_id){
         repeatPassword: repeatpassword
     }).then(resp => {
       window.location.href="/confirmation";
+      return resp
   });
   }
 
