@@ -14,7 +14,6 @@ import {useEffect, useState} from 'react'
 import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
 import { Modal } from "./Modal_removeFriend";
-import { useAlert } from 'react-alert'
 
 
 
@@ -74,7 +73,7 @@ function UserPage({match}) {
                         <div className="user-email" id="user-email">{user.email}</div>
                     </div>
                     <div className="edit-user-info">
-                        <a href="/editprofile">
+                        <a href={`/editprofile/${user.user_id}`}>
                             <img src={Pencil} className="edit-user-info-image"/>
                         </a>
                     </div>

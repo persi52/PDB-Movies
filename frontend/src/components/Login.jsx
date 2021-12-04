@@ -58,7 +58,7 @@ export function Login() {
                         <input type="password" id="password" name="password" value={formValues.password} onChange={handleChange}/>
                         <p className="registration-error">{ formErrors.password }</p>
                     </div>
-                    <button id='login' className="submit-button" onClick={login}>Zaloguj</button>
+                    <button id='login' className="submit-button btn" onClick={login}>Zaloguj</button>
                 </form>
 
 

@@ -58,7 +58,6 @@ function Profile({match}) {
                     <button className="user-button" ><img src={Envelope} className="user-button-img" alt="button"/></button>
                     <button className="user-button" onClick={openModal}><img src={UserRemove} className="user-button-img" alt="button"/></button>
                     {showModal ? <Modal setShowModal={setShowModal} user_id={user.user_id} /> : null}
-                    {/* <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button> */}
                 </div>
             )
         }
