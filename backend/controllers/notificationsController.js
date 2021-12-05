@@ -1,5 +1,6 @@
 const express = require("express");
 const fs = require('fs');
+const { isRef } = require("joi");
 const router = express.Router();
 const pool = require('../models/db');
 
@@ -87,10 +88,12 @@ const sendNotification = async(body) =>{
 
   try{
     pool.query('INSERT INTO notifications (type,movie_id,sender_id,receiver_id) ' +
-    'values ($1, $2, $3, $4)',[req.body.type,req.body.movie_id,
-      7,req.body.receiver_id],
+    'values ($1, $2, $3, $4)',[body.type,body.movie_id,
+      body.sender_id,body.receiver_id],
     (err,results)=>{
-        res.status(200).send(results.rows);
+      
+        if(err) throw err;
+        else return true;
        // console.log(results);
     })
     }catch(err){
