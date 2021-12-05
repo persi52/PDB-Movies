@@ -6,7 +6,8 @@ const pool = require('../models/db');
 
 
 const getUserNotifications = async(req,res) =>{
-  const user_id = req.user.user_id;  
+
+  const user_id = req.user.user_id;
 
   try{
     pool.query('SELECT * FROM notifications WHERE receiver_id=$1 ORDER BY notification_id DESC',[user_id],
@@ -80,8 +81,9 @@ async function sortNotifications(notifications){
 }
 
 
-const sendNotification = async(req,res) =>{
-  //const user = req.user;
+const sendNotification = async(body) =>{
+  //console.log(body);
+
 
   try{
     pool.query('INSERT INTO notifications (type,movie_id,sender_id,receiver_id) ' +

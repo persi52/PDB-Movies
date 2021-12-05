@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
 import { FaStar } from "react-icons/fa";
 import "../css/starrating.css"
-import { getUserRate } from '../routes/ratingRoute';
 
 const StarRating = (userRate) => {
 

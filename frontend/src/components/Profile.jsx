@@ -9,12 +9,14 @@ import Heart from "../icons/heart.png"
 import Users from "../icons/users.png"
 import {FaPercent} from "react-icons/fa"
 import UserRemove from "../icons/user-remove.png"
+import UserAccept from "../icons/user-accept.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
+import { Modal } from './Modal_removeFriend'
 import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
 
 const api = axios.create({
@@ -23,10 +25,15 @@ const api = axios.create({
   })
 
 function Profile({match}) {
-    
+
       const [user, setUser] = useState([]);
       const [movies, setMovies] = useState([]);
       const [status, setStatus] = useState([]);
+      const [showModal, setShowModal] = useState(false);
+   
+    const openModal = () => {
+        setShowModal(true);
+    };
 
       useEffect(() =>{
         getMovies();
@@ -39,32 +46,39 @@ function Profile({match}) {
             setMovies(data);
       }
     
-      const url = "movie/";
+      const url = "/movie/";
 
     function showUserButtons(){
 
-        if(status=="friend"){
-            console.log("if "+console.log(status));
+        if(status==="friend"){
             return(
                 <div className="user-buttons">
                     <button className="user-button" ><img src={Envelope} className="user-button-img" alt="button"/></button>
-                    <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={openModal}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                    {showModal ? <Modal setShowModal={setShowModal} user_id={user.user_id} /> : null}
                 </div>
             )
         }
-        else if(status=="notFriend"){
+        else if(status==="notFriend"){
             console.log("if "+console.log(status));
             return(
                 <div className="user-buttons">
-                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{})}}><img src={Users} className="user-button-img" alt="button"/></button>
                 </div>
+            )
+        }else if(status==="invitationWaiting"){
+            console.log("if "+console.log(status));
+            return(
+            <div className="user-buttons">
+                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={UserAccept} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+            </div>
             )
         }else{
             console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
-                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
-                <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
             </div>
             )
         }
@@ -75,7 +89,7 @@ function Profile({match}) {
         <section className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={User} className="user-avatar-image"/>
+                    <img src={User} alt='user' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
@@ -89,7 +103,7 @@ function Profile({match}) {
             <div className="statistics-section">
             <div className="statistics-section-item stats-section">
                 <div className="header-section">
-                    <img src={Stats} className="stats-header-icon"/>
+                    <img src={Stats} alt='stats' className="stats-header-icon"/>
                     <h2>Statystyki obejrzanych filmów</h2>
                 </div>
                 <PieChart />
@@ -107,7 +121,7 @@ function Profile({match}) {
             <div className="favourites-section">
             <div className="fav-movies-section-box ">
                             <div className="section-header">
-                                <img src={Star} className="header-icon"/>
+                                <img src={Star} alt='star' className="header-icon"/>
                                 <h2>Ocenione filmy</h2>
                             </div>
                             <div className="fav-movie-list">
@@ -130,7 +144,7 @@ function Profile({match}) {
                         
                         <div className="fav-movies-section-box">
                             <div className="section-header">
-                                <img src={Heart} className="header-icon"></img>
+                                <img src={Heart} alt='heart' className="header-icon"></img>
                                 <h2>Ulubione filmy</h2>
                             </div>
                             <div className="fav-movie-list">

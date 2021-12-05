@@ -7,6 +7,7 @@ const verifyToken = require("./verifyToken");
 const {sendNotification} = require("../controllers/notificationsController.js")
 
 const sendFriendRequest = async(req,res) =>{
+
     const user_id = req.user.user_id;
     const receiver_id = req.body.receiver_id;
 
@@ -123,12 +124,22 @@ const getFriendStatus = async(req,res) =>{
 
             if(results.rowCount==0) res.status(200).send('notFriend');
             else {
-                pool.query('SELECT * FROM friends WHERE ((friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)) ' +
-                'AND is_accepted=true',
+                pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) ' +
+                'AND is_accepted=false',
                 [user.user_id,req.body.receiver_id],(err,results)=>{
                     
-                    if(results.rowCount==0) res.status(200).send('invitationWaiting')
-                    else res.status(200).send('friend');
+                    if(results.rowCount>0) res.status(200).send('invitationSent')
+                    else{
+                        pool.query('SELECT * FROM friends WHERE (friend_one_id=$2 AND friend_two_id=$1) ' +
+                        'AND is_accepted=false',
+                        [user.user_id,req.body.receiver_id],(err,results)=>{
+                            
+                            if(results.rowCount>0) res.status(200).send('invitationWaiting')
+                            else res.status(200).send('friend');                     
+
+                        }) 
+
+                    }
                         
                 })              
             } 

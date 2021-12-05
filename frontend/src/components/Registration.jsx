@@ -40,7 +40,7 @@ export function Registration() {
             errors.password = "Hasło musi zawierać co najmniej 8 znaków!";
         }
 
-        if (values.repeatpassword != values.password || !values.repeatpassword){
+        if (values.repeatpassword !== values.password || !values.repeatpassword){
             errors.repeatpassword = "Hasła muszą być takie same!";
         } 
 
@@ -78,7 +78,7 @@ export function Registration() {
                         <p className="registration-error">{ formErrors.repeatpassword }</p>
                     </div>    
                     
-                    <button type="submit" className="submit-button" onClick={signup}>Zarejestruj</button>
+                    <button type="submit" className="submit-button" onClick={()=>console.log(signup())}>Zarejestruj</button>
                     </form>
 
                 <div className="box-info">       

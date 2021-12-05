@@ -6,7 +6,7 @@ const movieApi = axios.create({
   })
 
 export async function getMovieById(movie_id){      
-      let data = await movieApi.get('/get/'+movie_id).then(({data}) => data);
+      let data = await movieApi.get('/getMovie/'+movie_id).then(({data}) => data);
       return data;
 }
 
@@ -19,5 +19,40 @@ export async function getMoviesByGenre(genre_id){
   let data = await movieApi.get('get_all/genres/'+genre_id).then(({data})=> data);
   //let data = await movieApi.get('get_all').then(({data})=> data);
   console.log(data);
+  return data;
+}
+
+export async function getRatedMovies(){
+  let data = await movieApi.get('getRated/').then(({data})=>data);
+  return data;
+}
+
+export async function getFavouritesMovies(){
+  let data = await movieApi.get('get/favourites').then(({data})=>data);
+  return data;
+}
+
+export async function addToFavourites(movie_id) {
+  let data = await movieApi.post('add/favourites',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function removeFromFavourites(movie_id) {
+  let data = await movieApi.post('remove/favourites',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function addToWatch(movie_id) {
+  let data = await movieApi.post('/add/toWatch',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function removeFromWatch(movie_id) {
+  let data = await movieApi.post('/remove/toWatch',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function getToWatchMovies(){
+  let data = await movieApi.get('/get/toWatch').then(({data})=>data);
   return data;
 }

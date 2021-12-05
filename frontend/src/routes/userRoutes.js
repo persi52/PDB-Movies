@@ -49,8 +49,8 @@ export function getUserById(user_id){
         repeatPassword: repeatpassword
     }).then(resp => {
       window.location.href="/confirmation";
+      return resp
   });
-  
   }
 
   export function recommend(receiver_id, movie_id){

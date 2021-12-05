@@ -16,14 +16,14 @@ Content-Type: application/json
     "password": "bokieeem1"   
 }
 ###
-GET http://localhost:5000/api/users/getUsers
+GET http://localhost:5000/api/movies/get_all
 ###
 POST http://localhost:5000/api/recommend
 Content-Type: application/json
 
 {    
-    "receiver_id": 3,
-    "movie_id": 2
+    "receiver_id": 8,
+    "movie_id": 10
 }
 
 ###
@@ -35,7 +35,7 @@ Content-Type: application/json
     "comment_content": "siema tutal kolezka"
 }
 ###
-POST http://localhost:5000/api/friends/add
+POST http://localhost:5000/api/friends/sendRequest
 Content-Type: application/json
 
 {    
