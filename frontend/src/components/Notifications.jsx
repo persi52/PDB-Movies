@@ -26,13 +26,25 @@ export function Notifications(){
         )))
       }
 
+      function accInv(sender_id,notification_id){
+        acceptInvitation(sender_id,notification_id);
+        getNotifications().then(resp=>{setNotifications(resp)});
+        window.location.reload(false);
+      }
+
+      function decInv(sender_id,notification_id){
+        declineInvitation(sender_id,notification_id);
+        getNotifications().then(resp=>{setNotifications(resp)});
+        window.location.reload(false);
+      }
+
     const showNotification = (notification) => {
         if(notification.type==='friendRequest') {
           return( 
             <div className="notification">
               <p>Zaproszenie do grona znajomych od uzytkownika&nbsp;<Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.nickname}</Link></p>
               {notification.sender_profile_picture}
-              <button className="notification-button btn" onClick={()=>acceptInvitation(notification.sender_id)}>Przyjmij</button>&nbsp;<button  className="notification-button btn" onClick={()=>declineInvitation(notification.sender_id)}>Odrzuć</button>
+              <button className="notification-button btn" onClick={()=>accInv(notification.sender_id,notification.notification_id)}>Przyjmij</button>&nbsp;<button  className="notification-button btn" onClick={()=>decInv(notification.sender_id,notification.notification_id)}>Odrzuć</button>
             </div>
              
           )}

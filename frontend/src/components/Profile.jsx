@@ -134,7 +134,7 @@ function Profile({match}) {
                         <p className="fav-movie-title">{movie.title}</p>
                         <p className="year-of-production">{movie.year_of_production}</p>
                     </div>
-                    <div className="rating">{StarRatingStatic(movie.movie_id)}</div>
+                    <div className="rating">{StarRatingStatic(movie.rate)}</div>
                     </div> 
                 </Link>
                 </a>
@@ -146,7 +146,7 @@ function Profile({match}) {
         <section className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={User} alt='user' className="user-avatar-image"/>
+                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='user' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
