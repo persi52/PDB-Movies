@@ -32,14 +32,16 @@ const getUserNotifications = async(req,res) =>{
 }
 
 const removeNotification = async(req,res) =>{
-  removeNotificationFunction(req.body);
+  const user_id = req.user.user_id;
+  const body = req.body;
+  body.sender_id = user_id; 
+  removeNotificationFunction(body);
 }
-
 
 async function sortNotifications(notifications){ 
 
   let sortedNotifications = [];
-
+  
   for(const notification of notifications){
 
     switch(notification.type){
@@ -48,7 +50,7 @@ async function sortNotifications(notifications){
       await pool.query('SELECT m.title, m.thumbnail, u.nickname, u.profile_picture ' + 
       'FROM movies m, users u ' + 
       'WHERE (movie_id=$1 AND user_id=$2)',[notification.movie_id,notification.sender_id])
-      .then( (data) =>{
+      .then( (data) =>{   
 
         return {
         notification_id : notification.notification_id,
@@ -58,35 +60,35 @@ async function sortNotifications(notifications){
         movie_thumbnail : data.rows[0].thumbnail, 
         sender_id : notification.sender_id,
         sender_nickname : data.rows[0].nickname,
-        sender_profile_picture : data.rows[0].profile_picture
+        sender_profile_picture : data.rows[0].profile_picture              
       }
     })
-     .then((data) => {sortedNotifications.push(data)});
-
+     .then((data) => {sortedNotifications.push(data)});     
+    
         break;
 
       case 'friendRequest' : 
       await pool.query('SELECT nickname, profile_picture FROM users WHERE user_id=$1',[notification.sender_id])
-      .then( (data) => {
+      .then( (data) => {  
  
       return {
        notification_id : notification.notification_id,
        type : 'friendRequest',
        sender_id : notification.sender_id,
        nickname : data.rows[0].nickname,
-       sender_profile_picture : data.rows[0].profile_picture
-
+       sender_profile_picture : data.rows[0].profile_picture                
+                       
       }
     })
     .then((data) => {sortedNotifications.push(data)});
 
         break;
     }
-
+    
   }
-  return sortedNotifications;
-
-
+  return sortedNotifications;   
+    
+  
 }
 
 const sendNotification = async(body) =>{
