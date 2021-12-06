@@ -39,7 +39,7 @@ function UserPage({match}) {
     }, []);
 
     function showFriends(){
-        if(friends!=="You got no friends che che"){
+        if(friends!=="You got no friends"){
             return(friends.map(friend => (
                 <div key={friend.user_id} className="friends-list-item">
                     <Link to={profileUrl + `${friend.user_id}`} style={{textDecoration:"none"}}><div className="friend-list-data">

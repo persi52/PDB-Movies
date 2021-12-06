@@ -4,7 +4,7 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 const verifyToken = require("./verifyToken");
-const {sendNotification} = require("../controllers/notificationsController.js")
+const {sendNotification,removeNotification} = require("../controllers/notificationsController.js")
 
 const sendFriendRequest = async(req,res) =>{
 
@@ -48,21 +48,28 @@ const sendFriendRequest = async(req,res) =>{
 
 const acceptFriendRequest = async(req,res) =>{
       const user = req.user;
+      const body = req.body;
     
     if(req.body.sender_id == user.user_id)
         res.status(400).send('Wrong request'); 
     
     try{
         pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2)',
-        [req.body.sender_id,user.user_id],(err,results)=>{
+        [body.sender_id,user.user_id],(err,results)=>{
            
         if(results.rowCount==0) res.status(400).send('Invitation does not exist!');
         else
             pool.query('UPDATE friends SET is_accepted=true ' +
-            'WHERE friend_one_id=$1 AND friend_two_id=$2',[req.body.sender_id,user.user_id],(err,results)=>{ 
+            'WHERE friend_one_id=$1 AND friend_two_id=$2',[body.sender_id,user.user_id],(err,results)=>{ 
 
                 if(err) throw err;
-                else res.status(200).send('Invitation accepted');                
+                else {
+                    removeNotification(body).then(data => {
+                        if(data) res.status(200).send('Invitation accepted');
+                        else res.status(500).send('Oops, something went wrong')   
+                    });
+                              
+                }
             })
     })
     }catch(err){
@@ -87,7 +94,13 @@ const declineFriendRequest = async(req,res) =>{
             if(results.rows.length>0) 
                 pool.query('DELETE FROM friends WHERE (friend_two_id=$1 AND friend_one_id=$2)',
                 [user.user_id,req.body.sender_id],(err,results)=>{
-                    res.status(200).send('Invitation declined');
+                    
+                    if(err) throw err;
+                    
+                    removeNotification(body).then(data => {
+                        if(data) res.status(200).send('Invitation declined');
+                        else res.status(500).send('Oops, something went wrong')   
+                    });
             })
             else res.status(400).send('No invitation to decline');
               
@@ -126,7 +139,6 @@ const getFriendStatus = async(req,res) =>{
     try{
         pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
         [user.user_id,req.body.receiver_id],(err,results)=>{
-
             if(results.rowCount==0) res.status(200).send('notFriend');
             else {
                 pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) ' +
@@ -168,9 +180,11 @@ const getFriendStatus = async(req,res) =>{
 //          INNER JOIN friends f ON (u.user_id=f.friend_two_id OR u.user_id = f.friend_one_id)
 //         WHERE (f.friend_one_id=7 OR f.friend_two_id=7) AND u.user_id<>7
         (err,results)=>{
-            if(results.rows.length>0)
-            res.status(200).send(results.rows);
-            else res.status(200).send('You got no friends che che');
+           
+                if(results.rows.length>0)
+                res.status(200).send(results.rows);
+                else res.status(200).send('You got no friends');
+            
         })
     }catch(err){
         console.log(err);

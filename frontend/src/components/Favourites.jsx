@@ -8,7 +8,7 @@ import Heart from "../icons/heart.png"
 import Eye from "../icons/eye.png"
 import {Link} from 'react-router-dom'
 import StarRatingStatic from './StarRatingStatic';
-import { getMovies, getRatedMovies, getFavouritesMovies, getToWatchMovies } from '../routes/movieRoutes';
+import { getRecommended, getMovies, getRatedMovies, getFavouritesMovies, getToWatchMovies, getRecommendedMovies } from '../routes/movieRoutes';
 
 function Favourites() {
 
@@ -18,12 +18,14 @@ function Favourites() {
     const [ratedMovies, setRatedMovies] = useState([]);
     const [favouritesMovies, setFavouritesMovies] = useState([]);
     const [toWatchMovies, setToWatchMovies] = useState([]);
+    const [recommendedMovies, setRecommendedMovies] = useState([]);
 
     useEffect(() =>{
         getMovies().then((resp)=>{setMovies(resp)});
         getRatedMovies().then(resp=>setRatedMovies(resp));
         getFavouritesMovies().then(resp=>setFavouritesMovies(resp));
         getToWatchMovies().then(resp=>setToWatchMovies(resp));
+        getRecommendedMovies().then(resp=>setRecommendedMovies(resp));
       }, []);
     
     function showRatedMovies(){
@@ -101,6 +103,31 @@ function Favourites() {
         )
     }
 
+    function showRecommendedMovies(){
+        if(recommendedMovies==='No recommended movies') {
+            return(
+            <div className="no-fav-movie-list">
+                <p>Nie masz jeszcze żadnego filmu w tej sekcji.</p>
+            </div>
+        )
+        }
+        return(
+            recommendedMovies.map(movie => (
+                <a key={movie.movie_id} className="fav-movie-item">
+                <Link to={url + `${movie.movie_id}`}>
+                    <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
+                    <div className="movie-item-section-right">
+                    <div className="fav-movie-info">
+                        <p className="fav-movie-title">{movie.title}</p>
+                        <p className="year-of-production">{movie.year_of_production}</p>
+                    </div>
+                    </div> 
+                </Link>
+                </a>
+             ))
+        )
+    }
+
     return (
 
             <section className="container">
@@ -139,19 +166,7 @@ function Favourites() {
                                 <h2>Polecone przez znajomych</h2>
                             </div>
                             <div className="fav-movie-list">
-                                {movies.map(movie => (
-                                    <a key={movie.movie_id} className="fav-movie-item">
-                                    <Link to={url + `${movie.movie_id}`}>
-                                        <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
-                                        <div className="movie-item-section-right">
-                                        <div className="fav-movie-info">
-                                            <p className="fav-movie-title">{movie.title}</p>
-                                            <p className="year-of-production">{movie.year_of_production}</p>
-                                        </div>
-                                        </div> 
-                                    </Link>
-                                    </a>
-                                 ))}  
+                                {showRecommendedMovies()}  
                             </div>
                         </div>
                         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {getMovieById, addToFavourites, removeFromFavourites, addToWatch, removeFromWatch} from '../routes/movieRoutes'
+import {getMovieById, addToFavourites, removeFromFavourites, addToWatch, removeFromWatch, isFavourite, isTooWatch} from '../routes/movieRoutes'
 import {getComments} from '../routes/commentRoute'
 import { getRatingsByMovieId } from '../routes/ratingRoute'
 import '../css/reset.css'
@@ -40,6 +40,8 @@ function Player({match}) {
     const [isFavoutite, setIsFavourite] = useState(false);
     const [isToWatch, setIsToWatch] = useState(false);
 
+
+
     const openModal = () => {
         setShowModal(true);
     };
@@ -50,7 +52,9 @@ function Player({match}) {
         getRatingsByMovieId(match.params.id).then(resp=>{
             if(resp==='No rates'){setRatingAvg({averageRate: 'Brak ocen', ratesAmount: '1'})}
             else {setRatingAvg(resp)}})
-        getUserRate(match.params.id).then((resp)=>{setRating(resp)})
+        getUserRate(match.params.id).then((resp)=>{setRating(resp)});
+        isFavourite(match.params.id).then(resp=>setIsFavourite(resp));
+        isTooWatch(match.params.id).then(resp=>setIsToWatch(resp));
         
     }, [match.params.id]);   
 
