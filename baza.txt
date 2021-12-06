@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS public."movies"
     "description" character varying(300) COLLATE pg_catalog."default" NOT NULL,
     "url" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "thumbnail" character varying(45) NOT NULL,
+	"genre_id" integer[] NOT NULL,
     CONSTRAINT "movies_pkey" PRIMARY KEY ("movie_id")
 )
 
@@ -234,8 +235,9 @@ ALTER TABLE public.movie_genre
 	
 CREATE TABLE IF NOT EXISTS public."friends"
 (
-    "friend_one" integer NOT NULL,
-    "friend_two" integer NOT NULL,
+    "friend_one_id" integer NOT NULL,
+    "friend_two_id" integer NOT NULL,
+is_accepted boolean NOT NULL DEFAULT false,
     CONSTRAINT "friends_friend_one_fkey" FOREIGN KEY ("friend_one")
         REFERENCES public."users" ("user_id") MATCH SIMPLE
         ON UPDATE NO ACTION
