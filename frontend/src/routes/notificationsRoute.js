@@ -7,5 +7,6 @@ const notificationsApi = axios.create({
 
 export async function getNotifications(){
     const data = await notificationsApi.get(`/get`).then(({data}) => data);    
+    console.log(data)
     return data;
 }

@@ -4,7 +4,7 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 const verifyToken = require("./verifyToken");
-const {sendNotification,removeNotification} = require("../controllers/notificationsController.js")
+const {sendNotification,removeNotificationFunction} = require("../controllers/notificationsController.js")
 
 const sendFriendRequest = async(req,res) =>{
 
@@ -64,7 +64,7 @@ const acceptFriendRequest = async(req,res) =>{
 
                 if(err) throw err;
                 else {
-                    removeNotification(body).then(data => {
+                    removeNotificationFunction(body).then(data => {
                         if(data) res.status(200).send('Invitation accepted');
                         else res.status(500).send('Oops, something went wrong')   
                     });
@@ -81,6 +81,7 @@ const acceptFriendRequest = async(req,res) =>{
 
 const declineFriendRequest = async(req,res) =>{
     const user = req.user;
+    const body = req.body;
 
     if(req.body.sender_id == user.user_id)
         res.status(400).send('Wrong request'); 
@@ -97,7 +98,7 @@ const declineFriendRequest = async(req,res) =>{
                     
                     if(err) throw err;
                     
-                    removeNotification(body).then(data => {
+                    removeNotificationFunction(body).then(data => {
                         if(data) res.status(200).send('Invitation declined');
                         else res.status(500).send('Oops, something went wrong')   
                     });

@@ -4,10 +4,11 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 const verifyToken = require("../controllers/verifyToken");
+const {getUsers} = require("../controllers/authController.js")
 
 //#region basicGetMovies
 const getMovies = async(req,res) =>{  
-  
+   
         try{      
        
             pool.query('SELECT * FROM movies',(err,results)=>{
@@ -78,6 +79,24 @@ const getRatedMovies = async(req,res) =>{
     }catch(err){
         console.log(err); 
     }   
+}
+
+const getFriendRated = async(req,res) => {
+    const user_id = req.params.user_id
+
+    try{
+        pool.query('SELECT r.rate,m.movie_id,m.title, m.year_of_production, m.thumbnail FROM movies m ' +  
+        'INNER JOIN ratings r ON r.movie_id=m.movie_id WHERE r.user_id=$1',[user_id],
+        (err,results)=>{
+            if(err) throw err;
+
+            if(results.rowCount>0) res.status(200).send(results.rows);   
+            else res.status(200).send('Your friend has no rated movies yet')
+                   
+        })
+    }catch(err){
+        console.log(err);
+    }  
 }
 
 const getRecommendedMovies = async(req,res) =>{
@@ -231,23 +250,7 @@ const getUserToWatch = async(req,res) =>{
     }  
 }
 
-const getFriendToWatch = async(req,res) => {
-    const user_id = req.params.user_id
 
-    try{
-        pool.query('SELECT m.movie_id,m.title, m.year_of_production, m.thumbnail FROM movies m ' +  
-        'INNER JOIN movies_to_watch mtw ON mtw.movie_id=m.movie_id WHERE mtw.user_id=$1',[user_id],
-        (err,results)=>{
-            if(err) throw err;
-
-            if(results.rowCount>0) res.status(200).send(results.rows);   
-            else res.status(200).send('Your friend has no ToWatch movies yet')
-                   
-        })
-    }catch(err){
-        console.log(err);
-    }  
-}
 
 const removeFromToWatch = async(req,res) => {
     const user_id = req.user.user_id;
@@ -307,7 +310,7 @@ module.exports = {
     removeFromToWatch,
     addToWatch,
     getUserToWatch,
-    getFriendToWatch,
+    getFriendRated,
     isMovieInToWatch,
     getGenres
 }
