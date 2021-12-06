@@ -31,6 +31,11 @@ const getUserNotifications = async(req,res) =>{
       
 }
 
+const removeNotification = async(req,res) =>{
+  removeNotificationFunction(req.body);
+}
+
+
 async function sortNotifications(notifications){ 
 
   let sortedNotifications = [];
@@ -84,7 +89,6 @@ async function sortNotifications(notifications){
 
 }
 
-
 const sendNotification = async(body) =>{
   //console.log(body);
 
@@ -104,9 +108,44 @@ const sendNotification = async(body) =>{
     }
 }
 
+const removeNotificationFunction = async(body) =>{
+    //console.log(body);
+  const notification_id = body.notification_id;
+
+  if(notification_id){
+      try{
+        pool.query('DELETE FROM notifications WHERE notification_id=$1',[notification_id],
+          
+        (err,results)=>{
+          
+            if(err) throw err;
+            else return true;          
+        })
+        }catch(err){
+        console.log(err);
+        }
+      } 
+      else {
+        try{
+          pool.query('DELETE FROM notifications WHERE sender_id=$1 AND receiver_id=$2 AND ' + 
+          'type=$3',[body.sender_id,body.receiver_id,body.type],
+            
+          (err,results)=>{
+            
+              if(err) throw err;
+              else return true;            
+          })
+          }catch(err){
+          console.log(err);
+          }
+      }
+}
+
 
 
 module.exports = {
     getUserNotifications,
-    sendNotification
+    sendNotification,
+    removeNotification,
+    removeNotificationFunction
 };
