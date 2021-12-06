@@ -6,7 +6,7 @@ const pool = require('../models/db');
 const verifyToken = require("../controllers/verifyToken");
 const {getUsers} = require("../controllers/authController.js")
 
-
+//#region basicGetMovies
 const getMovies = async(req,res) =>{  
    
         try{      
@@ -98,25 +98,9 @@ const getRecommendedMovies = async(req,res) =>{
     }  
 }
 
-// async function assignRatesToMovies(rates){
-//     const ratedMovies = []
-//     for(const rate of rates){
-      
-//         await pool.query('SELECT title, year_of_production, thumbnail FROM movies WHERE movie_id=$1',[rate.movie_id])
-//         .then((data) => {
-//             return {
-//                 title : data.rows[0].title,
-//                 year_of_production : data.rows[0].year_of_production,
-//                 thumbnail : data.rows[0].thumbnail,
-//                 rate : rate.rate,
-//                 movie_id : rate.movie_id
-//             }
-//         }).then(data => ratedMovies.push(data))
-//     }
+//#endregion basicGetMovies
 
-//     return ratedMovies;
-// }
-
+//#region Favourites
 const addToFavourites = async(req,res) => {
     const user_id = req.user.user_id;
     const movie_id = req.body.movie_id; 
@@ -139,7 +123,7 @@ const addToFavourites = async(req,res) => {
     }  
 } 
 const getUserFavourites = async(req,res) => {
-    const user_id = req.params.user_id;
+    const user_id = req.user.user_id;
     try{
         pool.query('SELECT m.movie_id,m.title, m.year_of_production, m.thumbnail FROM movies m ' +  
         'INNER JOIN favourite_movies f ON f.movie_id=m.movie_id WHERE f.user_id=$1',[user_id],
@@ -205,7 +189,9 @@ const isMovieInFavourites = async(req,res) => {
         console.log(err);
     }    
 }
+//#endregion Favourites
 
+//#region ToWatch
 const addToWatch = async(req,res) =>{
     const user_id = req.user.user_id;
     const movie_id = req.body.movie_id; 
@@ -296,10 +282,17 @@ const isMovieInToWatch = async(req,res) => {
         console.log(err);
     }    
 }
+//#endregion ToWatch
 
+//#region recommendationEngine
+const getChoosenForYouMovies = async(req,res) => {
+    
+}
 
+//#endregion recommendationEngine
 
-
+//#region movieSearch
+//#endregion movieSearch
 
 module.exports = {
     getMovies,
