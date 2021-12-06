@@ -1,7 +1,6 @@
 import React from 'react'
 import { Pie } from 'react-chartjs-2'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
-import { withRouter } from 'react-router'
 
 const PieChart = () => {
     return (

@@ -36,3 +36,48 @@ export async function addToFavourites(movie_id) {
   let data = await movieApi.post('add/favourites',{movie_id: movie_id}).then(({data})=>data);
   return data;
 }
+
+export async function removeFromFavourites(movie_id) {
+  let data = await movieApi.post('remove/favourites',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function addToWatch(movie_id) {
+  let data = await movieApi.post('/add/toWatch',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function removeFromWatch(movie_id) {
+  let data = await movieApi.post('/remove/toWatch',{movie_id: movie_id}).then(({data})=>data);
+  return data;
+}
+
+export async function getToWatchMovies(){
+  let data = await movieApi.get('/get/toWatch').then(({data})=>data);
+  return data;
+}
+
+export async function getRecommendedMovies(){
+  let data = await movieApi.get('/getRecommended').then(({data})=>data);
+  return data;
+}
+
+export async function isFavourite(movie_id){
+  let data = await movieApi.get('/is_favourite/'+movie_id).then(({data})=>data);
+  return data;
+}
+
+export async function isTooWatch(movie_id){
+  let data = await movieApi.get('/is_toWatch/'+movie_id).then(({data})=>data);
+  return data;
+}
+
+export async function getFriendFavourites(user_id){
+  let data = await movieApi.get('/get/favourites/'+user_id).then(({data})=>data);
+  return data;
+}
+
+export async function getFriendRated(user_id){
+  let data = await movieApi.get('/get/rated/'+user_id).then(({data})=>data);
+  return data;
+}

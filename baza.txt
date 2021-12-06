@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS public."movies"
     "description" character varying(300) COLLATE pg_catalog."default" NOT NULL,
     "url" character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "thumbnail" character varying(45) NOT NULL,
+	"genre_id" integer[] NOT NULL,
     CONSTRAINT "movies_pkey" PRIMARY KEY ("movie_id")
 )
 
@@ -234,8 +235,9 @@ ALTER TABLE public.movie_genre
 	
 CREATE TABLE IF NOT EXISTS public."friends"
 (
-    "friend_one" integer NOT NULL,
-    "friend_two" integer NOT NULL,
+    "friend_one_id" integer NOT NULL,
+    "friend_two_id" integer NOT NULL,
+is_accepted boolean NOT NULL DEFAULT false,
     CONSTRAINT "friends_friend_one_fkey" FOREIGN KEY ("friend_one")
         REFERENCES public."users" ("user_id") MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -289,22 +291,11 @@ ALTER TABLE public."favourite_movies"
 ALTER TABLE public."movies_to_watch"
     OWNER to postgres;
 
-    CREATE TABLE IF NOT EXISTS public.seen_movies
+CREATE TABLE public.photos
 (
-    movie_id integer NOT NULL,
-    user_id integer NOT NULL,
-    "finishedAt" timestamp without time zone,
-    CONSTRAINT user_id FOREIGN KEY (user_id)
-        REFERENCES public.users (user_id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        NOT VALID,
-    CONSTRAINT movie_id FOREIGN KEY (movie_id)
-        REFERENCES public.movies (movie_id) MATCH SIMPLE
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        NOT VALID
+    photo_id integer NOT NULL,
+    photo_path character varying(55) NOT NULL
 );
 
-ALTER TABLE public.seen_movies
+ALTER TABLE IF EXISTS public.photos
     OWNER to postgres;

@@ -9,7 +9,6 @@ import Heart from "../icons/heart.png"
 import Users from "../icons/users.png"
 import {FaPercent} from "react-icons/fa"
 import UserRemove from "../icons/user-remove.png"
-import UserAdd from "../icons/user-add.png"
 import UserAccept from "../icons/user-accept.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
@@ -19,6 +18,7 @@ import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
 import { Modal } from './Modal_removeFriend'
 import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
+import { getFriendFavourites, getFriendRated } from '../routes/movieRoutes'
 
 const api = axios.create({
     baseURL: "http://localhost:5000/api/movies",
@@ -26,9 +26,10 @@ const api = axios.create({
   })
 
 function Profile({match}) {
-    
+
       const [user, setUser] = useState([]);
-      const [movies, setMovies] = useState([]);
+      const [rated, setRated] = useState([]);
+      const [favourites, setFavourites] = useState([]);
       const [status, setStatus] = useState([]);
       const [showModal, setShowModal] = useState(false);
    
@@ -37,39 +38,33 @@ function Profile({match}) {
     };
 
       useEffect(() =>{
-        getMovies();
+        getFriendRated(match.params.id).then(resp=>setRated(resp));
+        getFriendFavourites(match.params.id).then(resp=>setFavourites(resp));
         getUserById(match.params.id).then(resp=>{setUser(resp[0])});
-        areFriends(match.params.id).then((resp)=>setStatus(resp))
+        areFriends(match.params.id).then((resp)=>setStatus(resp));
       }, [match.params.id]);
     
-      const getMovies = async () => {
-        let data = await api.get('/get_all').then(({data})=> data);
-            setMovies(data);
-      }
-    
-      const url = "movie/";
+      const url = "/movie/";
 
     function showUserButtons(){
 
-        if(status=="friend"){
-            console.log("if "+console.log(status));
+        if(status==="friend"){
             return(
                 <div className="user-buttons">
                     <button className="user-button" ><img src={Envelope} className="user-button-img" alt="button"/></button>
                     <button className="user-button" onClick={openModal}><img src={UserRemove} className="user-button-img" alt="button"/></button>
                     {showModal ? <Modal setShowModal={setShowModal} user_id={user.user_id} /> : null}
-                    {/* <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button> */}
                 </div>
             )
         }
-        else if(status=="notFriend"){
+        else if(status==="notFriend"){
             console.log("if "+console.log(status));
             return(
                 <div className="user-buttons">
-                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{})}}><img src={Users} className="user-button-img" alt="button"/></button>
                 </div>
             )
-        }else{
+        }else if(status==="invitationWaiting"){
             console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
@@ -77,15 +72,61 @@ function Profile({match}) {
                 <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
             </div>
             )
+        }else{
+            console.log("if "+console.log(status));
+            return(
+            <div className="user-buttons">
+                <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+            </div>
+            )
         }
     
+    }
+
+    function showFavourites(){
+        if(favourites==='Your friend has no favourite movies yet') return favourites
+        return(
+            favourites.map(movie => (
+                <a key={movie.movie_id} className="fav-movie-item">
+                <Link to={url + `${movie.movie_id}`}>
+                    <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
+                    <div className="movie-item-section-right">
+                    <div className="fav-movie-info">
+                        <p className="fav-movie-title">{movie.title}</p>
+                        <p className="year-of-production">{movie.year_of_production}</p>
+                    </div>
+                    </div> 
+                </Link>
+                </a>
+             ))
+        )
+    }
+
+    function showRated(){
+        if(rated==='Your friend has no rated movies yet') return rated
+        return(
+            rated.map(movie => (
+                <a key={movie.movie_id} className="fav-movie-item">
+                <Link to={url + `${movie.movie_id}`}>
+                    <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
+                    <div className="movie-item-section-right">
+                    <div className="fav-movie-info">
+                        <p className="fav-movie-title">{movie.title}</p>
+                        <p className="year-of-production">{movie.year_of_production}</p>
+                    </div>
+                    <div className="rating">{StarRatingStatic(movie.movie_id)}</div>
+                    </div> 
+                </Link>
+                </a>
+             ))
+        )
     }
 
     return(
         <section className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={User} className="user-avatar-image"/>
+                    <img src={User} alt='user' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
@@ -99,7 +140,7 @@ function Profile({match}) {
             <div className="statistics-section">
             <div className="statistics-section-item stats-section">
                 <div className="header-section">
-                    <img src={Stats} className="stats-header-icon"/>
+                    <img src={Stats} alt='stats' className="stats-header-icon"/>
                     <h2>Statystyki obejrzanych filmów</h2>
                 </div>
                 <PieChart />
@@ -117,46 +158,21 @@ function Profile({match}) {
             <div className="favourites-section">
             <div className="fav-movies-section-box ">
                             <div className="section-header">
-                                <img src={Star} className="header-icon"/>
+                                <img src={Star} alt='star' className="header-icon"/>
                                 <h2>Ocenione filmy</h2>
                             </div>
                             <div className="fav-movie-list">
-                                {movies.map(movie => (
-                                    <a key={movie.movie_id} className="fav-movie-item">
-                                    <Link to={url + `${movie.movie_id}`}>
-                                        <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
-                                        <div className="movie-item-section-right">
-                                        <div className="fav-movie-info">
-                                            <p className="fav-movie-title">{movie.title}</p>
-                                            <p className="year-of-production">{movie.year_of_production}</p>
-                                        </div>
-                                        <div className="rating">{StarRatingStatic(movie.movie_id)}</div>
-                                        </div> 
-                                    </Link>
-                                    </a>
-                                 ))}  
+                                {showRated()}  
                                 </div>
                             </div>
                         
                         <div className="fav-movies-section-box">
                             <div className="section-header">
-                                <img src={Heart} className="header-icon"></img>
+                                <img src={Heart} alt='heart' className="header-icon"></img>
                                 <h2>Ulubione filmy</h2>
                             </div>
                             <div className="fav-movie-list">
-                                {movies.map(movie => (
-                                    <a key={movie.movie_id} className="fav-movie-item">
-                                    <Link to={url + `${movie.movie_id}`}>
-                                        <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
-                                        <div className="movie-item-section-right">
-                                        <div className="fav-movie-info">
-                                            <p className="fav-movie-title">{movie.title}</p>
-                                            <p className="year-of-production">{movie.year_of_production}</p>
-                                        </div>
-                                        </div> 
-                                    </Link>
-                                    </a>
-                                 ))}  
+                                {showFavourites()}  
                             </div>
                         </div>
                 

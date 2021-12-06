@@ -14,9 +14,9 @@ import {useEffect, useState} from 'react'
 import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
 import { Modal } from "./Modal_removeFriend";
-import { useAlert } from 'react-alert'
+import {Link} from 'react-router-dom'
 
-
+const profileUrl = "/profile/";
 
 function UserPage({match}) {
 
@@ -36,29 +36,34 @@ function UserPage({match}) {
 
     useEffect(() =>{
         friendsApi.getFriends().then((resp)=>{setFriends(resp)});
-        console.log(friends);
     }, []);
 
     function showFriends(){
-        if(friends!="You got no friends che che"){
+        if(friends!=="You got no friends"){
             return(friends.map(friend => (
                 <div key={friend.user_id} className="friends-list-item">
-                    <div className="friend-list-data">
+                    <Link to={profileUrl + `${friend.user_id}`} style={{textDecoration:"none"}}><div className="friend-list-data">
                         <div className="friend-avatar">
-                            <img className="friend-avatar-img" src={User2}/>
+                            <img className="friend-avatar-img" alt='user' src={User2}/>
                         </div>
                         <div className="friend-name">{friend.nickname}</div>
-                    </div>
+                    </div></Link>
                     
                     <div className="friends-list-buttons">
-                        <button className="friends-list-button"><img src={Envelope} className="friends-list-button-img"/></button>
-                        <button className="friends-list-button"><img src={UserRemove} className="friends-list-button-img"
+                        <button className="friends-list-button"><img src={Envelope} alt='envelope' className="friends-list-button-img"/></button>
+                        <button className="friends-list-button"><img src={UserRemove} alt='userremove' className="friends-list-button-img"
                         onClick={openModal}/></button>
                         {showModal ? <Modal setShowModal={setShowModal} user_id={friend.user_id} /> : null}
                     </div>
                 </div>   
             
-            )))}
+            )))}else return(
+                <div className="no-friends-box">
+                    <div className="no-friends-info">
+                        Nie masz jeszcze żadnych znajomych.
+                    </div>
+                </div>
+            )
     }
 
     return(
@@ -66,7 +71,7 @@ function UserPage({match}) {
         <div className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={User} className="user-avatar-image"/>
+                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='avatar' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
@@ -74,7 +79,7 @@ function UserPage({match}) {
                         <div className="user-email" id="user-email">{user.email}</div>
                     </div>
                     <div className="edit-user-info">
-                        <a href="/editprofile">
+                        <a href={`/editprofile/${user.user_id}`}>
                             <img src={Pencil} className="edit-user-info-image"/>
                         </a>
                     </div>
@@ -84,7 +89,7 @@ function UserPage({match}) {
             <div className="friends-and-stats-section">
                 <div className="friends-section">
                     <div className="header-section">
-                        <img src={Users} className="header-icon"/>
+                        <img src={Users} alt='users' className="header-icon"/>
                         <h2>Lista znajomych</h2>
                     </div>
                     <div className="friends-list">                                                           

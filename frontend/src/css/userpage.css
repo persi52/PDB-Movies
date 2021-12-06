@@ -124,6 +124,12 @@ h2 {
 .friend-name {
     font-weight: 300;
     margin-left: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.friend-name link{
+    text-decoration: none;
 }
 
 .friends-list::-webkit-scrollbar {
@@ -142,4 +148,18 @@ h2 {
 
 .pie-chart {
     margin: 20px;
+}
+
+.no-friends-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-friends-info {
+    padding: 14px 12px;
+    background-color: rgba(61, 62, 71, 0.5);
+    border-radius: 10px;
 }
