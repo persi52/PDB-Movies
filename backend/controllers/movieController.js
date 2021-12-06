@@ -4,10 +4,11 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 const verifyToken = require("../controllers/verifyToken");
+const {getUsers} = require("../controllers/authController.js")
 
 //#region basicGetMovies
 const getMovies = async(req,res) =>{  
-  
+   
         try{      
        
             pool.query('SELECT * FROM movies',(err,results)=>{

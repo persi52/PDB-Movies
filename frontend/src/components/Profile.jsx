@@ -18,6 +18,7 @@ import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
 import { Modal } from './Modal_removeFriend'
 import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
+import { getFriendFavourites } from '../routes/movieRoutes'
 
 const api = axios.create({
     baseURL: "http://localhost:5000/api/movies",
@@ -28,6 +29,7 @@ function Profile({match}) {
 
       const [user, setUser] = useState([]);
       const [movies, setMovies] = useState([]);
+      const [favourites, setFavourites] = useState([]);
       const [status, setStatus] = useState([]);
       const [showModal, setShowModal] = useState(false);
    
@@ -37,6 +39,7 @@ function Profile({match}) {
 
       useEffect(() =>{
         getMovies();
+        getFriendFavourites(match.params.id).then(resp=>setFavourites(resp))
         getUserById(match.params.id).then(resp=>{setUser(resp[0])});
         areFriends(match.params.id).then((resp)=>setStatus(resp))
       }, [match.params.id]);
@@ -83,6 +86,25 @@ function Profile({match}) {
             )
         }
     
+    }
+
+    function showFavourites(){
+        if(favourites==='Your friend has no favourite movies yet') return favourites
+        return(
+            favourites.map(movie => (
+                <a key={movie.movie_id} className="fav-movie-item">
+                <Link to={url + `${movie.movie_id}`}>
+                    <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
+                    <div className="movie-item-section-right">
+                    <div className="fav-movie-info">
+                        <p className="fav-movie-title">{movie.title}</p>
+                        <p className="year-of-production">{movie.year_of_production}</p>
+                    </div>
+                    </div> 
+                </Link>
+                </a>
+             ))
+        )
     }
 
     return(
@@ -148,19 +170,7 @@ function Profile({match}) {
                                 <h2>Ulubione filmy</h2>
                             </div>
                             <div className="fav-movie-list">
-                                {movies.map(movie => (
-                                    <a key={movie.movie_id} className="fav-movie-item">
-                                    <Link to={url + `${movie.movie_id}`}>
-                                        <img src={`${process.env.PUBLIC_URL}/images/${movie.thumbnail}`} className="fav-movie-cover-img" alt={movie.title} key={movie.movie_id}/>
-                                        <div className="movie-item-section-right">
-                                        <div className="fav-movie-info">
-                                            <p className="fav-movie-title">{movie.title}</p>
-                                            <p className="year-of-production">{movie.year_of_production}</p>
-                                        </div>
-                                        </div> 
-                                    </Link>
-                                    </a>
-                                 ))}  
+                                {showFavourites()}  
                             </div>
                         </div>
                 
