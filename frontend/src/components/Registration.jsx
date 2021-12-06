@@ -47,6 +47,13 @@ export function Registration() {
         return errors;
     }
 
+    function checkStatus(){
+        signup().then(resp=>{
+            if(resp.status===422)console.log('Email juz uzyty')
+            else if(resp.status===200) window.location.href="/confirmation";
+        })
+    }
+
     return (
     <div>
 
@@ -78,7 +85,7 @@ export function Registration() {
                         <p className="registration-error">{ formErrors.repeatpassword }</p>
                     </div>    
                     
-                    <button type="submit" className="submit-button" onClick={()=>console.log(signup())}>Zarejestruj</button>
+                    <button type="submit" className="submit-button" onClick={()=>checkStatus()}>Zarejestruj</button>
                     </form>
 
                 <div className="box-info">       

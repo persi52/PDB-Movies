@@ -42,16 +42,15 @@ export function getUserById(user_id){
     const password = document.getElementById("password").value;
     const repeatpassword = document.getElementById("repeatpassword").value;
   
-    userApi.post('/signUp',{ 
+    let data = userApi.post('/signUp',{ 
         nickname: username,  
         email: email,
         password: password,
         repeatPassword: repeatpassword
-    }).then(resp => {
-      window.location.href="/confirmation";
-      return resp
-  });
+    }).then((data) =>data);
+    return data;
   }
+  
 
   export function recommend(receiver_id, movie_id){
     recommendApi.post('/',{ 
