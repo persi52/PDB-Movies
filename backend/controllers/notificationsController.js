@@ -19,7 +19,7 @@ const getUserNotifications = async(req,res) =>{
          sortNotifications(results.rows).then(data => res.status(200).send(data));       
          
         }
-        else res.status(200).send('No nofifications');
+        else res.status(200).send('No notifications');
 
        
        // console.log(results);
@@ -51,7 +51,7 @@ async function sortNotifications(notifications){
       .then( (data) =>{   
 
         return {
-        notification_id : notification.id,
+        notification_id : notification.notification_id,
         type : 'recommendation',
         movie_id : notification.movie_id,
         movie_title : data.rows[0].title,
@@ -70,7 +70,7 @@ async function sortNotifications(notifications){
       .then( (data) => {  
  
       return {
-       notification_id : notification.id,
+       notification_id : notification.notification_id,
        type : 'friendRequest',
        sender_id : notification.sender_id,
        nickname : data.rows[0].nickname,
