@@ -16,7 +16,7 @@ router.post('/remove/favourites',verifyToken,movieController.removeFromFavourite
 router.get('/is_favourite/:movie_id',verifyToken,movieController.isMovieInFavourites);
 router.post('/add/toWatch',verifyToken,movieController.addToWatch);
 router.get('/get/toWatch',verifyToken,movieController.getUserToWatch);
-router.get('/get/toWatch/:user_id',verifyToken,movieController.getFriendToWatch);
+router.get('/get/toWatch/:user_id',verifyToken,movieController.getFriendRated);
 router.post('/remove/toWatch',verifyToken,movieController.removeFromToWatch);
 router.get('/is_toWatch/:movie_id',verifyToken,movieController.isMovieInToWatch);
 
