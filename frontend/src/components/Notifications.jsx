@@ -3,7 +3,6 @@ import '../css/reset.css'
 import '../css/style.css'
 import {getNotifications} from '../routes/notificationsRoute'
 import { useState, useEffect } from 'react';
-import { getUserById } from '../routes/userRoutes';
 
 export function Notifications(){
 

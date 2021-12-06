@@ -40,11 +40,18 @@ export function Registration() {
             errors.password = "Hasło musi zawierać co najmniej 8 znaków!";
         }
 
-        if (values.repeatpassword != values.password || !values.repeatpassword){
+        if (values.repeatpassword !== values.password || !values.repeatpassword){
             errors.repeatpassword = "Hasła muszą być takie same!";
         } 
 
         return errors;
+    }
+
+    function checkStatus(){
+        signup().then(resp=>{
+            if(resp.status===422)console.log('Email juz uzyty')
+            else if(resp.status===200) window.location.href="/confirmation";
+        })
     }
 
     return (
@@ -78,7 +85,7 @@ export function Registration() {
                         <p className="registration-error">{ formErrors.repeatpassword }</p>
                     </div>    
                     
-                    <button type="submit" className="submit-button" onClick={signup}>Zarejestruj</button>
+                    <button type="submit" className="submit-button" onClick={()=>checkStatus()}>Zarejestruj</button>
                     </form>
 
                 <div className="box-info">       
