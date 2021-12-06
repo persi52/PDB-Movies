@@ -19,7 +19,7 @@ const getUserNotifications = async(req,res) =>{
          sortNotifications(results.rows).then(data => res.status(200).send(data));       
          
         }
-        else res.status(200).send('No nofifications');
+        else res.status(200).send('No notifications');
 
        
        // console.log(results);
@@ -34,7 +34,7 @@ const getUserNotifications = async(req,res) =>{
 async function sortNotifications(notifications){ 
 
   let sortedNotifications = [];
-  
+
   for(const notification of notifications){
 
     switch(notification.type){
@@ -43,42 +43,45 @@ async function sortNotifications(notifications){
       await pool.query('SELECT m.title, m.thumbnail, u.nickname, u.profile_picture ' + 
       'FROM movies m, users u ' + 
       'WHERE (movie_id=$1 AND user_id=$2)',[notification.movie_id,notification.sender_id])
-      .then( (data) =>{   
+      .then( (data) =>{
 
         return {
+        notification_id : notification.id,
         type : 'recommendation',
         movie_id : notification.movie_id,
-        movie_title : data.rows[0].title, 
+        movie_title : data.rows[0].title,
+        movie_thumbnail : data.rows[0].thumbnail, 
         sender_id : notification.sender_id,
         sender_nickname : data.rows[0].nickname,
-        sender_profile_picture : data.rows[0].profile_picture              
+        sender_profile_picture : data.rows[0].profile_picture
       }
     })
-     .then((data) => {sortedNotifications.push(data)});     
-    
+     .then((data) => {sortedNotifications.push(data)});
+
         break;
 
       case 'friendRequest' : 
       await pool.query('SELECT nickname, profile_picture FROM users WHERE user_id=$1',[notification.sender_id])
-      .then( (data) => {  
+      .then( (data) => {
  
       return {
+       notification_id : notification.id,
        type : 'friendRequest',
        sender_id : notification.sender_id,
        nickname : data.rows[0].nickname,
-       sender_profile_picture : data.rows[0].profile_picture                
-                       
+       sender_profile_picture : data.rows[0].profile_picture
+
       }
     })
     .then((data) => {sortedNotifications.push(data)});
 
         break;
     }
-    
+
   }
-  return sortedNotifications;   
-    
-  
+  return sortedNotifications;
+
+
 }
 
 

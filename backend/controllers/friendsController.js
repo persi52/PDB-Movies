@@ -126,7 +126,6 @@ const getFriendStatus = async(req,res) =>{
     try{
         pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) OR (friend_one_id=$2 AND friend_two_id=$1)',
         [user.user_id,req.body.receiver_id],(err,results)=>{
-
             if(results.rowCount==0) res.status(200).send('notFriend');
             else {
                 pool.query('SELECT * FROM friends WHERE (friend_one_id=$1 AND friend_two_id=$2) ' +
@@ -168,9 +167,11 @@ const getFriendStatus = async(req,res) =>{
 //          INNER JOIN friends f ON (u.user_id=f.friend_two_id OR u.user_id = f.friend_one_id)
 //         WHERE (f.friend_one_id=7 OR f.friend_two_id=7) AND u.user_id<>7
         (err,results)=>{
-            if(results.rows.length>0)
-            res.status(200).send(results.rows);
-            else res.status(200).send('You got no friends che che');
+           
+                if(results.rows.length>0)
+                res.status(200).send(results.rows);
+                else res.status(200).send('You got no friends');
+            
         })
     }catch(err){
         console.log(err);

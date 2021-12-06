@@ -56,3 +56,18 @@ export async function getToWatchMovies(){
   let data = await movieApi.get('/get/toWatch').then(({data})=>data);
   return data;
 }
+
+export async function getRecommendedMovies(){
+  let data = await movieApi.get('/getRecommended').then(({data})=>data);
+  return data;
+}
+
+export async function isFavourite(movie_id){
+  let data = await movieApi.get('/is_favourite/'+movie_id).then(({data})=>data);
+  return data;
+}
+
+export async function isTooWatch(movie_id){
+  let data = await movieApi.get('/is_toWatch/'+movie_id).then(({data})=>data);
+  return data;
+}

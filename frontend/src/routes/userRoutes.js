@@ -36,13 +36,13 @@ export function getUserById(user_id){
   });
   }
 
-  export function signup(){
+  export async function signup(){
     const username = document.getElementById("username").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const repeatpassword = document.getElementById("repeatpassword").value;
   
-    let data = userApi.post('/signUp',{ 
+    let data = await userApi.post('/signUp',{ 
         nickname: username,  
         email: email,
         password: password,

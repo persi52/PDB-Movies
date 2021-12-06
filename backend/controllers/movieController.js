@@ -182,8 +182,8 @@ const isMovieInFavourites = async(req,res) => {
             if(err) throw err;
 
             if(results.rowCount>0)
-            res.status(200).send({isFavourite : true});  
-            else res.status(200).send({isFavourite : false});        
+            res.status(200).send(true);  
+            else res.status(200).send(false);        
         })
     }catch(err){
         console.log(err);
@@ -275,8 +275,8 @@ const isMovieInToWatch = async(req,res) => {
             if(err) throw err;
 
             if(results.rowCount>0)
-            res.status(200).send({isOnToWatch : true});  
-            else res.status(200).send({isOnToWatch : false});        
+            res.status(200).send(true);  
+            else res.status(200).send( false);        
         })
     }catch(err){
         console.log(err);
