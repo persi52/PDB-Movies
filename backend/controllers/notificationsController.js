@@ -1,7 +1,10 @@
 const express = require("express");
 const fs = require('fs');
+const { isRef } = require("joi");
 const router = express.Router();
 const pool = require('../models/db');
+
+
 
 const getUserNotifications = async(req,res) =>{
 
@@ -88,7 +91,9 @@ const sendNotification = async(body) =>{
     'values ($1, $2, $3, $4)',[body.type,body.movie_id,
       body.sender_id,body.receiver_id],
     (err,results)=>{
-        if (err) throw err;
+      
+        if(err) throw err;
+        else return true;
        // console.log(results);
     })
     }catch(err){
