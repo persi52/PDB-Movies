@@ -124,6 +124,12 @@ h2 {
 .friend-name {
     font-weight: 300;
     margin-left: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+.friend-name link{
+    text-decoration: none;
 }
 
 .friends-list::-webkit-scrollbar {

@@ -14,11 +14,7 @@ import {useEffect, useState} from 'react'
 import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
 import { Modal } from "./Modal_removeFriend";
-<<<<<<< HEAD
-
-=======
 import {Link} from 'react-router-dom'
->>>>>>> 28ba878014280b7c0227b255c22584fe68edc0f5
 
 const profileUrl = "/profile/";
 
@@ -46,7 +42,7 @@ function UserPage({match}) {
         if(friends!=="You got no friends che che"){
             return(friends.map(friend => (
                 <div key={friend.user_id} className="friends-list-item">
-                    <Link to={profileUrl + `${friend.user_id}`}><div className="friend-list-data">
+                    <Link to={profileUrl + `${friend.user_id}`} style={{textDecoration:"none"}}><div className="friend-list-data">
                         <div className="friend-avatar">
                             <img className="friend-avatar-img" alt='user' src={User2}/>
                         </div>
@@ -77,13 +73,8 @@ function UserPage({match}) {
                         <div className="user-email" id="user-email">{user.email}</div>
                     </div>
                     <div className="edit-user-info">
-<<<<<<< HEAD
                         <a href={`/editprofile/${user.user_id}`}>
                             <img src={Pencil} className="edit-user-info-image"/>
-=======
-                        <a href="/editprofile">
-                            <img src={Pencil} alt='pencil' className="edit-user-info-image"/>
->>>>>>> 28ba878014280b7c0227b255c22584fe68edc0f5
                         </a>
                     </div>
                 </div>

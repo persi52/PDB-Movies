@@ -20,7 +20,7 @@ import { Modal } from "./Modal_recommend";
 import { FaStar } from "react-icons/fa";
 import "../css/starrating.css"
 import { addRating, getUserRate } from '../routes/ratingRoute';
-//import { useAlert } from 'react-alert'
+import { useAlert } from 'react-alert'
 import {Link} from 'react-router-dom'
 
 
@@ -32,7 +32,7 @@ const commentsApi = axios.create({
 function Player({match}) {
 
     const profileUrl = "/profile/";
-    //const alert = useAlert();
+    const alert = useAlert();
 
     const [movie, setMovie] = useState([]);
     const [comments, setComments] = useState([]); 

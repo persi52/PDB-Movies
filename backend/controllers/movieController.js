@@ -139,7 +139,7 @@ const addToFavourites = async(req,res) => {
     }  
 } 
 const getUserFavourites = async(req,res) => {
-    const user_id = req.params.user_id;
+    const user_id = req.user.user_id;
     try{
         pool.query('SELECT m.movie_id,m.title, m.year_of_production, m.thumbnail FROM movies m ' +  
         'INNER JOIN favourite_movies f ON f.movie_id=m.movie_id WHERE f.user_id=$1',[user_id],

@@ -17,9 +17,24 @@
 .fav-movie-list{
     display: flex;
     flex-wrap: wrap;
-    height: 380px;
+    max-height: 380px;
     overflow-y: scroll;
 }
+
+.no-fav-movie-list {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: smaller;
+    font-weight: 300;
+}
+
+.no-fav-movie-list p {
+    background-color: rgba(61, 62, 71, 0.5);
+    padding: 11px 8px;
+    border-radius: 7px;
+}
+
 
 .fav-movie-item {
     display: flex;

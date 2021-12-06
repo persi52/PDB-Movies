@@ -27,7 +27,13 @@ function Favourites() {
       }, []);
     
     function showRatedMovies(){
-        if(ratedMovies==='No movies were rated')return ratedMovies
+        if(ratedMovies==='No movies were rated'){
+            return(
+            <div className="no-fav-movie-list">
+                <p>Nie masz jeszcze żadnego filmu w tej sekcji.</p>
+            </div>
+        )
+        }
         return(
             ratedMovies.map(movie => (
                 <a key={movie.movie_id} className="fav-movie-item">
@@ -47,7 +53,13 @@ function Favourites() {
     }
 
     function showFavouritesMovies(){
-        if(favouritesMovies==='No favourite movies') return favouritesMovies
+        if(favouritesMovies==='No favourite movies') {
+            return(
+            <div className="no-fav-movie-list">
+            <p>Nie masz jeszcze żadnego filmu w tej sekcji. </p> 
+            </div>
+        )
+        }
         return(
         favouritesMovies.map(movie => (
             <a key={movie.movie_id} className="fav-movie-item">
@@ -65,7 +77,13 @@ function Favourites() {
     }
 
     function showToWatchMovies(){
-        if(toWatchMovies==='No favourite movies') return toWatchMovies
+        if(toWatchMovies==='No ToWatch movies') {
+            return(
+            <div className="no-fav-movie-list">
+                <p>Nie masz jeszcze żadnego filmu w tej sekcji.</p>
+            </div>
+        )
+        }
         return(
             toWatchMovies.map(movie => (
                 <a key={movie.movie_id} className="fav-movie-item">
@@ -111,7 +129,7 @@ function Favourites() {
                                 <img src={Eye} className="header-icon"></img>
                                 <h2>Do obejrzenia</h2>
                             </div>
-                            <div className="fav-movie-list">
+                            <div className={toWatchMovies ? `fav-movies-list` : `no-fav-movie-list`}>
                                 {showToWatchMovies()}  
                             </div>
                         </div>
