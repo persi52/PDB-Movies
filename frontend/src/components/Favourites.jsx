@@ -156,7 +156,7 @@ function Favourites() {
                                 <img src={Eye} className="header-icon"></img>
                                 <h2>Do obejrzenia</h2>
                             </div>
-                            <div className={toWatchMovies ? `fav-movies-list` : `no-fav-movie-list`}>
+                            <div className={toWatchMovies ? `fav-movie-list` : `no-fav-movie-list`}>
                                 {showToWatchMovies()}  
                             </div>
                         </div>
