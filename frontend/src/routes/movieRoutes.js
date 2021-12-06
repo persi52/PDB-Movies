@@ -71,3 +71,13 @@ export async function isTooWatch(movie_id){
   let data = await movieApi.get('/is_toWatch/'+movie_id).then(({data})=>data);
   return data;
 }
+
+export async function getFriendFavourites(user_id){
+  let data = await movieApi.get('/get/favourites/'+user_id).then(({data})=>data);
+  return data;
+}
+
+export async function getFriendRated(user_id){
+  let data = await movieApi.get('/get/rated/'+user_id).then(({data})=>data);
+  return data;
+}

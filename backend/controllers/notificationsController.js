@@ -15,7 +15,6 @@ const getUserNotifications = async(req,res) =>{
     (err,results)=>{
       
         if(results.rows.length>0){   
-                
          sortNotifications(results.rows).then(data => res.status(200).send(data));       
          
         }
@@ -69,8 +68,7 @@ async function sortNotifications(notifications){
 
       case 'friendRequest' : 
       await pool.query('SELECT nickname, profile_picture FROM users WHERE user_id=$1',[notification.sender_id])
-      .then( (data) => {  
- 
+      .then( (data) => {
       return {
        notification_id : notification.notification_id,
        type : 'friendRequest',
@@ -111,7 +109,7 @@ const sendNotification = async(body) =>{
 }
 
 const removeNotificationFunction = async(body) =>{
-    //console.log(body);
+    console.log(body);
   const notification_id = body.notification_id;
 
   if(notification_id){

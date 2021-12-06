@@ -4,10 +4,11 @@ const fs = require('fs');
 const router = express.Router();
 const pool = require('../models/db');
 const verifyToken = require("../controllers/verifyToken");
+const {getUsers} = require("../controllers/authController.js")
 
 //#region basicGetMovies
 const getMovies = async(req,res) =>{  
-  
+   
         try{      
        
             pool.query('SELECT * FROM movies',(err,results)=>{
@@ -85,7 +86,7 @@ const getFriendRated = async(req,res) => {
 
     try{
         pool.query('SELECT r.rate,m.movie_id,m.title, m.year_of_production, m.thumbnail FROM movies m ' +  
-        'INNER JOIN movies r ON r.movie_id=m.movie_id WHERE r.user_id=$1',[user_id],
+        'INNER JOIN ratings r ON r.movie_id=m.movie_id WHERE r.user_id=$1',[user_id],
         (err,results)=>{
             if(err) throw err;
 

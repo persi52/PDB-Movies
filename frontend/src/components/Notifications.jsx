@@ -31,14 +31,14 @@ export function Notifications(){
             <div>
               <p>Zaproszenie do grona znajomych od uzytkownika  <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none"}}>{notification.nickname}</Link></p>
               {notification.sender_profile_picture}
-              <button onClick={()=>acceptInvitation(notification.sender_id)}>Przyjmij</button><button onClick={()=>declineInvitation(notification.sender_id)}>Odrzuć</button>
+              <button onClick={()=>acceptInvitation(notification.sender_id,notification.notification_id)}>Przyjmij</button><button onClick={()=>declineInvitation(notification.sender_id,notification.notification_id)}>Odrzuć</button>
             </div>
              
           )}
         else if(notification.type==='recommendation'){
         return(
           <div>
-            <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none"}}>{notification.nickname}</Link>
+            <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none"}}>{notification.sender_nickname}</Link>
              poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none"}}>{notification.movie_title}
              <img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`}/></Link></p>
             
