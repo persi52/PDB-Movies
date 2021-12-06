@@ -290,3 +290,12 @@ ALTER TABLE public."favourite_movies"
 
 ALTER TABLE public."movies_to_watch"
     OWNER to postgres;
+
+CREATE TABLE public.photos
+(
+    photo_id integer NOT NULL,
+    photo_path character varying(55) NOT NULL
+);
+
+ALTER TABLE IF EXISTS public.photos
+    OWNER to postgres;
