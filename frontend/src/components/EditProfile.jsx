@@ -37,7 +37,7 @@ function EditProfile({match}) {
             <h1>Edytuj profil</h1>
             <div className="edit-data-box">
               <div className="edit-photo-box">
-                  <img src={UserAvatar} className="edit-photo-img"/>
+              <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='avatar' className="edit-photo-img"/>
                   <button className="form-element-button">Zmień zdjęcie</button>
                 </div>
                 <div className="edit-data-elements">

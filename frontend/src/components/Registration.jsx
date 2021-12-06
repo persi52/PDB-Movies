@@ -49,7 +49,7 @@ export function Registration() {
 
     function checkStatus(){
         signup().then(resp=>{
-            if(resp.status===422)console.log('Email juz uzyty')
+            if(resp.status===422) console.log('Email juz uzyty')
             else if(resp.status===200) window.location.href="/confirmation";
         })
     }
