@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/reset.css'
 import '../css/style.css'
+import '../css/notifications.css'
 import {getNotifications} from '../routes/notificationsRoute'
 import { acceptInvitation, declineInvitation } from '../routes/friendsRoute';
 import { useState, useEffect } from 'react';
@@ -17,7 +18,9 @@ export function Notifications(){
       }, []);
 
       function showAllnotifications(){
-          if(notifications==='No notifications') return notifications
+          if(notifications==='No notifications') return(
+            <div className="notifications-list">Brak powiadomień.</div>
+          )
           return(notifications.map(notification=>(
             <div>
                 {showNotification(notification)}
@@ -25,30 +28,55 @@ export function Notifications(){
         )))
       }
 
+      function accInv(sender_id,notification_id){
+        acceptInvitation(sender_id,notification_id);
+        getNotifications().then(resp=>{setNotifications(resp)});
+        window.location.reload(false);
+      }
+
+      function decInv(sender_id,notification_id){
+        declineInvitation(sender_id,notification_id);
+        getNotifications().then(resp=>{setNotifications(resp)});
+        window.location.reload(false);
+      }
+
     const showNotification = (notification) => {
         if(notification.type==='friendRequest') {
           return( 
-            <div>
-              <p>Zaproszenie do grona znajomych od uzytkownika  <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none"}}>{notification.nickname}</Link></p>
-              {notification.sender_profile_picture}
-              <button onClick={()=>acceptInvitation(notification.sender_id,notification.notification_id)}>Przyjmij</button><button onClick={()=>declineInvitation(notification.sender_id,notification.notification_id)}>Odrzuć</button>
-            </div>
+            <div className="notification notification-invitation">
+              <div className="notification-content">
+                <p>Zaproszenie do grona znajomych od uzytkownika&nbsp;<Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.nickname}</Link></p>
+                <img src={`${process.env.PUBLIC_URL}/photos/${notification.sender_profile_picture}`} alt='avatar' className="notification-user-image"/>
+              </div>
+              <div className="notification-buttons">
+                <button className="notification-button btn" onClick={()=>accInv(notification.sender_id, notification.notification_id)}>Przyjmij</button>&nbsp;&nbsp;
+                <button className="notification-button btn" onClick={()=>decInv(notification.sender_id, notification.notification_id)}>Odrzuć</button>
+              </div>
+              </div>
              
           )}
         else if(notification.type==='recommendation'){
         return(
-          <div>
-            <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none"}}>{notification.sender_nickname}</Link>
-             poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none"}}>{notification.movie_title}
-             <img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`}/></Link></p>
+          <div className="notification notification-content">
+            <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.sender_nickname}</Link>
+            &nbsp;poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.movie_title}&nbsp;
+            </Link></p> <Link to={movieUrl + `${notification.movie_id}`} ><img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`} className="notification-movie-img"/></Link>
             
           </div>
         )}
     }
     return(
-        <div>
-            {showAllnotifications()}
+      <section className="landing-page">
+        <div className="container">
+          <div className="notifications-list-container">
+            <div className="notifications-list">
+              <h1>Powiadomienia</h1>
+              {showAllnotifications()}
+            </div>
+          </div> 
         </div>
+      </section>
+        
     )
 }
 

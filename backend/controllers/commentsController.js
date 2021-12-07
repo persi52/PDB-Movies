@@ -28,7 +28,7 @@ const addComment = async(req,res) =>{
 const getComments = async(req,res) =>{
 
     try{
-        pool.query('SELECT c.comment_id, c.parent_id, c.comment_content, u.nickname, u.user_id FROM comments c' +
+        pool.query('SELECT c.comment_id, c.parent_id, c.comment_content, u.nickname, u.user_id, u.profile_picture FROM comments c' +
         ' INNER JOIN users u ON c.author_id = u.user_id WHERE c.movie_id=$1 ORDER BY comment_id DESC',        
         [req.params.movie_id],
         (err,results)=>{

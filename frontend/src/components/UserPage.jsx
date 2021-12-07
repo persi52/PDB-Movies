@@ -57,7 +57,13 @@ function UserPage({match}) {
                     </div>
                 </div>   
             
-            )))}else return friends
+            )))}else return(
+                <div className="no-friends-box">
+                    <div className="no-friends-info">
+                        Nie masz jeszcze żadnych znajomych.
+                    </div>
+                </div>
+            )
     }
 
     return(
@@ -65,7 +71,7 @@ function UserPage({match}) {
         <div className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={User} alt='avatar' className="user-avatar-image"/>
+                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='avatar' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
