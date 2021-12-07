@@ -179,7 +179,7 @@ video {
     align-items: center;
 }
 
-.btn {
+.movie-btn {
     background-color: transparent;
     border: none;
     cursor: pointer;

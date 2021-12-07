@@ -85,7 +85,7 @@ export function Registration() {
                         <p className="registration-error">{ formErrors.repeatpassword }</p>
                     </div>    
                     
-                    <button type="submit" className="submit-button" onClick={()=>checkStatus()}>Zarejestruj</button>
+                    <button type="submit" className="btn submit-button" onClick={()=>checkStatus()}>Zarejestruj</button>
                     </form>
 
                 <div className="box-info">       

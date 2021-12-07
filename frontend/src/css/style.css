@@ -181,7 +181,6 @@ nav .container{
 
 
 .submit-button {
-    background: linear-gradient(180deg, rgba(198,132,191,0.55) 0%, rgba(145,176,189,0.5) 100%);
     border: none;
     text-decoration: none;
     text-transform: uppercase;
@@ -194,12 +193,13 @@ nav .container{
     width: fit-content;
 }
 
-.submit-button:hover {
-    background: linear-gradient(180deg, rgba(198,132,191,0.5) 0%, rgba(145,176,189,0.6) 100%);
 
+.btn {
+    background: linear-gradient(180deg, rgba(198,132,191,0.65) 0%, rgba(145,176,189,0.65) 100%);
 }
 
 .btn:hover {
     cursor: pointer;
+    background: linear-gradient(180deg, rgba(198,132,191,0.8) 0%, rgba(145,176,189,0.8) 100%);
 }
 
