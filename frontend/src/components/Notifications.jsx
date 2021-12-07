@@ -28,6 +28,18 @@ export function Notifications(){
         )))
       }
 
+      function accInv(sender_id,notification_id){
+        acceptInvitation(sender_id,notification_id);
+        getNotifications().then(resp=>{setNotifications(resp)});
+        window.location.reload(false);
+      }
+
+      function decInv(sender_id,notification_id){
+        declineInvitation(sender_id,notification_id);
+        getNotifications().then(resp=>{setNotifications(resp)});
+        window.location.reload(false);
+      }
+
     const showNotification = (notification) => {
         if(notification.type==='friendRequest') {
           return( 
