@@ -14,3 +14,4 @@ export { default as NoAccess } from "./NoAccess";
 export { default as EditProfile } from "./EditProfile";
 export { default as Notifications } from "./Notifications";
 export { default as RegistrationConfirmation } from "./RegistrationConfirmation";
+export { default as Search } from "./Search";
