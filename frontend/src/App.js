@@ -26,7 +26,7 @@ class App extends Component {
     try {
     const response = await api.get('/getCurrentUser');
     if (response.status === 200) {
-      this.setState({navbar: Navbar_logged(response.data[0].user_id), home: <Home/>})
+      this.setState({navbar: Navbar_logged(response.data.user_id), home: <Home/>})
     }
    } catch (err) {
      console.error(err)

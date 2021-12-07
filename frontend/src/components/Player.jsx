@@ -145,7 +145,7 @@ function Player({match}) {
         return(comments.map(comment => (
             <div key={comment.comment_id} class="comment-item">            
                 <div class="comment-avatar">
-                <img src={`${process.env.PUBLIC_URL}/photos/${comment.profile_picture}`} alt='avatar' className="comment-avatar-image"/>
+                <Link to={profileUrl + `${comment.user_id}`} style={{textDecoration: "none", color:"white"}}> <img src={`${process.env.PUBLIC_URL}/photos/${comment.profile_picture}`} alt='avatar' className="comment-avatar-image"/></Link>
                 </div>
                 <div class="comment-section-right">
                 <Link to={profileUrl + `${comment.user_id}`} style={{textDecoration: "none", color:"white"}}><h3 class="author"> {comment.nickname} </h3></Link>
