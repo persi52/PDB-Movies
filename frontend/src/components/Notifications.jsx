@@ -18,7 +18,9 @@ export function Notifications(){
       }, []);
 
       function showAllnotifications(){
-          if(notifications==='No notifications') return notifications
+          if(notifications==='No notifications') return(
+            <div className="notifications-list">Brak powiadomień.</div>
+          )
           return(notifications.map(notification=>(
             <div>
                 {showNotification(notification)}
@@ -29,16 +31,21 @@ export function Notifications(){
     const showNotification = (notification) => {
         if(notification.type==='friendRequest') {
           return( 
-            <div className="notification">
-              <p>Zaproszenie do grona znajomych od uzytkownika&nbsp;<Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.nickname}</Link></p>
-              {notification.sender_profile_picture}
-              <button className="notification-button btn" onClick={()=>acceptInvitation(notification.sender_id)}>Przyjmij</button>&nbsp;<button  className="notification-button btn" onClick={()=>declineInvitation(notification.sender_id)}>Odrzuć</button>
-            </div>
+            <div className="notification notification-invitation">
+              <div className="notification-content">
+                <p>Zaproszenie do grona znajomych od uzytkownika&nbsp;<Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.nickname}</Link></p>
+                <img src={`${process.env.PUBLIC_URL}/photos/${notification.sender_profile_picture}`} alt='avatar' className="notification-user-image"/>
+              </div>
+              <div className="notification-buttons">
+                <button className="notification-button btn" onClick={()=>acceptInvitation(notification.sender_id)}>Przyjmij</button>&nbsp;&nbsp;
+                <button className="notification-button btn" onClick={()=>declineInvitation(notification.sender_id)}>Odrzuć</button>
+              </div>
+              </div>
              
           )}
         else if(notification.type==='recommendation'){
         return(
-          <div className="notification">
+          <div className="notification notification-content">
             <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.sender_nickname}</Link>
             &nbsp;poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.movie_title}&nbsp;
             </Link></p> <Link to={movieUrl + `${notification.movie_id}`} ><img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`} className="notification-movie-img"/></Link>

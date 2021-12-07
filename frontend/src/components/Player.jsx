@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {getMovieById, addToFavourites, removeFromFavourites, addToWatch, removeFromWatch, isFavourite, isTooWatch} from '../routes/movieRoutes'
 import {getComments} from '../routes/commentRoute'
+import {getCurrentUser} from '../routes/userRoutes'
 import { getRatingsByMovieId } from '../routes/ratingRoute'
 import '../css/reset.css'
 import '../css/style.css'
@@ -10,7 +11,6 @@ import angleSmallRight from "../icons/angle-small-right.png"
 import thumbsUp from "../icons/thumbs-up.png"
 import thumbsDown from "../icons/thumbs-down.png"
 import commentIcon from "../icons/comment.png"
-import avatar from "../icons/avatar.png"
 import following from "../icons/following.png"
 import axios from 'axios'
 import { Modal } from "./Modal_recommend";
@@ -39,6 +39,7 @@ function Player({match}) {
     const [rating, setRating] = useState(null);
     const [isFavoutite, setIsFavourite] = useState(false);
     const [isToWatch, setIsToWatch] = useState(false);
+    const [user, setUser] = useState();
 
 
 
@@ -55,6 +56,8 @@ function Player({match}) {
         getUserRate(match.params.id).then((resp)=>{setRating(resp)});
         isFavourite(match.params.id).then(resp=>setIsFavourite(resp));
         isTooWatch(match.params.id).then(resp=>setIsToWatch(resp));
+        getCurrentUser().then(resp=>setUser(resp));
+        console.log(user);
         
     }, [match.params.id]);   
 
@@ -142,7 +145,7 @@ function Player({match}) {
         return(comments.map(comment => (
             <div key={comment.comment_id} class="comment-item">            
                 <div class="comment-avatar">
-                    <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
+                <img src={`${process.env.PUBLIC_URL}/photos/${comment.profile_picture}`} alt='avatar' className="comment-avatar-image"/>
                 </div>
                 <div class="comment-section-right">
                 <Link to={profileUrl + `${comment.user_id}`} style={{textDecoration: "none", color:"white"}}><h3 class="author"> {comment.nickname} </h3></Link>
@@ -197,7 +200,7 @@ function Player({match}) {
         <div class="comments-container">
             <div class="comment-form">
                 <div class="comment-avatar">
-                    <img src={avatar} class="comment-avatar-image" alt="User avatar"/>
+                    <img src={`${process.env.PUBLIC_URL}/photos/avatar9.png`} alt='avatar' className="comment-avatar-image"/>
                 </div>
                 <form class="comment-form-section-right">
                 <div class="comment-section-right">

@@ -24,6 +24,11 @@ export function getUserById(user_id){
   return data;
 }
 
+export function getCurrentUser(){
+  let data = userApi.get('getCurrentUser').then(({data}) => data);
+  return data;
+}
+
   export function login(){
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;

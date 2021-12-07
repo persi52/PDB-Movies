@@ -26,10 +26,9 @@
     background-color: rgba(136, 138, 157, 0.4);
     margin: 10px;
     font-size: larger;
-    font-weight: 300;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    font-weight: 300;
     padding: 8px 10px;
     border-radius: 8px;
     width: 93%;
@@ -51,8 +50,7 @@
     font-weight: 400;
     color: white;
     font-size: 10px;
-    padding: 8px 10px;
-    margin: 6px 0;
+    padding: 8px 12px;
     width: fit-content;
 }
 
@@ -69,3 +67,19 @@
 .notifications-list:hover::-webkit-scrollbar-thumb {
     background-color: #8D8FA2;
   } 
+
+.notification-user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.notification-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.notification-invitation {
+    display: flex;
+    flex-direction: column;
+}
