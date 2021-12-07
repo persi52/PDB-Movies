@@ -46,6 +46,26 @@ function Profile({match}) {
     
       const url = "/movie/";
 
+      function sendInv(){
+        sendInvitation(user.user_id);
+        setStatus('send')
+      }
+
+      function acceptInv(){
+        acceptInvitation(user.user_id);
+        setStatus('friend');
+      }
+
+      function declineInv(){
+          declineInvitation(user.user_id);
+          setStatus('notFriend');
+      }
+
+      function remFriend(){
+          removeFriend(user.user_id);
+          setStatus('notFriend');
+      }
+
     function showUserButtons(){
 
         if(status==="friend"){
@@ -61,22 +81,22 @@ function Profile({match}) {
             console.log("if "+console.log(status));
             return(
                 <div className="user-buttons">
-                    <button className="user-button" onClick={()=>{sendInvitation(user.user_id).then((resp)=>{})}}><img src={Users} className="user-button-img" alt="button"/></button>
+                    <button className="user-button" onClick={()=>{sendInv()}}><img src={Users} className="user-button-img" alt="button"/></button>
                 </div>
             )
         }else if(status==="invitationWaiting"){
             console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
-                <button className="user-button" onClick={()=>{acceptInvitation(user.user_id).then((resp)=>{console.log(resp)})}}><img src={UserAccept} className="user-button-img" alt="button"/></button>
-                <button className="user-button" onClick={()=>{declineInvitation(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{acceptInv()}}><img src={UserAccept} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{declineInv()}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
             </div>
             )
         }else{
             console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
-                <button className="user-button" onClick={()=>{removeFriend(user.user_id)}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{remFriend()}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
             </div>
             )
         }
@@ -114,7 +134,7 @@ function Profile({match}) {
                         <p className="fav-movie-title">{movie.title}</p>
                         <p className="year-of-production">{movie.year_of_production}</p>
                     </div>
-                    <div className="rating">{StarRatingStatic(movie.movie_id)}</div>
+                    <div className="rating">{StarRatingStatic(movie.rate)}</div>
                     </div> 
                 </Link>
                 </a>
@@ -126,7 +146,7 @@ function Profile({match}) {
         <section className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={User} alt='user' className="user-avatar-image"/>
+                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='user' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
