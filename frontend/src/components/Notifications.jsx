@@ -49,8 +49,8 @@ export function Notifications(){
                 <img src={`${process.env.PUBLIC_URL}/photos/${notification.sender_profile_picture}`} alt='avatar' className="notification-user-image"/>
               </div>
               <div className="notification-buttons">
-                <button className="notification-button btn" onClick={()=>acceptInvitation(notification.sender_id)}>Przyjmij</button>&nbsp;&nbsp;
-                <button className="notification-button btn" onClick={()=>declineInvitation(notification.sender_id)}>Odrzuć</button>
+                <button className="notification-button btn" onClick={()=>accInv(notification.sender_id)}>Przyjmij</button>&nbsp;&nbsp;
+                <button className="notification-button btn" onClick={()=>decInv(notification.sender_id)}>Odrzuć</button>
               </div>
               </div>
              
