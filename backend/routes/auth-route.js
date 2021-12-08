@@ -6,8 +6,11 @@ const verifyToken = require("../controllers/verifyToken");
 router.post('/signUp', authController.signUp);
 router.post('/signIn', authController.signIn);
 router.delete('/signOut', authController.signOut);
-router.get('/getUsers',authController.getUsers);
+router.get('/get_all',authController.getUsers);
 router.get('/getCurrentUser', verifyToken ,authController.getCurrentUser);
 router.get('/getUserById/:id',verifyToken, authController.getUserById);
+router.post('/account/changePassword',verifyToken,authController.changePassword);
+router.post('/account/changeNickname',verifyToken,authController.changeNickname);
+router.post('/account/changePicture',authController.changeProfilePic);
 
 module.exports = router;

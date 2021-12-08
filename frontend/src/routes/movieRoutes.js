@@ -15,6 +15,11 @@ export async function getMovies(){
   return data;
 }
 
+export async function getGenres(){
+  let data = await movieApi.get('genres/get_all').then(({data}) => data);
+  return data;
+}
+
 export async function getMoviesByGenre(genre_id){
   let data = await movieApi.get('get_all/genres/'+genre_id).then(({data})=> data);
   //let data = await movieApi.get('get_all').then(({data})=> data);
