@@ -14,7 +14,7 @@
   z-index: 3;
   width: 200px;
   height: 300px;
-  background-color: rgba(88, 89, 102, 1);
+  background: linear-gradient(180deg, rgb(128, 91, 124) 0%, rgb(92, 93, 109) 100%);
   border-radius: 10px;
   bottom: 0;
   padding: 20px;
@@ -28,16 +28,11 @@
   border-radius: 8px;
   border: none;
   margin-right: 6px;
-  background: linear-gradient(180deg, rgba(198,132,191,0.65) 0%, rgba(145,176,189,0.65) 100%);
   padding: 2% 5%;
   font-size: x-small;
   font-weight: 400;  
 }
 
-.modal button:hover {
-  background: linear-gradient(180deg, rgba(198,132,191,0.9) 0%, rgba(145,176,189,0.9) 100%);
-  cursor: pointer;
-}
 
 .modal-header {
   font-weight: 300;

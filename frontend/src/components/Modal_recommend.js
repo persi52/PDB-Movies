@@ -27,7 +27,7 @@ export const Modal = ({ setShowModal, movieId }) => {
       friends.map(user => 
         <div className="user-list-item">
           <h2 className="user-list-name" key={user.user_id}>{user.nickname}</h2>
-            <button onClick={()=>{
+            <button className="btn" onClick={()=>{
               recommend(user.user_id,movieId);
               alert.show("Polecono film!")}}>Poleć</button>
               </div>

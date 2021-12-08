@@ -26,8 +26,8 @@ export const Modal = ({ setShowModal, user_id}) => {
       <div className="modal-remove-friend">
           <h2 className="modal-header-rmv">Na pewno chcesz usunąć znajomego?</h2>
           <div className="modal-buttons">
-            <button onClick={()=>{removeFromFriends(user_id)}}>Usuń</button>
-            <button onClick={()=>{setShowModal(false)}}>Anuluj</button>
+            <button className=" btn" onClick={()=>{removeFromFriends(user_id)}}>Usuń</button>
+            <button className=" btn" onClick={()=>{setShowModal(false)}}>Anuluj</button>
           </div>
           
       </div>

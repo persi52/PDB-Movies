@@ -4,17 +4,20 @@ import '../css/style.css'
 import '../css/edit_profile.css'
 import '../css/modal_editUsername.css'
 import '../css/modal_editPassword.css'
-import UserAvatar from "../icons/avatar.png"
+import '../css/modal_changePicture.css'
 import {getUserById} from '../routes/userRoutes'
 import {ModalUsername} from "./Modal_editUsername"
 import {ModalPassword} from "./Modal_editPassword"
+import {ModalChangePicture} from "./Modal_changePicture"
 
 
 function EditProfile({match}) {
 
   const [user, setuser] = useState([]);
+
   const [userForm, setuserForm] = useState(false);
-  const [passwordForm, setpasswordForm] = useState(false)
+  const [passwordForm, setpasswordForm] = useState(false);
+  const [picChanger, setpicChanger] = useState(false);
 
   const showUserForm = () => {
     setuserForm(prev => !prev);
@@ -22,6 +25,10 @@ function EditProfile({match}) {
 
   const showPasswordForm = () => {
     setpasswordForm(prev => !prev)
+  }
+
+  const showPicChangerModal = () => {
+    setpicChanger(true);
   }
 
   useEffect(() => {
@@ -38,7 +45,8 @@ function EditProfile({match}) {
             <div className="edit-data-box">
               <div className="edit-photo-box">
               <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='avatar' className="edit-photo-img"/>
-                  <button className="form-element-button">Zmień zdjęcie</button>
+                  <button className="btn form-element-button" onClick={showPicChangerModal}>Zmień zdjęcie</button>
+                  {picChanger ? <ModalChangePicture picChanger={picChanger} setpicChanger={setpicChanger} /> : null}
                 </div>
                 <div className="edit-data-elements">
                   <div className="edit-form-element">

@@ -152,9 +152,9 @@ function Player({match}) {
                     <div class="comment-content comment-content-bg">
                         <span class="comment-content-text"> {comment.comment_content} </span>
                         <div class="comment-action-buttons">
-                            <button id="like" class="btn comment-action-btn"><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
-                            <button id="dislike" class="btn comment-action-btn"><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
-                            <button id="comment" class="btn comment-action-btn"><img src={commentIcon} class="comment-btn-img" alt="Comment button"/></button>
+                            <button id="like" class="movie-btn comment-action-btn"><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
+                            <button id="dislike" class="movie-btn comment-action-btn"><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
+                            <button id="comment" class="movie-btn comment-action-btn"><img src={commentIcon} class="comment-btn-img" alt="Comment button"/></button>
                         </div>
                     </div>
                 </div>
@@ -179,10 +179,10 @@ function Player({match}) {
                     
                 </div>
                 <div className="movie-action-btn-box">
-                    <button className="btn movie-action-btn" onClick={()=>buttonFavourites()}>{isFavoutite ? <FaRegHeart className="movie-action-btn-img" color="#ff4d4d" /> : <FaRegHeart className="movie-action-btn-img" color="white" />}</button>
-                    <button className="btn movie-action-btn" onClick={openModal}><img className="movie-action-btn-img" src={following} alt="following"/></button>
+                    <button className="movie-btn movie-action-btn" onClick={()=>buttonFavourites()}>{isFavoutite ? <FaRegHeart className="movie-action-btn-img" color="#ff4d4d" /> : <FaRegHeart className="movie-action-btn-img" color="white" />}</button>
+                    <button className="movie-btn movie-action-btn" onClick={openModal}><img className="movie-action-btn-img" src={following} alt="following"/></button>
                     {showModal ? <Modal setShowModal={setShowModal} movieId={movie.movie_id} /> : null}
-                    <button className="btn movie-action-btn" onClick={()=>buttonToWatch()}> {isToWatch ? <FaRegEye className="movie-action-btn-img" color="#ff4d4d"/> : <FaRegEye className="movie-action-btn-img" color="white"/>}</button>                    
+                    <button className="movie-btn movie-action-btn" onClick={()=>buttonToWatch()}> {isToWatch ? <FaRegEye className="movie-action-btn-img" color="#ff4d4d"/> : <FaRegEye className="movie-action-btn-img" color="white"/>}</button>                    
     
                 </div>
                 
@@ -208,7 +208,7 @@ function Player({match}) {
                         <input id="content" type="text" class="comment-form-input" placeholder="Napisz komentarz..."/>
                     </div>
                 </div>
-                <button type="button" onClick={addComment} class="btn comment-btn-confirm"><img src={angleSmallRight} class="comment-btn-confirm-img" alt="Submit button"/></button>
+                <button type="button" onClick={addComment} class="movie-btn comment-btn-confirm"><img src={angleSmallRight} class="comment-btn-confirm-img" alt="Submit button"/></button>
                 </form>
             </div>
         </div>
