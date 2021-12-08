@@ -11,7 +11,7 @@ const recommendApi = axios.create({
 })
 
 export function getUsers(){
-  let data = userApi.get('/getUsers');
+  let data = userApi.get('/get_all').then(({data}) => data);
   return data;
 }
 
