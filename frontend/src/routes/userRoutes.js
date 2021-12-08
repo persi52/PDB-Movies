@@ -63,3 +63,19 @@ export function getCurrentUser(){
         movie_id: movie_id
     });
   }
+
+  export function changeNickname(newNickname){
+    let data = userApi.post('/account/changeNickname',{
+      newNickname: newNickname
+    }).then(data=>data);
+    return data;
+  }
+
+  export function changePassword(currentPassword,newPassword,repeatNewPassword){
+    let data = userApi.post('/account/changePassword',{
+      currentPassword : currentPassword,
+      newPassword: newPassword,
+      repeatNewPassword: repeatNewPassword
+    }).then(data=>data);
+    return data;
+  }

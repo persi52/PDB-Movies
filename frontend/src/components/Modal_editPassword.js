@@ -1,4 +1,5 @@
 import React from "react";
+import { changePassword } from "../routes/userRoutes";
 
 export const ModalPassword = () => {
   
@@ -20,7 +21,7 @@ export const ModalPassword = () => {
                 </div>
             </div>
               
-              <button type="submit" className="form-edit-button btn">Zapisz</button>
+              <button type="submit" className="form-edit-button btn" onClick={()=>changePassword(document.getElementById('password').value,document.getElementById('new_password').value,document.getElementById('confirm_new_password').value)}>Zapisz</button>
           </form>
   )
 };
