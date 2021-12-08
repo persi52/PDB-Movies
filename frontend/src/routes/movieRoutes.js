@@ -86,3 +86,8 @@ export async function getFriendRated(user_id){
   let data = await movieApi.get('/get/rated/'+user_id).then(({data})=>data);
   return data;
 }
+
+export async function getGenres(){
+  let data = await movieApi.get('genres/get_all').then(({data}) => data);
+  return data;
+}
