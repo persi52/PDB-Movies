@@ -173,7 +173,7 @@ const getFriendStatus = async(req,res) =>{
 
    const user = req.user;
     try{
-        pool.query('SELECT DISTINCT u.nickname,u.user_id FROM users u INNER JOIN friends f ' + 
+        pool.query('SELECT DISTINCT u.nickname,u.user_id,u.profile_picture FROM users u INNER JOIN friends f ' + 
         'ON (u.user_id = f.friend_one_id OR u.user_id = f.friend_two_id) ' +
         'WHERE ((f.friend_one_id=$1 OR f.friend_two_id=$1) AND u.user_id <> $1 AND f.is_accepted=true)',[user.user_id],
 //         SELECT DISTINCT u.nickname,u.user_id 
