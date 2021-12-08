@@ -44,7 +44,7 @@ function UserPage({match}) {
                 <div key={friend.user_id} className="friends-list-item">
                     <Link to={profileUrl + `${friend.user_id}`} style={{textDecoration:"none"}}><div className="friend-list-data">
                         <div className="friend-avatar">
-                            <img className="friend-avatar-img" alt='user' src={User2}/>
+                            <img className="friend-avatar-img" alt='user' src={`${process.env.PUBLIC_URL}/photos/${friend.profile_picture}`}/>
                         </div>
                         <div className="friend-name">{friend.nickname}</div>
                     </div></Link>
