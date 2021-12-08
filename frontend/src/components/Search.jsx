@@ -10,7 +10,8 @@ import { getUsers } from '../routes/userRoutes';
 
 export function Search() {
 
-    const url = "movie/";
+    const urlMovie = "movie/";
+    const urlUser = "profile/";
 
     useEffect(() =>{
         getMovies().then((resp)=>{setMovies(resp); console.log(resp) }); 
@@ -50,7 +51,7 @@ export function Search() {
             
             
         }).map((val,key) => {
-            return <p>{val.title}</p>
+            return <Link to={urlMovie + `${val.movie_id}`}><p>{val.title}</p></Link>
         })}
         <br></br>
         <h1 style={{"font-size": "xx-large"}}>Użytkownicy</h1>
@@ -61,7 +62,7 @@ export function Search() {
                 return val
             }
         }).map((val,key) => {
-            return <p>{val.nickname}</p>
+            return <Link to={urlUser + `${val.user_id}`}><p>{val.nickname}</p></Link>
         })}
         
     </div>

@@ -254,7 +254,7 @@ const changeNickname = async(req,res) => {
 }
 
 const changeProfilePic = async(req,res) =>{
-    const user_id = 6;
+    const user_id = req.user.user_id;
     const body = req.body;
 
     const schema = Joi.object({     

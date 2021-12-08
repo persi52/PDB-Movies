@@ -11,6 +11,6 @@ router.get('/getCurrentUser', verifyToken ,authController.getCurrentUser);
 router.get('/getUserById/:id',verifyToken, authController.getUserById);
 router.post('/account/changePassword',verifyToken,authController.changePassword);
 router.post('/account/changeNickname',verifyToken,authController.changeNickname);
-router.post('/account/changePicture',authController.changeProfilePic);
+router.post('/account/changePicture',verifyToken, authController.changeProfilePic);
 
 module.exports = router;
