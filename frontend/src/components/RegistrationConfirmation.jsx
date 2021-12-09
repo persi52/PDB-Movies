@@ -19,7 +19,7 @@ export function RegistrationConfirmation() {
                     Dziękujemy za rejestrację w naszym serwisie. Zaloguj się, aby oglądać nasze najnowsze produkcje.
                 </div>
 
-                <a id='login' className="submit-button" href="/login">Zaloguj się</a>
+                <a id='login' className="btn submit-button" href="/login">Zaloguj się</a>
                 
             </div>
         </div>

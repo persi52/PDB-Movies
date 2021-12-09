@@ -21,7 +21,7 @@ export function NoAccess() {
                     Dostęp tylko dla zalogowanych użytkowników.
                      </div>
 
-                <a id='login' className="submit-button" href="/">Przejdź na stronę główną</a>
+                <a id='login' className="btn submit-button" href="/">Przejdź na stronę główną</a>
                 
             </div>
         </div>

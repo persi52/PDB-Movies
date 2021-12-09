@@ -11,7 +11,7 @@ const recommendApi = axios.create({
 })
 
 export function getUsers(){
-  let data = userApi.get('/getUsers');
+  let data = userApi.get('/get_all').then(({data}) => data);
   return data;
 }
 
@@ -62,4 +62,32 @@ export function getCurrentUser(){
         receiver_id: receiver_id,  
         movie_id: movie_id
     });
+  }
+
+  export function changeNickname(){
+    const newNickname = document.getElementById('username').value;
+    let data = userApi.post('/account/changeNickname',{
+      newNickname: newNickname
+    }).then(data=>data);
+    return data;
+  }
+
+  export function changePassword(){
+    const currentPassword = document.getElementById('password').value;
+    const newPassword = document.getElementById('new_password').value;
+    const repeatNewPassword = document.getElementById('confirm_new_password').value;
+
+    let data = userApi.post('/account/changePassword',{
+      currentPassword : currentPassword,
+      newPassword: newPassword,
+      repeatNewPassword: repeatNewPassword
+    }).then(data=>data);
+    return data;
+  }
+
+  export function changeProfilePic(newProfilePicture){
+    let data = userApi.post('/account/changePicture',{
+      newProfilePicture: newProfilePicture
+    }).then(data=>data);
+    return data;
   }
