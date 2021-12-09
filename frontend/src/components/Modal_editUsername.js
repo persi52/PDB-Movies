@@ -9,7 +9,7 @@ export const ModalUsername = () => {
                   <label htmlFor="username">Nowa nazwa użytkownika: </label>
                   <input type="text" id="username" name="username" />
               </div>
-              <button type="submit" className="form-edit-button btn" onClick={()=>changeNickname(document.getElementById('username').value)}>Zapisz</button>
+              <button type="button" className="form-edit-button btn" onClick={()=>{changeNickname();window.location.reload(true)}}>Zapisz</button>
           </form>
   )
 };

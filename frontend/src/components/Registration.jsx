@@ -6,7 +6,7 @@ import '../css/style.css'
 
 export function Registration() {
     
-    const initialValues = {username: "", email: "", password: "", repeatpassword: "" };
+    const initialValues = {username: "", email: "", password: "", repeatpassword: "", emailExists: "" };
     const [formValues, setformValues] = useState(initialValues);
     const [formErrors, setformErrors] = useState({});
 
@@ -43,6 +43,10 @@ export function Registration() {
         if (values.repeatpassword !== values.password || !values.repeatpassword){
             errors.repeatpassword = "Hasła muszą być takie same!";
         } 
+
+        if(values.username && values.email && values.password && values.repeatpassword && regex.test(values.email) && values.password.length > 7 && values.repeatpassword === values.password){
+            errors.emailExists = "Podany email jest już zarejestrowany."
+        }
 
         return errors;
     }
@@ -83,6 +87,7 @@ export function Registration() {
                         <label htmlFor="repeatpassword">Powtórz hasło: </label>
                         <input type="password" id="repeatpassword" name="repeatpassword" value={ formValues.repeatpassword } onChange={handleChange}/>
                         <p className="registration-error">{ formErrors.repeatpassword }</p>
+                        <p className="registration-error">{ formErrors.emailExists }</p>
                     </div>    
                     
                     <button type="submit" className="btn submit-button" onClick={()=>checkStatus()}>Zarejestruj</button>

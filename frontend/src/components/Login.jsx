@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export function Login() {
 
-    const initialValues = { email: "", password: ""}
+    const initialValues = { email: "", password: "", wrongCred: ""}
     const [formValues, setformValues] = useState(initialValues);
     const [formErrors, setformErrors] = useState({});
 
@@ -32,9 +32,12 @@ export function Login() {
             errors.password = "Podaj hasło!";
         }
 
+        if(values.password && values.email){
+            errors.wrongCred = "Błędny email lub hasło!";
+        }
+
         return errors;
     }
-
 
     return (
     <div>
@@ -58,6 +61,7 @@ export function Login() {
                         <input type="password" id="password" name="password" value={formValues.password} onChange={handleChange}/>
                         <p className="registration-error">{ formErrors.password }</p>
                     </div>
+                    <p className="registration-error">{formErrors.wrongCred}</p>
                     <button id='login' className="submit-button btn" onClick={login}>Zaloguj</button>
                 </form>
 

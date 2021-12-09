@@ -113,6 +113,20 @@ const signIn = async (req,res) =>{
 
 };
 
+const getUsersToSearch = async (req,res) =>{
+    const user_id = req.user.user_id
+    try{
+        pool.query('SELECT * FROM users WHERE user_id<>$1',[user_id],(err,results)=>{        
+            if(err) throw err;
+            else res.status(200).send(results.rows);
+            //console.log(results);
+        })
+    }catch(err){
+        console.log(err);
+    }
+   
+}
+
 const getUsers = async (req,res) =>{
    
     try{
@@ -125,7 +139,7 @@ const getUsers = async (req,res) =>{
         console.log(err);
     }
    
-};
+}
 
 const getUserById = async(req,res) =>{
 
@@ -254,7 +268,7 @@ const changeNickname = async(req,res) => {
 }
 
 const changeProfilePic = async(req,res) =>{
-    const user_id = 6;
+    const user_id = req.user.user_id;
     const body = req.body;
 
     const schema = Joi.object({     
@@ -293,6 +307,7 @@ module.exports = {
     signIn,
     getCurrentUser,
     getUsers,
+    getUsersToSearch,
     getUserById,
     signOut,
     changePassword,

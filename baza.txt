@@ -293,8 +293,8 @@ ALTER TABLE public."movies_to_watch"
 
 CREATE TABLE public.photos
 (
-    photo_id integer NOT NULL,
-    photo_path character varying(55) NOT NULL
+    "photo_id" serial,
+    "photo_path" character varying(55) NOT NULL
 );
 
 ALTER TABLE IF EXISTS public.photos

@@ -1,8 +1,11 @@
 import React from "react";
 import { changePassword } from "../routes/userRoutes";
+import { useAlert } from "react-alert";
 
-export const ModalPassword = () => {
+export const ModalPassword = ({setpasswordForm}) => {
   
+    const alert = useAlert();
+
   return (
           <form className="form-edit-password">
 
@@ -21,7 +24,7 @@ export const ModalPassword = () => {
                 </div>
             </div>
               
-              <button type="submit" className="form-edit-button btn" onClick={()=>changePassword(document.getElementById('password').value,document.getElementById('new_password').value,document.getElementById('confirm_new_password').value)}>Zapisz</button>
+              <button type="button" className="form-edit-button btn" onClick={()=>{changePassword();setpasswordForm(false);alert.show('Hasło zostało zmienione.')}}>Zapisz</button>
           </form>
   )
 };

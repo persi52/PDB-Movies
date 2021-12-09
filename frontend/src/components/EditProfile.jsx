@@ -46,7 +46,7 @@ function EditProfile({match}) {
               <div className="edit-photo-box">
               <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='avatar' className="edit-photo-img"/>
                   <button className="btn form-element-button" onClick={showPicChangerModal}>Zmień zdjęcie</button>
-                  {picChanger ? <ModalChangePicture picChanger={picChanger} setpicChanger={setpicChanger} /> : null}
+                  {picChanger ? <ModalChangePicture setpicChanger={setpicChanger} /> : null}
                 </div>
                 <div className="edit-data-elements">
                   <div className="edit-form-element">
@@ -56,7 +56,7 @@ function EditProfile({match}) {
                     </div>
                     <button className="form-element-button btn" onClick={showUserForm}>Edytuj</button>
                   </div>
-                  { userForm ? <ModalUsername /> : null } 
+                  { userForm ? <ModalUsername/> : null } 
                   <div className="edit-form-element">
                     <div className="form-element-data">
                       <label htmlFor="username">Hasło: </label>
@@ -64,7 +64,7 @@ function EditProfile({match}) {
                     </div>
                     <button className="form-element-button btn" onClick={showPasswordForm}>Edytuj</button>
                   </div>
-                  {passwordForm ? <ModalPassword /> : null}
+                  {passwordForm ? <ModalPassword setpasswordForm={setpasswordForm}/> : null}
                 </div>
             </div>
           </div>

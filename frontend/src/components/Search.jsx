@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/reset.css'
 import '../css/style.css'
-import '../css/search.css'
+import '../css/no_access.css'
 import { getMovies, getGenres } from '../routes/movieRoutes';
 import { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom'
@@ -10,7 +10,8 @@ import { getUsers } from '../routes/userRoutes';
 
 export function Search() {
 
-    const url = "movie/";
+    const urlMovie = "movie/";
+    const urlUser = "profile/";
 
     useEffect(() =>{
         getMovies().then((resp)=>{setMovies(resp); console.log(resp) }); 
@@ -24,68 +25,47 @@ export function Search() {
       const [searchTerm, setSearchTerm] = useState('');
 
   return (
-    <div className="landing-page">
-        <div className="container"> 
-            <div className="search-container">
-                <div className="search-field">
-                    <label htmlFor="search" className="search-label">Wyszukaj film lub użytkownika:</label>  
-                    <input type="text" className="search-input" id="search" placeholder="Szukaj..." onChange={event => {setSearchTerm(event.target.value)}}/>
-                </div>
-
-                <div className="search-box">                    
-                    <div className="search-movie-box">
-                    <h1 className="search-section-title">Filmy</h1>
-                    <div>
-                        {movies.filter((val) => {
-                            
-                            if(searchTerm == ""){
-                                return val
-                            } else if(val.title.toLowerCase().includes(searchTerm.toLowerCase())
-                            || genres.filter((obj) => {
-                                
-                                if(val.genre_id.find(element => element==obj.genre_id))
-                                {
-                                    //console.log(obj.name)
-                                    return obj;
-                                }
-                            }).some(x => x.name.toLowerCase().includes(searchTerm.toLowerCase())))           
-                            
-                            {               
-                            
-                                ///zeby sie przefiltrowaly to to musi w jakis sposob zwrocic true
-                                
-                                return val
-                            }
-                            
-                            
-                        }).map((val,key) => {
-                            return <p>{val.title}</p>
-                        })
-                        }
-                    </div>
-                    </div>
-
-                    <div className="search-movie-box">
-                    
-                        <h1 className="search-section-title">Użytkownicy</h1>
-                        {users.filter((val) => {
-                            if(searchTerm == ""){
-                                return val
-                            } else if(val.nickname.toLowerCase().includes(searchTerm.toLowerCase())){
-                                return val
-                            }
-                        }).map((val,key) => {
-                            return <p>{val.nickname}</p>
-                        })}
-                    </div>
-                </div>
-
+    
+    <div className="container">        
+        <input type="text" placeholder="Szukaj..." onChange={event => {setSearchTerm(event.target.value)}}/>
+        <h1 style={{"font-size": "xx-large"}}>Filmy</h1>
+        {movies.filter((val) => {
+            if(searchTerm == ""){
+                return val
+            } else if(val.title.toLowerCase().includes(searchTerm.toLowerCase())
+            || genres.filter((obj) => {
                 
-            </div>               
-        </div>
-      </div>
-    
-    
+                if(val.genre_id.find(element => element==obj.genre_id))
+                {
+                    //console.log(obj.name)
+                    return obj;
+                }
+            }).some(x => x.name.toLowerCase().includes(searchTerm.toLowerCase())))           
+            
+            {               
+            
+                  ///zeby sie przefiltrowaly to to musi w jakis sposob zwrocic true
+                
+                return val
+            }
+            
+            
+        }).map((val,key) => {
+            return <Link to={urlMovie + `${val.movie_id}`}><p>{val.title}</p></Link>
+        })}
+        <br></br>
+        <h1 style={{"font-size": "xx-large"}}>Użytkownicy</h1>
+        {users.filter((val) => {
+            if(searchTerm == ""){
+                return val
+            } else if(val.nickname.toLowerCase().includes(searchTerm.toLowerCase())){
+                return val
+            }
+        }).map((val,key) => {
+            return <Link to={urlUser + `${val.user_id}`}><p>{val.nickname}</p></Link>
+        })}
+        
+    </div>
             
    
     
