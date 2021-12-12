@@ -61,7 +61,7 @@ const signUp = async(req,res) =>{
 };
 
 const signIn = async (req,res) =>{
-    
+
     try{
 
     pool.query('SELECT * FROM users' + 
@@ -69,11 +69,11 @@ const signIn = async (req,res) =>{
     (err, results) => {
         if(err){
             throw err;
-        }            
+        }
 
-        if(results.rows.length > 0){   
+        if(results.rows.length > 0){
 
-              
+
             bcrypt.compare(req.body.password,results.rows[0].password).then((result)=>{ //porownanie zahashowanego hasla
             if(result){
                 //console.log(results.rows[0].user_id) 
@@ -81,13 +81,17 @@ const signIn = async (req,res) =>{
                     user_id : results.rows[0].user_id,
                 }, process.env.TOKEN_SECRET);
 
-       
-                res.cookie('token', token, {
-                    secure: true, // set to true if your using https
-                    httpOnly: true,
-                    sameSite: 'lax'
-                  }).send(token);
-                res.end();
+
+                // res.cookie('token', token, {
+                //     secure: true, // set to true if your using https
+                //     httpOnly: true,
+                //     sameSite: 'lax'
+                //   }).send(token);
+                // res.end();
+                res.status(200).send({
+                    status : "Ok",
+                    token : token
+                })
                 //res.send('Login success');
                 // do stuff
             } else {
@@ -95,21 +99,21 @@ const signIn = async (req,res) =>{
                 // do other stuff
             }
             })
-            .catch((err)=>console.error(err))  
-            
-            
+            .catch((err)=>console.error(err))
+
+
         }
          else{ 
             res.status(401).send("Wrong email or password");
-         }         
-   
+         }
+
         })
     }catch(err){
          console.log(err)
          res.status(500).send()
      } 
-   
-   
+
+
 
 };
 

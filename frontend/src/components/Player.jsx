@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {getMovieById, addToFavourites, removeFromFavourites, addToWatch, removeFromWatch, isFavourite, isTooWatch} from '../routes/movieRoutes'
-import {getComments} from '../routes/commentRoute'
-import {getCurrentUser} from '../routes/userRoutes'
+import {getComments, getCommentLikes, addCommentLike, deleteCommentLike, getUserCommentLike} from '../routes/commentRoute'
 import { getRatingsByMovieId } from '../routes/ratingRoute'
 import '../css/reset.css'
 import '../css/style.css'
@@ -39,8 +38,7 @@ function Player({match}) {
     const [rating, setRating] = useState(null);
     const [isFavoutite, setIsFavourite] = useState(false);
     const [isToWatch, setIsToWatch] = useState(false);
-    const [user, setUser] = useState();
-
+    //const [likes, setLikes] = useState({})
 
 
     const openModal = () => {
@@ -48,6 +46,7 @@ function Player({match}) {
     };
 
     useEffect(() =>{
+        //getCommentLikes(1).then(resp=>setLikes(resp))
         getMovieById(match.params.id).then(resp=>{setMovie(resp)});
         getComments(match.params.id).then(resp=>{setComments(resp)});
         getRatingsByMovieId(match.params.id).then(resp=>{
@@ -56,8 +55,7 @@ function Player({match}) {
         getUserRate(match.params.id).then((resp)=>{setRating(resp)});
         isFavourite(match.params.id).then(resp=>setIsFavourite(resp));
         isTooWatch(match.params.id).then(resp=>setIsToWatch(resp));
-        getCurrentUser().then(resp=>setUser(resp));
-        console.log(user);
+
         
     }, [match.params.id]);   
 
@@ -143,7 +141,8 @@ function Player({match}) {
     function showComments(){
         if(comments!=="No comments"){
         return(comments.map(comment => (
-            <div key={comment.comment_id} class="comment-item">            
+            <div key={comment.comment_id} class="comment-item">    
+                  
                 <div class="comment-avatar">
                 <Link to={profileUrl + `${comment.user_id}`} style={{textDecoration: "none", color:"white"}}> <img src={`${process.env.PUBLIC_URL}/photos/${comment.profile_picture}`} alt='avatar' className="comment-avatar-image"/></Link>
                 </div>
@@ -152,14 +151,39 @@ function Player({match}) {
                     <div class="comment-content comment-content-bg">
                         <span class="comment-content-text"> {comment.comment_content} </span>
                         <div class="comment-action-buttons">
-                            <button id="like" class="movie-btn comment-action-btn"><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
-                            <button id="dislike" class="movie-btn comment-action-btn"><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
+                            <button id="like" class="movie-btn comment-action-btn" type="button" onClick={()=>{addDeleteCommentLike(comment.comment_id)}}><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
+                            <button id="dislike" class="movie-btn comment-action-btn" type="button" onClick={()=>{addDeleteCommentUnlike(comment.comment_id)}}><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
                             <button id="comment" class="movie-btn comment-action-btn"><img src={commentIcon} class="comment-btn-img" alt="Comment button"/></button>
                         </div>
                     </div>
                 </div>
             </div>
             )))}
+    }
+
+    function addDeleteCommentLike(comment_id){
+        getUserCommentLike(comment_id).then(resp=>{
+            if(resp.data==='No like') {addCommentLike(true,comment_id);console.log('Dodano like')}
+        else if(resp.data.is_positive===true) {deleteCommentLike(comment_id);console.log('Usunięto like')}
+            else{
+                deleteCommentLike(comment_id);
+                addCommentLike(true,comment_id);
+                console.log('Zmieniono like')
+            }
+        })
+    }
+
+    function addDeleteCommentUnlike(comment_id){
+        getUserCommentLike(comment_id).then(resp=>{
+            console.log(resp)
+            if(resp.data==='No like') {addCommentLike(false,comment_id);console.log('Dodano like')}
+        else if(resp.data.is_positive===false) {deleteCommentLike(comment_id);console.log('Usunięto like')}
+            else{
+                deleteCommentLike(comment_id);
+                addCommentLike(false,comment_id);
+                console.log('Zmieniono like')
+            }
+        })
     }
 
     return (
@@ -175,6 +199,7 @@ function Player({match}) {
                     <div className="star-rating">
                         {StarRating(movie.movie_id)}
                         ({ratingAvg.averageRate})
+
                     </div>
                     
                 </div>

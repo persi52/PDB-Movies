@@ -20,3 +20,11 @@ GET http://localhost:5000/api/user
 ###
 GET http://localhost:5000/api/movies
 
+###
+POST http://localhost:5000/api/comments/addCommentLike
+Content-Type: application/json
+
+{
+    "isPositive": "true",
+    "comment_id": "1",
+}

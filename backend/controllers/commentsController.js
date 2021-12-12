@@ -45,7 +45,75 @@ const getComments = async(req,res) =>{
     } 
 }
 
+const getCommentLikes = async(req,res) =>{
+    try{
+        pool.query('SELECT * FROM comments_likes WHERE comment_id=$1',[req.params.comment_id],
+        (err,results)=>{
+            if(results.rows.length>0){
+                res.status(200).send(results.rows);
+                res.end();
+            }else return res.status(200).send('No likes');
+        })
+    }catch(err){
+        console.log(err);
+        return res.status(500).send('Internal error');
+    }
+}
+
+const getUserCommentLike = async(req,res) =>{
+    const currentUserId = req.user.user_id;
+    try{
+        pool.query('SELECT * FROM comments_likes WHERE comment_id=$1 AND giver_id=$2',[req.params.comment_id,currentUserId],
+        (err,results)=>{
+            if(results.rows.length>0){
+                res.status(200).send(results.rows[0]);
+                res.end();
+            }else return res.status(200).send('No like');
+        })
+    }catch(err){
+        console.log(err);
+        return res.status(500).send('Internal error');
+    }
+}
+
+const addCommentLike = async(req,res) =>{
+
+    const user_id = req.user.user_id;
+  
+    try{
+      pool.query('INSERT INTO comments_likes (is_positive,giver_id,comment_id) ' +
+      'values ($1, $2, $3)',[req.body.isPositive,user_id,req.body.comment_id],
+      (err,results)=>{
+        
+        if(err) throw err;
+        else return true;      
+      }
+      )}catch(err){
+      console.log(err);
+      }
+}
+
+const deleteCommentLike = async(req,res) =>{
+
+    const user_id = req.user.user_id;
+  
+    try{
+      pool.query('DELETE FROM comments_likes WHERE (giver_id=$1 AND comment_id=$2)',[user_id,req.params.comment_id],
+      (err,results)=>{
+        
+        if(err) throw err;
+        else return true;      
+      }
+      )}catch(err){
+      console.log(err);
+      }
+}
+
 module.exports = {
     addComment,
-    getComments
+    getComments,
+    getCommentLikes,
+    addCommentLike,
+    deleteCommentLike,
+    getUserCommentLike,
 }
