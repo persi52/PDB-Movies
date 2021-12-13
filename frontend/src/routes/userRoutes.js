@@ -37,6 +37,7 @@ export function getCurrentUser(){
         email: email,
         password: password
     }).then(resp => {
+      document.cookie = `token=${resp.data.token}`;
       window.location.href="/";
   });
   }

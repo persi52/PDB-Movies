@@ -299,3 +299,23 @@ CREATE TABLE public.photos
 
 ALTER TABLE IF EXISTS public.photos
     OWNER to postgres;
+
+CREATE TABLE public.seen_movies
+(
+    movie_id integer NOT NULL,
+    user_id integer NOT NULL,
+    finished_at bigint NOT NULL,
+    CONSTRAINT movie_id FOREIGN KEY (movie_id)
+        REFERENCES public.movies (movie_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT user_id FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.seen_movies
+    OWNER to postgres;
