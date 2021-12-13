@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {getMovieById, addToFavourites, removeFromFavourites, addToWatch, removeFromWatch, isFavourite, isTooWatch} from '../routes/movieRoutes'
-import {getComments} from '../routes/commentRoute'
+import * as commentsApi from '../routes/commentRoute'
 import {getCurrentUser} from '../routes/userRoutes'
 import { getRatingsByMovieId } from '../routes/ratingRoute'
 import '../css/reset.css'
@@ -20,11 +20,6 @@ import { addRating, getUserRate } from '../routes/ratingRoute';
 //import { useAlert } from 'react-alert'
 import {Link} from 'react-router-dom'
 
-
-const commentsApi = axios.create({
-    baseURL: "http://localhost:5000/api/comments",
-    withCredentials: true
-})
 
 function Player({match}) {
 
@@ -49,7 +44,7 @@ function Player({match}) {
 
     useEffect(() =>{
         getMovieById(match.params.id).then(resp=>{setMovie(resp)});
-        getComments(match.params.id).then(resp=>{setComments(resp)});
+        commentsApi.getComments(match.params.id).then(resp=>{setComments(resp)});
         getRatingsByMovieId(match.params.id).then(resp=>{
             if(resp==='No rates'){setRatingAvg({averageRate: 'Brak ocen', ratesAmount: '1'})}
             else {setRatingAvg(resp)}})
@@ -136,8 +131,9 @@ function Player({match}) {
             comment_content: content
         }
 
-        await commentsApi.post(`/add`,comment);
-        getComments(match.params.id).then(resp=>{setComments(resp)});
+        //await commentsApi.post(`/add`,comment);
+        await commentsApi.addComment(comment);
+        await commentsApi.getComments(match.params.id).then(resp=>{setComments(resp)});
     }
 
     function showComments(){
