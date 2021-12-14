@@ -22,7 +22,7 @@ export function Notifications(){
             <div className="notifications-list">Brak powiadomień.</div>
           )
           return(notifications.map(notification=>(
-            <div>
+            <div className='notification-item'>
                 {showNotification(notification)}
             </div>
         )))
@@ -45,7 +45,7 @@ export function Notifications(){
           return( 
             <div className="notification notification-invitation">
               <div className="notification-content">
-                <p>Zaproszenie do grona znajomych od uzytkownika&nbsp;<Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.nickname}</Link></p>
+                <p>Zaproszenie do grona znajomych od uzytkownika&nbsp;<Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"rgb(198,132,191)", fontWeight:"bolder"}}>{notification.nickname}</Link></p>
                 <img src={`${process.env.PUBLIC_URL}/photos/${notification.sender_profile_picture}`} alt='avatar' className="notification-user-image"/>
               </div>
               <div className="notification-buttons">
@@ -58,8 +58,8 @@ export function Notifications(){
         else if(notification.type==='recommendation'){
         return(
           <div className="notification notification-content">
-            <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.sender_nickname}</Link>
-            &nbsp;poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none", color:"white", fontWeight:"bolder", fontSize:"22px"}}>{notification.movie_title}&nbsp;
+            <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"rgb(198,132,191)", fontWeight:"bolder"}}>{notification.sender_nickname}</Link>
+            &nbsp;poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none", color:"rgb(198,132,191)", fontWeight:"bolder"}}>{notification.movie_title}&nbsp;
             </Link></p> <Link to={movieUrl + `${notification.movie_id}`} ><img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`} className="notification-movie-img"/></Link>
             
           </div>

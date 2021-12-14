@@ -129,7 +129,7 @@ function Favourites() {
     }
 
     return (
-
+        <div className="landing-page">
             <section className="container">
                     <div classname="favourites-page">
                         <div className="fav-movies-section-box ">
@@ -171,6 +171,7 @@ function Favourites() {
                         </div>
                         </div>
             </section>
+            </div>
 
     )
 }

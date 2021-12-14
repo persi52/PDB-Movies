@@ -80,3 +80,45 @@ input[type="radio"]:not(:checked)+.edit-picture-img {
     opacity: 0.9;
 }
 
+@media screen and (max-width:768px) {
+    .container-change-picture{
+        width: 350px;
+        left: 0; 
+        right: 0;
+        top: 75%; 
+        margin: auto;
+    }
+
+    .edit-picture-img {
+        width: 71px;
+        height: 71px;
+    }   
+}
+
+@media screen and (max-width:470px) {
+    .container-change-picture{
+        width: 200px;
+        padding: 20px;
+        left: 0; 
+        right: 0;
+        top: 95%; 
+        margin: auto; 
+    }
+    .container-change-picture h1{
+        font-size: 19px;
+    }
+
+    .edit-picture-button{
+        padding: 9px 12px;
+        margin: 2px;
+    }
+
+    
+
+    .edit-picture-img {
+        width: 50px;
+        height: 50px;
+    }   
+}
+
+

@@ -11,9 +11,12 @@
     font-size: medium;
 }
 
-.search-section {
-    width: 49%;
-    
+.search-section-movies {
+    width: 55%;
+}
+
+.search-section-users {
+    width: 44%;
 }
 
 .search-input {
@@ -35,7 +38,7 @@
 
 .search-box {
     width: 90%;
-    height: 460px;
+    height: auto;
     display: flex;
     justify-content: center;
     margin: auto;
@@ -59,7 +62,7 @@
 .search-list {
     height: 89%;
     padding-right: 10px;
-    width: max-content;
+    width: 90%;
     overflow-y: scroll;
 }
 
@@ -88,3 +91,50 @@
     color: rgba(198,132,191,0.85);
 }
 
+@media screen and (max-width: 768px) {
+    .search-section-title{
+        font-size: x-large;
+    }
+    
+    .search-box{
+        margin: auto;
+    }
+
+    .search-link {
+        font-size: 17px ;
+    }
+
+}
+
+@media screen and (max-width:600px){
+    .search-box{
+        flex-direction: column;
+        margin: auto;
+        width: 83%;
+    }
+
+    .search-container{
+        margin: auto;
+    }
+    .search-list {
+        margin: auto;
+        width: 100%;
+        height: auto;
+    }
+
+    .search-section {
+        width: 100%;
+    }
+
+    .search-section-users{
+        height: 100%;
+    }
+
+    .search-section-title{
+        text-align: center;
+    }
+
+    .search-section-users .search-section-title{
+        margin-top: 14px;
+    }
+}

@@ -1,22 +1,28 @@
 import '../css/reset.css'
 import '../css/style.css'
+import '../css/navbar.css'
+import { useState , useEffect } from 'react'
 import Logo from "../icons/logo.png"
 import { signOut } from '../routes/userRoutes';
+import {BsList} from "react-icons/bs"
 
 export function Navbar_logged(user_id) {
 
     return(
         <nav>
-        <div className="container">
-            <a href="/" className="nav-logo" ><img src={Logo} alt="logo" height="45px" width="45px"/><p className="app-name">PDB Movies</p></a>
+        <div className="navbar">
+        <div className="nav-header">
+            <a href="/" className="nav-logo" ><img src={Logo} className='nav-logo-img' alt="logo"/><p className="app-name">PDB Movies</p></a>
+        </div>
             
             <div className="nav-links-logged nav-links-a ">
-                <a href="/search">Szukaj</a>
-                <a href="/favourities">Ulubione</a>
-                <a href="/notifications">Powiadomienia</a>
-                <a href={`/myprofile/${user_id}`} >Mój profil</a>
-                <a onClick={signOut} href="/">Wyloguj się</a>
+                <a href="/search" className='nav-link'>Szukaj</a>
+                <a href="/favourities" className='nav-link'>Ulubione</a>
+                <a href="/notifications" className='nav-link'>Powiadomienia</a>
+                <a href={`/myprofile/${user_id}`} className='nav-link' >Mój profil</a>
+                <a onClick={signOut} href="/" className='nav-link'>Wyloguj się</a>
             </div>
+            
         </div>
         </nav>
     );

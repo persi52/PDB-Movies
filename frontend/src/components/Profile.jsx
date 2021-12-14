@@ -144,12 +144,12 @@ function Profile({match}) {
 
     return(
         <section className="container">
-            <div className="user-info">
-                <div className="user-avatar">
-                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='user' className="user-avatar-image"/>
+            <div className="fr-user-info">
+                <div className="fr-user-avatar">
+                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='user' className="fr-user-avatar-image"/>
                 </div>
-                <div className="user-section-right">
-                    <div className="user-body">
+                <div className="fr-user-section-right">
+                    <div className="fr-user-body">
                         <div className="prof-user-name" >{user.nickname}</div>
                         <div className="prof-user-email" >{user.email}</div>
                     </div>
@@ -170,6 +170,9 @@ function Profile({match}) {
                 <div className="header-section">
                     <FaPercent className="percent-icon" />
                     <h2>Podobieństwo gustów</h2>
+                </div>
+                <div className='similarity-box'>
+
                 </div>
             </div>
         

@@ -34,3 +34,13 @@
     border: none;
     padding: 2% 5%;
   }
+
+  @media screen and (max-width:768px) {
+    .modal-remove-friend{
+      position: absolute;
+      top: 90%;
+      left: 0;
+      right: 0;
+    }
+  }
+
