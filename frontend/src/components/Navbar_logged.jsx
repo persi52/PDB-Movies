@@ -20,7 +20,7 @@ export function Navbar_logged(user_id) {
                 <a href="/favourities" className='nav-link'>Ulubione</a>
                 <a href="/notifications" className='nav-link'>Powiadomienia</a>
                 <a href={`/myprofile/${user_id}`} className='nav-link' >Mój profil</a>
-                <a onClick={signOut} href="/" className='nav-link'>Wyloguj się</a>
+                <a onClick={()=>document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT"} href="/">Wyloguj się</a>
             </div>
             
         </div>
