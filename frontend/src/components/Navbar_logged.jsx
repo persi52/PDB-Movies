@@ -1,10 +1,7 @@
 import '../css/reset.css'
 import '../css/style.css'
 import '../css/navbar.css'
-import { useState , useEffect } from 'react'
 import Logo from "../icons/logo.png"
-import { signOut } from '../routes/userRoutes';
-import {BsList} from "react-icons/bs"
 
 export function Navbar_logged(user_id) {
 
@@ -19,7 +16,7 @@ export function Navbar_logged(user_id) {
                 <a href="/search" className='nav-link'>Szukaj</a>
                 <a href="/favourities" className='nav-link'>Ulubione</a>
                 <a href="/notifications" className='nav-link'>Powiadomienia</a>
-                <a href={`/myprofile/${user_id}`} className='nav-link' >Mój profil</a>
+                <a href={`/myprofile`} className='nav-link' >Mój profil</a>
                 <a onClick={()=>document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT"} href="/">Wyloguj się</a>
             </div>
             

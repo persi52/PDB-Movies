@@ -1,7 +1,6 @@
 import '../css/reset.css'
 import '../css/style.css'
 import '../css/profile.css'
-import User from "../icons/avatar.png"
 import Envelope from "../icons/envelope.png"
 import Stats from "../icons/stats.png"
 import Star from "../icons/star.png"
@@ -12,18 +11,12 @@ import UserRemove from "../icons/user-remove.png"
 import UserAccept from "../icons/user-accept.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
-import axios from 'axios'
 import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
 import { Modal } from './Modal_removeFriend'
 import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
 import { getFriendFavourites, getFriendRated } from '../routes/movieRoutes'
-
-const api = axios.create({
-    baseURL: "http://localhost:5000/api/movies",
-    withCredentials: true
-  })
 
 function Profile({match}) {
 

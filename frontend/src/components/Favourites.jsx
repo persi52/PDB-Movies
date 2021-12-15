@@ -8,20 +8,18 @@ import Heart from "../icons/heart.png"
 import Eye from "../icons/eye.png"
 import {Link} from 'react-router-dom'
 import StarRatingStatic from './StarRatingStatic';
-import { getRecommended, getMovies, getRatedMovies, getFavouritesMovies, getToWatchMovies, getRecommendedMovies } from '../routes/movieRoutes';
+import { getRatedMovies, getFavouritesMovies, getToWatchMovies, getRecommendedMovies } from '../routes/movieRoutes';
 
 function Favourites() {
 
     const url = "movie/";
 
-    const [movies, setMovies] = useState([]);
     const [ratedMovies, setRatedMovies] = useState([]);
     const [favouritesMovies, setFavouritesMovies] = useState([]);
     const [toWatchMovies, setToWatchMovies] = useState([]);
     const [recommendedMovies, setRecommendedMovies] = useState([]);
 
     useEffect(() =>{
-        getMovies().then((resp)=>{setMovies(resp)});
         getRatedMovies().then(resp=>setRatedMovies(resp));
         getFavouritesMovies().then(resp=>setFavouritesMovies(resp));
         getToWatchMovies().then(resp=>setToWatchMovies(resp));
@@ -134,7 +132,7 @@ function Favourites() {
                     <div classname="favourites-page">
                         <div className="fav-movies-section-box ">
                             <div className="section-header">
-                                <img src={Star} className="header-icon"/>
+                                <img src={Star} alt='star' className="header-icon"/>
                                 <h2>Ocenione filmy</h2>
                             </div>
                                 <div className="fav-movie-list">
@@ -144,7 +142,7 @@ function Favourites() {
                         
                         <div className="fav-movies-section-box">
                             <div className="section-header">
-                                <img src={Heart} className="header-icon"></img>
+                                <img src={Heart} alt='heart' className="header-icon"></img>
                                 <h2>Ulubione filmy</h2>
                             </div>
                             <div className="fav-movie-list">
@@ -153,7 +151,7 @@ function Favourites() {
                         </div>
                         <div className="fav-movies-section-box">
                             <div className="section-header">
-                                <img src={Eye} className="header-icon"></img>
+                                <img src={Eye} alt='eye' className="header-icon"></img>
                                 <h2>Do obejrzenia</h2>
                             </div>
                             <div className={toWatchMovies ? `fav-movie-list` : `no-fav-movie-list`}>
@@ -162,7 +160,7 @@ function Favourites() {
                         </div>
                         <div className="fav-movies-section-box">
                             <div className="section-header">
-                                <img src={Following} className="header-icon"></img>
+                                <img src={Following} alt='following' className="header-icon"></img>
                                 <h2>Polecone przez znajomych</h2>
                             </div>
                             <div className="fav-movie-list">

@@ -166,7 +166,7 @@ const getCurrentUser = async(req,res) => {
         pool.query('SELECT * FROM users WHERE user_id=$1',[currentUser.user_id],(err,results)=>{
 
             res.status(200).send(results.rows[0]);
-           // console.log(results);
+            //console.log(results.rows[0]);
         })
     }catch(err){
         console.log(err);

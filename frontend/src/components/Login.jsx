@@ -34,6 +34,7 @@ export function Login() {
         }
 
         if(values.password && values.email){
+            
             errors.wrongCred = "Błędny email lub hasło!";
         }
 
