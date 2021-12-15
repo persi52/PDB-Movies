@@ -32,7 +32,7 @@ const getComments = async(req,res) =>{
         ' INNER JOIN users u ON c.author_id = u.user_id WHERE c.movie_id=$1 ORDER BY comment_id DESC',        
         [req.params.movie_id],
         (err,results)=>{
-            console.log(results.rows)
+            //console.log(results.rows)
             if(results.rows.length>0)
            { res.status(200).send(results.rows);
             res.end();}
