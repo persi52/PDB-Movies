@@ -27,10 +27,37 @@ function Home() {
   Swiper.use([Navigation]);
   const swiper = new Swiper('.swiper', {
     // Optional parameters
-    slidesPerView: 6,
+    slidesPerView: 7,
     loop: true,
     slidesPerGroup: 2,
+    spaceBetween:5 ,
     speed: 500,
+    breakpoints: {
+      370: {
+        slidesPerView:3
+      },
+      440: {
+        slidesPerView:3
+      },
+      500: {
+        slidesPerView: 4
+      },
+      640: {
+        slidesPerView: 5
+      },
+      880: {
+        slidesPerView: 6,
+      },
+      1000: {
+        slidesPerView: 5,
+      },
+      1100: {
+        slidesPerView: 6,
+      },
+      1430: {
+        slidesPerView: 7,
+      }
+    },
   
     // Navigation arrows
     navigation: {

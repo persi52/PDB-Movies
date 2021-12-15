@@ -18,8 +18,8 @@
 }
 
 .movie-item {
-    margin-right: 5px;
-    margin-left: 5px;
+    /* margin-right: 5px;
+    margin-left: 5px; */
     position: relative;
 }
 
@@ -82,3 +82,116 @@
     font-size: xx-large;
     transition: transform 0.1s ease-out;
 }
+
+@media screen and (max-width: 1215px) {
+    .movie-cover {
+        width: 153px;
+        height: 216px;
+    }
+
+    .image-overlay {
+        width: 153px;
+        height: 216px;
+    }
+} 
+
+@media screen and (max-width:1000px) {
+
+    .movie-cover {
+        width: 122px;
+        height: 172px;
+    }
+
+    .image-overlay{
+        width: 122px;
+        height: 172px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .movie-cover {
+        width: 103px;
+        height: 146px;
+    }
+
+    .image-overlay{
+        width: 103px;
+        height: 146px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .movie-title-overlay {
+        font-size: 14px;
+    }
+
+    .movie-cover{
+        width: 122px;
+        height: 172px;
+    }
+
+    .image-overlay{
+        width: 122px;
+        height: 172px;
+    }
+
+    .swiper-button-next::after, 
+    .swiper-button-prev::after{
+        color: white;
+        font-weight: bold;
+        font-size: larger;
+        transition: transform 0.1s ease-out;
+    }
+    
+}
+
+@media screen and (max-width: 580px){
+    .movie-cover{
+        width: 103px;
+        height: 146px;
+    }
+    .image-overlay{
+        width: 103px;
+        height: 146px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .movie-cover{
+        width: 122px;
+        height: 172px;
+    }
+
+    .image-overlay{
+        width: 122px;
+        height: 172px;
+        
+    }
+}
+
+@media screen and (max-width: 440px){
+    .movie-cover{
+        width: 103px;
+        height: 146px;
+    }
+    
+    .image-overlay{
+        width: 103px;
+        height: 146px;
+    }
+    
+}
+
+@media screen and (max-width: 370px){
+    .movie-cover{
+        width: 90px;
+        height: 128px;
+    }
+
+    .image-overlay{
+        width: 90px;
+        height: 128px;
+    }
+}
+
+

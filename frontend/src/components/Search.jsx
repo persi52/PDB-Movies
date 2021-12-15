@@ -34,7 +34,7 @@ export function Search() {
                 </div>
                
                 <div className="search-box">
-                    <div className="search-section">
+                    <div className="search-section search-section-movies ">
                         <div className="search-section-title">
                             <h1 className="search-section-title">Filmy</h1>
                         </div>
@@ -64,7 +64,7 @@ export function Search() {
                             })}
                             </div>
                     </div>
-                   <div className="search-section">
+                   <div className="search-section search-section-users">
                         <div className="search-section-title">
                             <h1 className="search-section-title">Użytkownicy</h1>
                         </div>
