@@ -11,6 +11,7 @@ router.post('/acceptFriendRequest',verifyToken,friendsController.acceptFriendReq
 router.post('/remove',verifyToken,friendsController.removeFriend);
 router.get('/get',verifyToken,friendsController.getUserFriends);
 router.post('/getFriendStatus',verifyToken,friendsController.getFriendStatus);
+router.get('/coverage/:friend_id',verifyToken,friendsController.getFriendTasteCoverage);
 
 
 

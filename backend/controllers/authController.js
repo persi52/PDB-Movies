@@ -81,7 +81,11 @@ const signIn = async (req,res) =>{
                     user_id : results.rows[0].user_id,
                 }, process.env.TOKEN_SECRET);
 
+<<<<<<< HEAD
+       
+=======
 
+>>>>>>> 4c42d3c9f1a6116bb32f98586a2fec7c193fab5b
                 // res.cookie('token', token, {
                 //     secure: true, // set to true if your using https
                 //     httpOnly: true,

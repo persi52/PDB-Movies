@@ -71,6 +71,7 @@ export async function getCurrentUser(){
     let data = userApi.post('/account/changeNickname',{
       newNickname: newNickname
     }).then(data=>data);
+    console.log(data);
     return data;
   }
 
@@ -84,6 +85,7 @@ export async function getCurrentUser(){
       newPassword: newPassword,
       repeatNewPassword: repeatNewPassword
     }).then(data=>data);
+    
     return data;
   }
 
