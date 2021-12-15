@@ -10,74 +10,13 @@ body {
     color: white;
 }
 
-footer .container {
-    height: 30px;
-    color: white;
-    font-weight: 200;
-    border-top: white groove 1px;
-    padding-top: 6px;
-    display: flex;
-    justify-content: space-between;
-}
-
 .container {
-    width: 1080px;
+    width: 85vw;
     margin: 0 auto;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-.footer-links {
-    display: flex;
-}
-
-.footer-links a {
-    color: white;
-    text-decoration: none;
-    padding: 0 3px;
-}
-
-.nav-logo {
-    font-weight: 300;
-    font-size: larger;
-    display: flex;
-    align-items: center;
-}
-
-.nav-links-logged {
-    display: flex;
-    justify-content: space-between;
-    width: 55%;
-}
-
-.nav-links {
-    display: flex;
-    justify-content: space-between;
-    width: 30%;
-}
-
-.nav-links-a a:hover {
-    transform: scale(1.05);
-}
-
-.nav-links-a a {
-    transition: 0.5s all;
-    font-weight: 200;
-}
-
-nav .container{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 65px;
-}
-
-
 .landing-page {
-    height: calc(100vh - 102px);
+    min-height: calc(100vh - 102px);
     font-weight: 200;
     display: flex;
     justify-content: space-between;
@@ -88,7 +27,7 @@ nav .container{
     background-color: rgba(61, 62, 71, 0.5);
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 35vw;
     height: 400px;
     margin: auto;
     margin-top: 55px;
@@ -100,7 +39,7 @@ nav .container{
     background-color: rgba(61, 62, 71, 0.5);
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 35vw;
     height: 500px;
     margin: auto;
     margin-top: 55px;
@@ -179,7 +118,6 @@ nav .container{
     margin: 2px 0;
 }
 
-
 .submit-button {
     border: none;
     text-decoration: none;
@@ -193,7 +131,6 @@ nav .container{
     width: fit-content;
 }
 
-
 .btn {
     background: linear-gradient(180deg, rgba(198,132,191,0.65) 0%, rgba(145,176,189,0.65) 100%);
 }
@@ -201,5 +138,93 @@ nav .container{
 .btn:hover {
     cursor: pointer;
     background: linear-gradient(180deg, rgba(198,132,191,0.8) 0%, rgba(145,176,189,0.8) 100%);
+}
+
+@media screen and (max-width:1024px){
+    .registration-form {
+        margin: 20px 0 15px;
+        margin: auto;
+    }
+
+    .registration-box{
+        width: 45vw;
+        margin: 10px auto;
+    }
+
+    .login-box{
+        width: 45vw;
+        margin: 10px auto;
+    }
+
+    .form-element > input {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:850px){
+    .registration-box{
+        width: 55vw;
+    }
+
+    .login-box{
+        width: 55vw;
+    }
+}
+
+@media screen and (max-width:768px){
+    .landing-page{
+        min-height:calc(100vh - 92px);
+    }
+}
+
+@media screen and (max-width:600px){
+    .registration-box{
+        width: 60vw;
+        padding: 20px;
+    }
+
+    .login-box{
+        width: 60vw;
+        padding: 25px;
+    }
+}
+
+@media screen and (max-width:425px){
+    .form-element > input {
+        height: 30px;
+    }
+
+    .landing-page{
+        min-height:calc(100vh - 82px);
+    }
+
+    .registration-form{
+        margin: 15px auto;
+    }
+
+    .registration-box{
+        height: 450px;
+    }
+
+    .login-box{
+        height: 350px;
+    }
+
+    .submit-button{
+        padding: 10px 18px;
+        font-size: 14px;
+    }
+
+    .box-logo{
+        margin: 10px auto;
+    }
+
+    .box-info-text{
+        font-size: 14px;
+    }
+
+    .box-logo > h1 {
+        font-size: larger;
+    }
 }
 

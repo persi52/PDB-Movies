@@ -14,7 +14,7 @@
   border: none;
   margin-top: 3px;
   height: 20px;
-}
+  }
 
 .form-edit-username input:focus{
   outline: none;
@@ -32,3 +32,4 @@
   margin: 6px 0;
   width: fit-content;
 }
+

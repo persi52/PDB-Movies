@@ -149,7 +149,6 @@ function Player({match}) {
                         <div class="comment-action-buttons">
                             <button id="like" class="movie-btn comment-action-btn" type="button" onClick={()=>{addDeleteCommentLike(comment.comment_id)}}><img src={thumbsUp} class="comment-btn-img" alt="Like button"/></button>
                             <button id="dislike" class="movie-btn comment-action-btn" type="button" onClick={()=>{addDeleteCommentUnlike(comment.comment_id)}}><img src={thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>
-                            <button id="comment" class="movie-btn comment-action-btn"><img src={commentIcon} class="comment-btn-img" alt="Comment button"/></button>
                         </div>
                     </div>
                 </div>
@@ -214,7 +213,7 @@ function Player({match}) {
 
     <section class="comments container"> 
         <div class="comments-header">
-            <img src={commentIcon} class="comment-icon" width="35px" height="35px" alt="Comment icon" />
+            <img src={commentIcon} class="comment-icon"  alt="Comment icon" />
             <h1>Komentarze</h1>
         </div>
 
