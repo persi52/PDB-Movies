@@ -10,6 +10,7 @@ export function Login() {
     const initialValues = { email: "", password: "", wrongCred: ""}
     const [formValues, setformValues] = useState(initialValues);
     const [formErrors, setformErrors] = useState({});
+    const [credErrVisible, setCredErrVisible] = useState('hidden')
 
     const handleChange = (e) => {
         const { name, value } = e.target;

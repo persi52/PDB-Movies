@@ -43,3 +43,8 @@ export async function declineInvitation(sender_id, notification_id){
         notification_id: notification_id
     }).then((resp)=>{return resp.status})
 }
+
+export async function coverage(friend_id){
+    let data = await friendsApi.get(`/coverage/`+friend_id).then(data=>data)
+    return data;
+}

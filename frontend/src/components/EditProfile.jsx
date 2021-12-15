@@ -5,7 +5,7 @@ import '../css/edit_profile.css'
 import '../css/modal_editUsername.css'
 import '../css/modal_editPassword.css'
 import '../css/modal_changePicture.css'
-import {getUserById} from '../routes/userRoutes'
+import {getCurrentUser} from '../routes/userRoutes'
 import {ModalUsername} from "./Modal_editUsername"
 import {ModalPassword} from "./Modal_editPassword"
 import {ModalChangePicture} from "./Modal_changePicture"
@@ -32,8 +32,8 @@ function EditProfile({match}) {
   }
 
   useEffect(() => {
-    getUserById(match.params.id).then(resp => {setuser(resp[0])})    
-  }, [match.params.id]);
+    getCurrentUser().then(resp => {setuser(resp)})    
+  }, []);
 
     return (
     <div>

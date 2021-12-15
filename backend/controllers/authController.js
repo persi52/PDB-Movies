@@ -81,11 +81,6 @@ const signIn = async (req,res) =>{
                     user_id : results.rows[0].user_id,
                 }, process.env.TOKEN_SECRET);
 
-<<<<<<< HEAD
-       
-=======
-
->>>>>>> 4c42d3c9f1a6116bb32f98586a2fec7c193fab5b
                 // res.cookie('token', token, {
                 //     secure: true, // set to true if your using https
                 //     httpOnly: true,
@@ -170,7 +165,7 @@ const getCurrentUser = async(req,res) => {
         pool.query('SELECT * FROM users WHERE user_id=$1',[currentUser.user_id],(err,results)=>{
 
             res.status(200).send(results.rows[0]);
-           // console.log(results);
+            //console.log(results.rows[0]);
         })
     }catch(err){
         console.log(err);

@@ -24,22 +24,23 @@ export function getUserById(user_id){
   return data;
 }
 
-export function getCurrentUser(){
-  let data = userApi.get('getCurrentUser').then(({data}) => data);
+export async function getCurrentUser(){
+  let data = await userApi.get('getCurrentUser').then(({data}) => data);
+  console.log(data)
   return data;
 }
 
-  export function login(){
+  export async function login(){
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
   
-    userApi.post('/signIn',{   
+    let data = await userApi.post('/signIn',{   
         email: email,
         password: password
-    }).then(resp => {
-      document.cookie = `token=${resp.data.token}`;
-      window.location.href="/";
-  });
+    }).then(data => data);
+  document.cookie = `token=${data.data.token}`;
+  window.location.href="/";
+  return data;
   }
 
   export async function signup(){
