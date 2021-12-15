@@ -10,6 +10,7 @@ export function Login() {
     const initialValues = { email: "", password: "", wrongCred: ""}
     const [formValues, setformValues] = useState(initialValues);
     const [formErrors, setformErrors] = useState({});
+    const [credErrVisible, setCredErrVisible] = useState('hidden')
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -61,8 +62,8 @@ export function Login() {
                         <input type="password" id="password" name="password" value={formValues.password} onChange={handleChange}/>
                         <p className="registration-error">{ formErrors.password }</p>
                     </div>
-                    <p className="registration-error">{formErrors.wrongCred}</p>
-                    <button id='login' className="submit-button btn" onClick={login}>Zaloguj</button>
+                    <p className="registration-error" style="color:green;">{formErrors.wrongCred}</p>
+                    <button id='login' className="submit-button btn" onClick={()=>{login();}}>Zaloguj</button>
                 </form>
 
 
