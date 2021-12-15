@@ -291,6 +291,47 @@ const getChoosenForYouMovies = async(req,res) => {
     
 }
 
+const addToSeenMovies = async(body) =>{
+    const user_id = body.user_id;
+    const movie_id = body.movie_id;
+    const finished_at = body.finished_at;
+
+    console.log(body)
+
+    try{
+        pool.query('SELECT * FROM seen_movies WHERE user_id=$1 AND movie_id=$2',[user_id,movie_id],
+        (err,results)=>{
+
+            if(err) throw err;
+
+            if(results.rowCount>0){
+                pool.query('UPDATE seen_movies SET finished_at=$1 WHERE user_id=$2 AND movie_id=$3',[finished_at,user_id,movie_id],
+                (err,results)=>{
+        
+                    if(err) throw err;
+                    else return true;
+                   // else res.status(200).send('Movie added to seenMovies')
+                           
+                })
+            }
+            else 
+                pool.query('INSERT INTO seen_movies (user_id,movie_id,finished_at) VALUES($1,$2,$3)',[user_id,movie_id,finished_at],
+                (err,results)=>{
+        
+                    if(err) throw err;
+                    else return true;
+                // else res.status(200).send('Movie added to seenMovies')
+                        
+                })
+                    
+        })
+    }catch(err){
+        console.log(err);
+    }  
+
+
+}
+
 //#endregion recommendationEngine
 
 //#region movieSearch
@@ -312,5 +353,7 @@ module.exports = {
     getUserToWatch,
     getFriendRated,
     isMovieInToWatch,
-    getGenres
+    getGenres,
+    addToSeenMovies
 }
+

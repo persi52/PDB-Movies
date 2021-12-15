@@ -62,14 +62,11 @@ export function Login() {
                         <input type="password" id="password" name="password" value={formValues.password} onChange={handleChange}/>
                         <p className="registration-error">{ formErrors.password }</p>
                     </div>
-                    <p className="registration-error" style="color:green;">{formErrors.wrongCred}</p>
-                    <button id='login' className="submit-button btn" onClick={()=>{login();}}>Zaloguj</button>
-                </form>
-
-
+                    <p className="registration-error">{formErrors.wrongCred}</p>
+                    <button id='login' className="submit-button btn" onClick={login}>Zaloguj</button>
+                </form>              
                 
-                
-                <div className="box-info">
+                {/* <div className="box-info">
                     <div className="box-info-text box-info-text-login">
                         <h2>Nie masz jeszcze konta?</h2>
                         <a href="registration">Zarejestruj się</a>
@@ -77,6 +74,13 @@ export function Login() {
                     <div className="box-info-text box-info-text-login">
                         <h2>Nie pamiętasz hasła?</h2>
                         <a href="registration">Przypomnij hasło</a>
+                    </div>
+                </div> */}
+
+                <div className="box-info">       
+                    <div className="box-info-text">
+                        <h2>Nie masz jeszcze konta?</h2>
+                        <a href="registration">Zarejestruj się</a>
                     </div>
                 </div>
             </div>

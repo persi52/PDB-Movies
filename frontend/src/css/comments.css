@@ -80,7 +80,7 @@ video {
 }
 
 .comments-container {
-    width: 880px;
+    width: 75%;
     margin: 0 auto;  
 }
 
@@ -96,10 +96,14 @@ video {
     margin-top: 5px;
 }
 
+.comment-icon{
+    max-width:35px;
+    max-height: 35px;
+}
+
 .comment-content-bg {
     background-color: #85879A;
     border-radius: 10px;
-    background-size: 100%;
 }
 
 .comment-action-btn {
@@ -139,7 +143,7 @@ video {
 
 .comment-response-item {
     display: flex;
-    width: 800px;
+    width: 90%;
 }
 
 .comment-response-text{
@@ -157,7 +161,7 @@ video {
     border: none;
     outline: none;
     color: white;
-    width: 710px;
+    width: 90%;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -177,6 +181,7 @@ video {
 .comment-form-section-right {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .movie-btn {
@@ -198,4 +203,77 @@ video {
 .star-rating {
     display: flex;
     align-items: center;
+}
+
+
+@media screen and (max-width: 1130px) {
+    .movie-player-container{
+        width: 85%;
+    }
+
+    .movie-player{
+        width: 96%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+
+.comment-content-text{
+    width: 60%;
+    padding: 0 20px 3px 3px;
+}
+
+.comment-content {
+    padding: 7px 9px ;
+}
+
+.comment-action-buttons{
+    width: max-content;
+}
+}
+
+@media screen and (max-width: 768px){
+    .movie-title{
+        font-size: 22px;
+    }
+
+    video {
+        background-color: rgba(61, 62, 71, 0.5);
+        padding: 13px;
+    }
+
+    .movie-player-container{
+        width: 100%;
+    }
+
+    .comment-content-text{
+        width: 50%;
+    }
+
+    .comments-container{
+        width: 100%;
+    }
+
+    .comments-header img{
+        padding: 0;
+        padding-right: 17px;
+    }
+
+    .comment-icon{
+        max-width:25px;
+        max-height: 25px;
+    }
+
+    .comments-header h1 {
+        font-size: 15px;
+    }
+    
+    .comment-avatar-image {
+        height: 45px;
+        width: 45px;
+    }
+
+    .comment-form{
+        margin-bottom: 0;
+    }
 }

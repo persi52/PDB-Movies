@@ -19,11 +19,38 @@ function Home() {
   Swiper.use([Navigation]);
   const swiper = new Swiper('.swiper', {
     // Optional parameters
-    slidesPerView: 6,
+    slidesPerView: 3,
     loop: true,
+    spaceBetween:5 ,
     slidesPerGroup: 2,
     freeMode: true,
     speed: 500,
+    breakpoints: {
+      370: {
+        slidesPerView:3
+      },
+      440: {
+        slidesPerView:3
+      },
+      500: {
+        slidesPerView: 4
+      },
+      640: {
+        slidesPerView: 5
+      },
+      880: {
+        slidesPerView: 6,
+      },
+      1000: {
+        slidesPerView: 5,
+      },
+      1100: {
+        slidesPerView: 6,
+      },
+      1430: {
+        slidesPerView: 7,
+      }
+    },
   
     // Navigation arrows
     navigation: {
@@ -35,14 +62,15 @@ function Home() {
 
   
   return (
-    <div>
+    <div className='homepage'>
+      
 
     <section className="home-page-container">
             <div className="container">
                 <div className="home-page">
                 <div className="photo-collage">
                     <h1>Tylko u nas!</h1>
-                    <img src={PhotoCollage} alt="PhotoCollage" width="580px" height="380px"/>
+                    <img src={PhotoCollage} className="photo-collage-img" alt="PhotoCollage"/>
                 </div>
                 <div className="welcome-text">
                     <p>
