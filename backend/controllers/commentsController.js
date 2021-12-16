@@ -41,12 +41,13 @@ const getComments = async(req,res) =>{
 
                     element.likeAmount = await countCommentLikes({
                         comment_id : element.comment_id
-                    })       
+                    })    
               
                               
                 })
+                
             }else res.status(200).send('No comments')
-        })        
+        }).then(data => res.status(200).send(data.rows))    
         
     }catch(err){
         console.log(err); 
