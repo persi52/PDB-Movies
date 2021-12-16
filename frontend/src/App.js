@@ -6,7 +6,7 @@ import RegistrationConfirmation from "./components/RegistrationConfirmation";
 
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/users",
+  baseURL: "http://localhost:5000/api/auth",
   withCredentials: true
 })
 

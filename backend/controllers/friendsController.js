@@ -112,6 +112,39 @@ const declineFriendRequest = async(req,res) =>{
         }
 }
 
+const cancelFriendRequest = async(res,req) => {
+    const user_id = req.user;
+    const {receiver_id} = req.body;
+
+    if(receiver_id == user.user_id)
+        res.status(400).send('Wrong request'); 
+
+        try{
+            pool.query('SELECT * FROM friends WHERE (friend_two_id=$2 AND friend_one_id=$1)',
+            [user_id,receiver_id],(err,results)=>{
+               
+            if(err) throw err;
+            
+            if(results.rows.length>0) 
+                pool.query('DELETE FROM friends WHERE (friend_two_id=$2 AND friend_one_id=$1)',
+                [user_id,receiver_id],(err,results)=>{
+                    
+                    if(err) throw err;
+                    
+                    removeNotificationFunction(body).then(data => {
+                        if(data) res.status(200).send('Invitation canceled');
+                        else res.status(500).send('Oops, something went wrong')   
+                    });
+            })
+            else res.status(400).send('No invitation to cancel');
+              
+        })
+        }catch(err){
+            res.status(403).send('Invalid statement');
+    
+        }
+}
+
 const removeFriend = async(req,res) =>{
     const user = req.user;
     if(user.user_id==req.body.receiver_id)
@@ -243,7 +276,7 @@ const getFriendTasteCoverage = async(req,res) => {
         .then((data) => data.rows.forEach(element =>{
            element.genre_id.forEach(genre =>
            {     
-               if(!results.includes(genre)) 
+               //if(!results.includes(genre)) 
                 results.push(genre)
             }
            )
@@ -255,7 +288,7 @@ const getFriendTasteCoverage = async(req,res) => {
         .then((data) => data.rows.forEach(element =>{
             element.genre_id.forEach(genre =>
             {     
-                if(!results.includes(genre)) 
+                //if(!results.includes(genre)) 
                  results.push(genre)
              }
             )
@@ -267,7 +300,7 @@ const getFriendTasteCoverage = async(req,res) => {
         .then((data) => data.rows.forEach(element =>{
             element.genre_id.forEach(genre =>
             {     
-                if(!results.includes(genre)) 
+                //if(!results.includes(genre)) 
                  results.push(genre)
              }
             )
@@ -282,8 +315,19 @@ const getFriendTasteCoverage = async(req,res) => {
 }
  async function countTasteCoverage(userTaste,friendTaste){
     let covPercent = 0;
-    console.log(userTaste)
-    console.log(friendTaste)
+    const userTasteFiltered = []
+    const friendTasteFiltered = []
+
+    userTaste.forEach(element =>{
+        if(!userTasteFiltered.includes(element))
+            userTasteFiltered.push(element)
+    })
+
+    friendTaste.forEach(element =>{
+        if(!friendTasteFiltered.includes(element))
+            friendTasteFiltered.push(element)
+    })
+
     
     if(userTaste.length>friendTaste.length)
         friendTaste.forEach(element => {
@@ -302,9 +346,11 @@ const getFriendTasteCoverage = async(req,res) => {
 module.exports = {
     acceptFriendRequest,
     declineFriendRequest,
+    cancelFriendRequest,
     removeFriend,
     getUserFriends,
     sendFriendRequest,
     getFriendStatus,
-    getFriendTasteCoverage
+    getFriendTasteCoverage,
+    getUserTaste
 }
