@@ -1,7 +1,6 @@
 import '../css/reset.css'
 import '../css/style.css'
 import '../css/profile.css'
-import User from "../icons/avatar.png"
 import Envelope from "../icons/envelope.png"
 import Stats from "../icons/stats.png"
 import Star from "../icons/star.png"
@@ -12,18 +11,12 @@ import UserRemove from "../icons/user-remove.png"
 import UserAccept from "../icons/user-accept.png"
 import {getUserById} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
-import axios from 'axios'
 import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
 import { Modal } from './Modal_removeFriend'
-import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends } from '../routes/friendsRoute'
+import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends, coverage } from '../routes/friendsRoute'
 import { getFriendFavourites, getFriendRated } from '../routes/movieRoutes'
-
-const api = axios.create({
-    baseURL: "http://localhost:5000/api/movies",
-    withCredentials: true
-  })
 
 function Profile({match}) {
 
@@ -32,6 +25,7 @@ function Profile({match}) {
       const [favourites, setFavourites] = useState([]);
       const [status, setStatus] = useState([]);
       const [showModal, setShowModal] = useState(false);
+      const [cov, setCov] = useState()
    
     const openModal = () => {
         setShowModal(true);
@@ -43,6 +37,10 @@ function Profile({match}) {
         getUserById(match.params.id).then(resp=>{setUser(resp[0])});
         areFriends(match.params.id).then((resp)=>setStatus(resp));
       }, [match.params.id]);
+
+      useEffect(()=>{
+        coverage(match.params.id).then(resp=>setCov(resp.data.tasteCoverage))
+      }, [match.params.id])
     
       const url = "/movie/";
 
@@ -78,14 +76,12 @@ function Profile({match}) {
             )
         }
         else if(status==="notFriend"){
-            console.log("if "+console.log(status));
             return(
                 <div className="user-buttons">
                     <button className="user-button" onClick={()=>{sendInv()}}><img src={Users} className="user-button-img" alt="button"/></button>
                 </div>
             )
         }else if(status==="invitationWaiting"){
-            console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
                 <button className="user-button" onClick={()=>{acceptInv()}}><img src={UserAccept} className="user-button-img" alt="button"/></button>
@@ -93,7 +89,6 @@ function Profile({match}) {
             </div>
             )
         }else{
-            console.log("if "+console.log(status));
             return(
             <div className="user-buttons">
                 <button className="user-button" onClick={()=>{remFriend()}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
@@ -172,7 +167,7 @@ function Profile({match}) {
                     <h2>Podobieństwo gustów</h2>
                 </div>
                 <div className='similarity-box'>
-
+                <h1>{cov}%</h1>
                 </div>
             </div>
         

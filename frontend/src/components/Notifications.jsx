@@ -60,7 +60,7 @@ export function Notifications(){
           <div className="notification notification-content">
             <p>Uzytkownik <Link to={profileUrl + `${notification.sender_id}`} style={{textDecoration:"none", color:"rgb(198,132,191)", fontWeight:"bolder"}}>{notification.sender_nickname}</Link>
             &nbsp;poleca Ci film <Link to={movieUrl + `${notification.movie_id}`} style={{textDecoration:"none", color:"rgb(198,132,191)", fontWeight:"bolder"}}>{notification.movie_title}&nbsp;
-            </Link></p> <Link to={movieUrl + `${notification.movie_id}`} ><img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`} className="notification-movie-img"/></Link>
+            </Link></p> <Link to={movieUrl + `${notification.movie_id}`} ><img src={`${process.env.PUBLIC_URL}/images/${notification.movie_thumbnail}`} alt='thumbnail' className="notification-movie-img"/></Link>
             
           </div>
         )}
