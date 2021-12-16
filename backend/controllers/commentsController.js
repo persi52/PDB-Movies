@@ -33,11 +33,11 @@ const getComments = async(req,res) =>{
         await pool.query('SELECT c.comment_id, c.parent_id, c.comment_content, l.is_positive,u.nickname , u.user_id,u.profile_picture FROM comments c' + 
         ' LEFT JOIN comments_likes l ON c.comment_id = l.comment_id' + 
         ' INNER JOIN users u ON c.author_id = u.user_id'  +
-        ' WHERE c.movie_id=$1 AND (l.giver_id=$2 OR c.author_id=$2) ORDER BY c.comment_id DESC',        
-        [movie_id,user_id]).then((data) => {
-                      
+        ' WHERE c.movie_id=$1 AND (l.giver_id=$2 OR l.giver_id IS NULL) ORDER BY c.comment_id DESC',        
+        [movie_id,user_id]).then(async (data) => {
+
             if(data.rowCount>0){
-                 data.rows.forEach(async (element)=> {
+                 await data.rows.forEach(async (element)=> {
 
                     element.likeAmount = await countCommentLikes({
                         comment_id : element.comment_id
@@ -45,9 +45,13 @@ const getComments = async(req,res) =>{
               
                               
                 })
-            }else res.status(200).send('No comments')
-        })        
+
+                return await res.status(200).send(data.rows)
+               
         
+
+            }else res.status(200).send('No comments')
+        })
     }catch(err){
         console.log(err); 
         return res.status(500).send('Internal error');

@@ -79,6 +79,7 @@ function Profile({match}) {
             return(
                 <div className="user-buttons">
                     <button className="user-button" onClick={()=>{sendInv()}}><img src={Users} className="user-button-img" alt="button"/></button>
+                    
                 </div>
             )
         }else if(status==="invitationWaiting"){

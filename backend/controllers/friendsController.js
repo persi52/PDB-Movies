@@ -123,6 +123,7 @@ const removeFriend = async(req,res) =>{
         'OR (friend_one_id=$2 AND friend_two_id=$1)',[user.user_id,req.body.receiver_id],
         (err,results)=>{
         
+            
            res.status(200).send('User deleted from friends succesfully');
     
         })
