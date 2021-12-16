@@ -45,15 +45,9 @@ const getComments = async(req,res) =>{
               
                               
                 })
-<<<<<<< HEAD
 
                 return await res.status(200).send(data.rows)
                
-=======
-                
-            }else res.status(200).send('No comments')
-        }).then(data => res.status(200).send(data.rows))    
->>>>>>> 4c564564a748cdc80e9973cae2cd869ae6685c05
         
 
             }else res.status(200).send('No comments')

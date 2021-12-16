@@ -15,7 +15,7 @@ import StarRatingStatic from './StarRatingStatic'
 import {Link} from 'react-router-dom'
 import PieChart from './PieChart'
 import { Modal } from './Modal_removeFriend'
-import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends, coverage } from '../routes/friendsRoute'
+import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends, coverage, cancelFriendRequest } from '../routes/friendsRoute'
 import { getFriendFavourites, getFriendRated } from '../routes/movieRoutes'
 
 function Profile({match}) {
@@ -59,8 +59,8 @@ function Profile({match}) {
           setStatus('notFriend');
       }
 
-      function remFriend(){
-          removeFriend(user.user_id);
+      function cancelRequest(){
+          cancelFriendRequest(user.user_id);
           setStatus('notFriend');
       }
 
@@ -92,7 +92,7 @@ function Profile({match}) {
         }else{
             return(
             <div className="user-buttons">
-                <button className="user-button" onClick={()=>{remFriend()}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
+                <button className="user-button" onClick={()=>{cancelRequest()}}><img src={UserRemove} className="user-button-img" alt="button"/></button>
             </div>
             )
         }

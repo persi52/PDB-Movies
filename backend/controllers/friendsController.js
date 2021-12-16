@@ -112,11 +112,12 @@ const declineFriendRequest = async(req,res) =>{
         }
 }
 
-const cancelFriendRequest = async(res,req) => {
-    const user_id = req.user;
-    const {receiver_id} = req.body;
+const cancelFriendRequest = async(req,res) => {
+    console.log(req.body)
+    const user_id = req.user.user_id;
+    const receiver_id = req.body.receiver_id;
 
-    if(receiver_id == user.user_id)
+    if(receiver_id == user_id)
         res.status(400).send('Wrong request'); 
 
         try{
@@ -131,7 +132,11 @@ const cancelFriendRequest = async(res,req) => {
                     
                     if(err) throw err;
                     
-                    removeNotificationFunction(body).then(data => {
+                    removeNotificationFunction({
+                        sender_id : user_id, 
+                        receiver_id : receiver_id,
+                        type : 'friendRequest'
+                    }).then(data => {
                         if(data) res.status(200).send('Invitation canceled');
                         else res.status(500).send('Oops, something went wrong')   
                     });
