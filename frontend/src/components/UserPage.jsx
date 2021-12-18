@@ -2,14 +2,12 @@ import '../css/reset.css'
 import '../css/style.css'
 import '../css/modal_removeFriend.css'
 import '../css/userpage.css'
-import User from "../icons/avatar.png"
-import User2 from "../icons/avatar2.png"
 import Envelope from "../icons/envelope.png"
 import Pencil from "../icons/pencil.png"
 import Stats from "../icons/stats.png"
 import UserRemove from "../icons/user-remove.png"
 import Users from "../icons/users.png"
-import {getUserById} from '../routes/userRoutes'
+import {getCurrentUser} from '../routes/userRoutes'
 import {useEffect, useState} from 'react'
 import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
@@ -31,7 +29,7 @@ function UserPage({match}) {
 
 
     useEffect(() =>{
-    getUserById(match.params.id).then(resp=>{setUser(resp[0])});
+    getCurrentUser().then(resp=>{setUser(resp)});
     }, [match.params.id]); 
 
     useEffect(() =>{
@@ -79,8 +77,8 @@ function UserPage({match}) {
                         <div className="user-email" id="user-email">{user.email}</div>
                     </div>
                     <div className="edit-user-info">
-                        <a href={`/editprofile/${user.user_id}`}>
-                            <img src={Pencil} className="edit-user-info-image"/>
+                        <a href={`/editprofile`}>
+                            <img src={Pencil} alt='pencil' className="edit-user-info-image"/>
                         </a>
                     </div>
                 </div>

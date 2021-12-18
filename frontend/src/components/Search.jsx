@@ -40,16 +40,17 @@ export function Search() {
                         </div>
                         <div className="search-list"> 
                             {movies.filter((val) => {
-                                if(searchTerm == ""){
+                                if(searchTerm === ""){
                                     return val
                                 } else if(val.title.toLowerCase().includes(searchTerm.toLowerCase())
                                 || genres.filter((obj) => {
                                     
-                                    if(val.genre_id.find(element => element==obj.genre_id))
+                                    if(val.genre_id.find(element => element===obj.genre_id))
                                     {
                                         //console.log(obj.name)
                                         return obj;
                                     }
+                                    return 0;
                                 }).some(x => x.name.toLowerCase().includes(searchTerm.toLowerCase())))           
                                 
                                 {               
@@ -58,6 +59,7 @@ export function Search() {
                                     
                                     return val
                                 }
+                                return 0;
                                 
                             }).map((val,key) => {
                                 return <div className="search-link"><Link style={{textDecoration: 'none', color:'white'}} to={urlMovie + `${val.movie_id}`}><p>{val.title}</p></Link></div>
@@ -70,11 +72,12 @@ export function Search() {
                         </div>
                         <div className="search-list">
                             {users.filter((val) => {
-                                if(searchTerm == ""){
+                                if(searchTerm === ""){
                                     return val
                                 } else if(val.nickname.toLowerCase().includes(searchTerm.toLowerCase())){
                                     return val
                                 }
+                                return 0;
                             }).map((val,key) => {
                                 return <div className="search-link"><Link style={{textDecoration: 'none', color:'white' }} to={urlUser + `${val.user_id}`}><p>{val.nickname}</p></Link></div>
                             })}

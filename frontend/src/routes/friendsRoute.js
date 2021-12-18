@@ -30,6 +30,13 @@ export async function sendInvitation(receiver_id){
     }).then((resp)=>{return resp.status})
 }
 
+export async function cancelFriendRequest(receiver_id){
+    console.log(receiver_id)
+    await friendsApi.post('/cancelFriendRequest',{
+        receiver_id: receiver_id
+    }).then((resp)=>{return resp.status})
+}
+
 export async function acceptInvitation(sender_id, notification_id){
     await friendsApi.post('/acceptFriendRequest',{
         sender_id: sender_id,
@@ -42,4 +49,9 @@ export async function declineInvitation(sender_id, notification_id){
         sender_id: sender_id,
         notification_id: notification_id
     }).then((resp)=>{return resp.status})
+}
+
+export async function coverage(friend_id){
+    let data = await friendsApi.get(`/coverage/`+friend_id).then(data=>data)
+    return data;
 }

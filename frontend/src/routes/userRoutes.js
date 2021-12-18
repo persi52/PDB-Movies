@@ -10,13 +10,18 @@ const recommendApi = axios.create({
   withCredentials: true
 })
 
+const authApi = axios.create({
+  baseURL: "http://localhost:5000/api/auth",
+  withCredentials: true
+})
+
 export function getUsers(){
   let data = userApi.get('/get_all').then(({data}) => data);
   return data;
 }
 
 export function signOut(){
-  userApi.delete('/signOut');
+  authApi.delete('/signOut');
 }
 
 export function getUserById(user_id){
@@ -24,22 +29,23 @@ export function getUserById(user_id){
   return data;
 }
 
-export function getCurrentUser(){
-  let data = userApi.get('getCurrentUser').then(({data}) => data);
+export async function getCurrentUser(){
+  let data = await authApi.get('getCurrentUser').then(({data}) => data);
+  console.log(data)
   return data;
 }
 
-  export function login(){
+  export async function login(){
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
   
-    userApi.post('/signIn',{   
+    let data = await authApi.post('/signIn',{   
         email: email,
         password: password
-    }).then(resp => {
-      document.cookie = `token=${resp.data.token}`;
-      window.location.href="/";
-  });
+    }).then(data => data);
+  document.cookie = `token=${data.data.token}`;
+  window.location.href="/";
+  return data;
   }
 
   export async function signup(){
@@ -48,7 +54,7 @@ export function getCurrentUser(){
     const password = document.getElementById("password").value;
     const repeatpassword = document.getElementById("repeatpassword").value;
   
-    let data = await userApi.post('/signUp',{ 
+    let data = await authApi.post('/signUp',{ 
         nickname: username,  
         email: email,
         password: password,
@@ -70,6 +76,7 @@ export function getCurrentUser(){
     let data = userApi.post('/account/changeNickname',{
       newNickname: newNickname
     }).then(data=>data);
+    console.log(data);
     return data;
   }
 
@@ -83,6 +90,7 @@ export function getCurrentUser(){
       newPassword: newPassword,
       repeatNewPassword: repeatNewPassword
     }).then(data=>data);
+    
     return data;
   }
 

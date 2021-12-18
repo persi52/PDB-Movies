@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Notifications,  Home, Login, Registration, Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage, Favourites, Profile, NoAccess, EditProfile, Search} from "./components";
+import { Notifications,NoAccess,  Home, Login, Registration, Player, Navigation, Footer,Navbar_logged, HomeNotLogged, UserPage, Favourites, Profile, EditProfile, Search} from "./components";
 import RegistrationConfirmation from "./components/RegistrationConfirmation";
 
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/users",
+  baseURL: "http://localhost:5000/api/auth",
   withCredentials: true
 })
 
@@ -14,7 +14,8 @@ class App extends Component {
 
   state = {
     navbar: Navbar_logged(),
-    home: <Home></Home>
+    home: <Home></Home>,
+    logged: false
   }
 
   constructor(){
@@ -26,11 +27,11 @@ class App extends Component {
     try {
     const response = await api.get('/getCurrentUser');
     if (response.status === 200) {
-      this.setState({navbar: Navbar_logged(response.data.user_id), home: <Home/>})
+      this.setState({navbar: Navbar_logged(response.data.user_id), home: <Home/>,logged: true})
     }
    } catch (err) {
      console.error(err)
-     this.setState({navbar: <Navigation/>, home: <HomeNotLogged/>})
+     this.setState({navbar: <Navigation/>, home: <HomeNotLogged/>, logged: false})
    }
 }
   
@@ -42,14 +43,14 @@ class App extends Component {
           <Switch>
             <Route path="/registration" exact component={() => <Registration />} />
             <Route path="/login" exact component={() => <Login />} />
-            <Route path="/favourities" exact component={() => <Favourites />} />
+            <Route path="/favourities" exact component={() => {if(this.state.logged){return <Favourites />}else{return <NoAccess/>}}} />
             <Route path="/" exact component={() => this.state.home} />            
-            <Route path="/editprofile/:id" exact component={(props) => <EditProfile {...props} />} />
+            <Route path="/editprofile" exact component={(props) => {if(this.state.logged){return <EditProfile {...props} />}else{return <NoAccess/>}}} />
             <Route path="/confirmation" exact component={() => <RegistrationConfirmation />} />
-            <Route path="/myprofile/:id" exact component={(props) => <UserPage {...props} />} />
-            <Route path="/movie/:id" exact render={(props) => <Player {...props} /> } />
-            <Route path="/profile/:id" exact render={(props) => <Profile {...props} /> } />
-            <Route path="/notifications" exact render={() => <Notifications /> } />
+            <Route path="/myprofile" exact component={(props) => {if(this.state.logged){return <UserPage {...props} />}else{return <NoAccess/>}}} />
+            <Route path="/movie/:id" exact render={(props) => {if(this.state.logged){return <Player {...props} />}else{return <NoAccess/>}} } />
+            <Route path="/profile/:id" exact render={(props) => {if(this.state.logged){return <Profile {...props} /> }else{return <NoAccess/>}}} />
+            <Route path="/notifications" exact render={() => {if(this.state.logged){return <Notifications />}else{return <NoAccess/>}} } />
             <Route path="/search" exact render={() => <Search />} />
             
           </Switch>

@@ -93,11 +93,20 @@
 }
 
 .similarity-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 320px;
     height: 320px;
     border-radius: 100%;
     background-color: rgba(61, 62, 71, 0.5);
     margin: auto ;
+}
+
+.similarity-value {
+    font-size: 70px;
+    font-weight: 400;
+    text-align: center;
 }
 
 @media screen and (max-width:1100px) {
