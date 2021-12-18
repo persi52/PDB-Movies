@@ -17,10 +17,10 @@ export function Navbar_logged(user_id) {
             
             <div className="nav-links-logged nav-links-a ">
                 <a href="/search" className='nav-link'>Szukaj</a>
-                <a href="/favourities" className='nav-link'>Ulubione</a>
+                <a href="/favourities" className='nav-link'>Moja lista</a>
                 <a href="/notifications" className='nav-link'>Powiadomienia</a>
                 <a href={`/myprofile/${user_id}`} className='nav-link' >Mój profil</a>
-                <a onClick={()=>document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT"} href="/">Wyloguj się</a>
+                <a onClick={()=>document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:00 GMT"} className='nav-link' href="/">Wyloguj się</a>
             </div>
             
         </div>
