@@ -12,7 +12,6 @@ export async function areFriends(receiver_id){
 
 export async function getFriends() { 
     let data = await friendsApi.get(`/get`).then(({data}) => data);    
-    console.log(data);
     return data;
 }
 

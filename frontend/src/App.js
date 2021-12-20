@@ -47,7 +47,7 @@ class App extends Component {
             <Route path="/" exact component={() => this.state.home} />            
             <Route path="/editprofile" exact component={(props) => {if(this.state.logged){return <EditProfile {...props} />}else{return <NoAccess/>}}} />
             <Route path="/confirmation" exact component={() => <RegistrationConfirmation />} />
-            <Route path="/myprofile" exact component={(props) => {if(this.state.logged){return <UserPage {...props} />}else{return <NoAccess/>}}} />
+            <Route path="/myprofile" exact component={() => {if(this.state.logged){return <UserPage />}else{return <NoAccess/>}}} />
             <Route path="/movie/:id" exact render={(props) => {if(this.state.logged){return <Player {...props} />}else{return <NoAccess/>}} } />
             <Route path="/profile/:id" exact render={(props) => {if(this.state.logged){return <Profile {...props} /> }else{return <NoAccess/>}}} />
             <Route path="/notifications" exact render={() => {if(this.state.logged){return <Notifications />}else{return <NoAccess/>}} } />

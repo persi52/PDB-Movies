@@ -31,7 +31,6 @@ export function getUserById(user_id){
 
 export async function getCurrentUser(){
   let data = await authApi.get('getCurrentUser').then(({data}) => data);
-  console.log(data)
   return data;
 }
 

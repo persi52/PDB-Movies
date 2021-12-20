@@ -151,11 +151,9 @@ function Player({match}) {
                     <div class="comment-content comment-content-bg">
                         <span class="comment-content-text"> {comment.comment_content} </span>
                         
-                        <div class="comment-action-buttons">
-                            {console.log(comment)}
-                    <button id="like" class="movie-btn comment-action-btn" type="button" onClick={()=>{addDeleteCommentLike(comment.comment_id)}}><img src={comment.is_positive===true ? thumbsUpActive : thumbsUp} class="comment-btn-img" alt="Like button"/></button>
-                    <button id="dislike" class="movie-btn comment-action-btn" type="button" onClick={()=>{addDeleteCommentUnlike(comment.comment_id)}}><img src={comment.is_positive===false ? thumbsDownActive : thumbsDown} class="comment-btn-img" alt="Dislike button"/></button>             
-                    </div>
+                        
+                            {showCommentLikeButtons(comment)}
+                   
                             
                     </div>
                 </div>

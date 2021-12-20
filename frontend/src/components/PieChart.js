@@ -1,16 +1,62 @@
 import React from 'react'
 import { Pie } from 'react-chartjs-2'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
+import { getUserSeenGenres } from '../routes/movieRoutes'
+import { getCurrentUser } from '../routes/userRoutes'
 
-const PieChart = () => {
-    return (
+class PieChart extends React.Component {
+
+    state={
+        
+        names: [],
+        per:[],
+    }
+    
+    constructor(props){
+        super(props);
+        this.getStats(props.user_id);
+        console.log(props.user_id)
+    }
+
+        getStats(user_id){
+            let id = user_id;
+            if(id===0){
+                getCurrentUser().then(resp=>{
+                    id=resp.user_id;
+                    let n = new Array;
+                    let p = new Array;
+            return(getUserSeenGenres(id).then(async resp=>{
+                for(const element of resp) {
+                    n.push(element.name);
+                    p.push(element.amount);
+                };
+                
+                this.setState({names:n, per:p})          
+            }))
+                })
+            }else{
+            let n = new Array;
+            let p = new Array;
+            return(getUserSeenGenres(id).then(async resp=>{
+                for(const element of resp) {
+                    n.push(element.name);
+                    p.push(element.amount);
+                };
+                
+                this.setState({names:n, per:p})          
+            }))}  
+        };
+
+    render() {
+        if(this.state.names.length===0){return(<div>Zbyt mało danych, aby stworzyć wykres.</div>)}
+        return(
         <div>
             <Pie
             data={{
-                labels: ['Akcja', 'Komedia', 'Dramat', 'Fantasy', 'Sci-Fi', 'Przygodowe'],
+                labels: this.state.names,
                 datasets: [
                     {
-                        data: [12, 13, 11, 9, 7, 19],
+                        data: this.state.per,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.4)',
                             'rgba(54, 162, 235, 0.4)',
@@ -70,7 +116,7 @@ const PieChart = () => {
         </Pie>
             
         </div>
-    )
+        )}
 }
 
 export default PieChart;

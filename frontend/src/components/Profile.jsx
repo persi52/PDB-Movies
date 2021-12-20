@@ -17,6 +17,9 @@ import PieChart from './PieChart'
 import { Modal } from './Modal_removeFriend'
 import { declineInvitation, acceptInvitation, sendInvitation, removeFriend, areFriends, coverage, cancelFriendRequest } from '../routes/friendsRoute'
 import { getFriendFavourites, getFriendRated } from '../routes/movieRoutes'
+import { matchPath } from 'react-router-dom/cjs/react-router-dom.min'
+import {Chart, ArcElement} from 'chart.js';
+Chart.register(ArcElement);
 
 function Profile({match}) {
 
@@ -138,6 +141,11 @@ function Profile({match}) {
         )
     }
 
+    function showPie(){
+        console.log(user.user_id)
+        return(<PieChart user_id = {match.params.id}/>)
+    }
+
     return(
         <section className="container">
             <div className="fr-user-info">
@@ -159,7 +167,7 @@ function Profile({match}) {
                     <img src={Stats} alt='stats' className="stats-header-icon"/>
                     <h2>Statystyki obejrzanych filmów</h2>
                 </div>
-                <PieChart />
+                {showPie()}
     
             </div>
             <div className="statistics-section-item similarity-section">
@@ -168,7 +176,7 @@ function Profile({match}) {
                     <h2>Podobieństwo gustów</h2>
                 </div>
                 <div className='similarity-box'>
-                <h1>{cov}%</h1>
+                <h1 className='similarity-value'>{cov}%</h1>
                 </div>
             </div>
         

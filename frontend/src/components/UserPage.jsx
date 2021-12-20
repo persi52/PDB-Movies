@@ -8,7 +8,7 @@ import Stats from "../icons/stats.png"
 import UserRemove from "../icons/user-remove.png"
 import Users from "../icons/users.png"
 import {getCurrentUser} from '../routes/userRoutes'
-import {useEffect, useState} from 'react'
+import React from 'react'
 import * as friendsApi from '../routes/friendsRoute'
 import PieChart from './PieChart'
 import { Modal } from "./Modal_removeFriend";
@@ -16,29 +16,35 @@ import {Link} from 'react-router-dom'
 
 const profileUrl = "/profile/";
 
-function UserPage({match}) {
+class UserPage extends React.Component {
 
-    const [user, setUser] = useState([]);
-    const [friends,setFriends] = useState([]); 
-    const [showModal, setShowModal] = useState(false);
-    //const alert = useAlert();
+    profileUrl = "/profile/";
+
+    state = {
+        user: [],
+        friends: [],
+        showModal: false,
+    }
+    
+    constructor(){
+        super();
+        friendsApi.getFriends().then((resp)=>this.setState({friends: resp}));
+        getCurrentUser().then((resp)=>{this.setState({user: resp})});
+        this.setShowModal = this.setShowModal.bind(this)
+    }
    
-    const openModal = () => {
-        setShowModal(true);
+    openModal = () => {
+        this.setState({showModal: true});
     };
 
+    setShowModal(show){
+        console.log(show)
+        this.setState({showModal: show})
+    }
 
-    useEffect(() =>{
-    getCurrentUser().then(resp=>{setUser(resp)});
-    }, [match.params.id]); 
-
-    useEffect(() =>{
-        friendsApi.getFriends().then((resp)=>{setFriends(resp)});
-    }, []);
-
-    function showFriends(){
-        if(friends!=="You got no friends"){
-            return(friends.map(friend => (
+    showFriends(){
+        if(this.state.friends!=="You got no friends"){
+            return(this.state.friends.map(friend => (
                 <div key={friend.user_id} className="friends-list-item">
                     <Link to={profileUrl + `${friend.user_id}`} style={{textDecoration:"none"}}><div className="friend-list-data">
                         <div className="friend-avatar">
@@ -50,8 +56,8 @@ function UserPage({match}) {
                     <div className="friends-list-buttons">
                         <button className="friends-list-button"><img src={Envelope} alt='envelope' className="friends-list-button-img"/></button>
                         <button className="friends-list-button"><img src={UserRemove} alt='userremove' className="friends-list-button-img"
-                        onClick={openModal}/></button>
-                        {showModal ? <Modal setShowModal={setShowModal} user_id={friend.user_id} /> : null}
+                        onClick={this.openModal}/></button>
+                        {this.state.showModal ? <Modal setShowModal={this.setShowModal} user_id={friend.user_id} /> : null}
                     </div>
                 </div>   
             
@@ -63,18 +69,18 @@ function UserPage({match}) {
                 </div>
             )
     }
-
+    render(){
     return(
         <section className="landing-page">
         <div className="container">
             <div className="user-info">
                 <div className="user-avatar">
-                    <img src={`${process.env.PUBLIC_URL}/photos/${user.profile_picture}`} alt='avatar' className="user-avatar-image"/>
+                    <img src={`${process.env.PUBLIC_URL}/photos/${this.state.user.profile_picture}`} alt='avatar' className="user-avatar-image"/>
                 </div>
                 <div className="user-section-right">
                     <div className="user-body">
-                        <div className="user-name" id="user-name">{user.nickname}</div>
-                        <div className="user-email" id="user-email">{user.email}</div>
+                        <div className="user-name" id="user-name">{this.state.user.nickname}</div>
+                        <div className="user-email" id="user-email">{this.state.user.email}</div>
                     </div>
                     <div className="edit-user-info">
                         <a href={`/editprofile`}>
@@ -91,7 +97,7 @@ function UserPage({match}) {
                         <h2>Lista znajomych</h2>
                     </div>
                     <div className="friends-list">                                                           
-                        {showFriends()}                        
+                        {this.showFriends()}                        
                     </div>
                 </div>
                 <div className="stats-section">
@@ -100,7 +106,7 @@ function UserPage({match}) {
                         <h2>Statystyki obejrzanych filmów</h2>
                     </div>
                     <div className="pie-chart">                        
-                     <PieChart/>
+                     {<PieChart user_id = {0}/>}
                     </div>
         
                 </div>
@@ -110,6 +116,6 @@ function UserPage({match}) {
         </div>
     </section>
         
-    );
+    )};
 }
 export default UserPage;

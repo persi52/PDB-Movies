@@ -297,7 +297,7 @@ const addToSeenMovies = async(body) =>{
     const movie_id = body.movie_id;
     const finished_at = body.finished_at;
 
-    console.log(body)
+    //console.log(body)
 
     try{
         pool.query('SELECT * FROM seen_movies WHERE user_id=$1 AND movie_id=$2',[user_id,movie_id],
@@ -336,7 +336,7 @@ const addToSeenMovies = async(body) =>{
 //#endregion recommendationEngine
 
 const getUserGenresPercentage = async(req,res) => {    
-    const user_id = req.user.user_id
+    const user_id = req.body.user_id
     try{
      await countUserGenresPercentage(user_id).then(data=>res.status(200).send(data))
 
@@ -381,8 +381,6 @@ async function countUserGenresPercentage(user_id){
          genreJson.push(data)        
         })  
     }        
-      
-   
     return genreJson
         
     }catch(err){
